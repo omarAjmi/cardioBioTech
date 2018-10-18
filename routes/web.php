@@ -23,5 +23,5 @@ Route::get('/events', function(){
     return view('public.events');
 })->name('events');
 Route::get('/contact', function(){
-    return view('public.events');
+    return view('public.contact');
 })->name('contact');

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <!-- ========== Meta Tags ========== -->
@@ -38,6 +38,7 @@
                                 </div>
 
                                 <form class="login100-form validate-form" id="login_form" action="{{ route('login') }}" method="POST">
+                                    @csrf
                                     <span class="login100-form-title">
                                         Member Login
                                     </span>
@@ -85,8 +86,7 @@
                                     <img src="img/signup.png" width="90%" height="90%" alt="IMG">
                                 </div>
                                 <form class="login100-form validate-form" id="register_form" style="display:none" action="{{ route('register') }}" method="POST">
-
-
+                                    @csrf
                                     <span class="login100-form-title">
                                         Member register
                                     </span>
