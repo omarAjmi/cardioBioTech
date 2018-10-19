@@ -44,7 +44,7 @@
                                     </span>
 
                                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                                        <input class="input100" type="email" name="_username" placeholder="Email">
+                                        <input class="input100" type="email" name="email" placeholder="Email">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -52,7 +52,7 @@
                                     </div>
 
                                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                                        <input class="input100" type="password" name="_password" placeholder="Password">
+                                        <input class="input100" type="password" name="password" placeholder="Password">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -92,10 +92,28 @@
                                     </span>
 
                                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                                        <input class="input100" type="email" name="username" placeholder="Email">
+                                        <input class="input100" type="email" name="email" placeholder="Email">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+
+
+
+                                    <div class="wrap-input100 validate-input" data-validate="First name is required">
+                                        <input class="input100" type="text" name="first_name" placeholder="first name">
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+
+                                    <div class="wrap-input100 validate-input" data-validate="Last name is required">
+                                        <input class="input100" type="text" name="last_name" placeholder="first name">
+                                        <span class="focus-input100"></span>
+                                        <span class="symbol-input100">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
                                         </span>
                                     </div>
 
@@ -108,7 +126,7 @@
                                     </div>
 
                                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                                        <input class="input100" type="password" name="confirm_password" placeholder="Password">
+                                        <input class="input100" type="password" name="password_confirmation" placeholder="Password">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -147,6 +165,9 @@
             </div>
         </div>
     </div>
+    @if ($errors->any())
+        {{ dd($errors) }}
+    @endif
     @include('public.partials.scripts.indexjs')
 </body>
 </html>
