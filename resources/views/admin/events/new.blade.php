@@ -11,6 +11,7 @@
                             </div>
                             <div class="card-body card-block">
                                 <form action="{{ route('admin.createEvent') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                    @csrf
                                     <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="title" class=" form-control-label"> Titre</label>
@@ -86,7 +87,7 @@
                                         <div class="col-4 input-group date" id="datetimepicker1">
                                             <input name="start_date" type='text' class="form-control" />
                                             <span class="input-group-addon">
-                                                <span class="fa fa-calendar"></span>
+                                                <span class="zmdi zmdi-calendar"></span>
                                             </span>
                                         </div>
                                         <div class="col-1">
@@ -98,16 +99,16 @@
                                         <div class="col-4 input-group date" id="datetimepicker1">
                                             <input name="end_date" type='text' class="form-control" />
                                             <span class="input-group-addon">
-                                                <span class="fa fa-calendar"></span>
+                                                <span class="zmdi zmdi-calendar"></span>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-dot-circle-o"></i> Submit
+                                            <i class="zmdi zmdi-dot-circle-o"></i> Submit
                                         </button>
                                         <button type="reset" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-ban"></i> Reset
+                                            <i class="zmdi zmdi-ban"></i> Reset
                                         </button>
                                     </div>
                                 </form>

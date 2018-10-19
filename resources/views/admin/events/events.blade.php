@@ -3,11 +3,19 @@
     <div class="main-content">
         <div class="section__content section__content--p30">
             <div class="container-fluid">
-    
+                @if (Session::has('success'))
+                    <div class="sufee-alert alert with-close alert-primary alert-dismissible fade show">
+                        <span class="badge badge-pill badge-primary">Success</span>
+                        You successfully read this important alert.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                @endif
                 <div class="">
                     <div class="col-md-12">
                         <!-- DATA TABLE -->
-                        <h3 class="title-5 m-b-35">Events</h3>
+                        <h3 class="title-5 m-b-35">Évènement</h3>
                         <div class="table-data__tool">
                             <div class="table-data__tool-left">
                                 <div class="rs-select2--light rs-select2--md">
@@ -53,63 +61,6 @@
                             </div>
                         </div>
                         <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    <label class="au-checkbox">
-                                                        <input type="checkbox">
-                                                        <span class="au-checkmark"></span>
-                                                    </label>
-                                                </th>
-                                                <th>abbreviation</th>
-                                                <th>titre</th>
-                                                <th>programme</th>
-                                                <th>début</th>
-                                                <th>fin</th>
-                                                <th>etat</th>
-                                                <th>options</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="tr-shadow">
-                                                <td>
-                                                    <label class="au-checkbox">
-                                                        <input type="checkbox">
-                                                        <span class="au-checkmark"></span>
-                                                    </label>
-                                                </td>
-                                                <td>Lori Lynch</td>
-                                                <td>
-                                                    <span class="block-email">lori@example.com</span>
-                                                </td>
-                                                <td class="desc">Samsung S8 Black</td>
-                                                <td>2018-09-27 02:12</td>
-                                                <td>2018-09-27 02:12</td>
-                                                <td>
-                                                    <span class="status--process">Processed</span>
-                                                </td>
-                                                <td>
-                                                    <div class="table-data-feature">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send">
-                                                            <i class="zmdi zmdi-mail-send"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                                            <i class="zmdi zmdi-edit"></i>
-                                                        </button>
-                                                        <a href="{{ route('admin') }}">
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                                <i class="zmdi zmdi-delete"></i>
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                        {{-- <div class="table-responsive table-responsive-data2">
                             <table class="table table-data2">
                                 <thead>
                                     <tr>
@@ -119,62 +70,53 @@
                                                 <span class="au-checkmark"></span>
                                             </label>
                                         </th>
-                                        <th>Abreviation</th>
-                                        <th>Titre</th>
-                                        <th>Description</th>
-                                        <th>Début</th>
-                                        <th>Fin</th>
-                                        <th>Catégorie</th>
-                                        <th></th>
+                                        <th>abbreviation</th>
+                                        <th>titre</th>
+                                        <th>programme</th>
+                                        <th>début</th>
+                                        <th>fin</th>
+                                        <th>etat</th>
+                                        <th>options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($events as $event)
-                                        <tr class="tr-shadow">
-                                            <td>
-                                                <label class="au-checkbox">
-                                                    <input type="checkbox">
-                                                    <span class="au-checkmark"></span>
-                                                </label>
-                                            </td>
-                                            <td>{{ $event->abbreviation }}</td>
-                                            <td>
-                                                <span class="block-email">{{ $event->title }}</span>
-                                            </td>
-                                            <td class="desc">{{ $event->about }}</td>
-                                            <td class="desc">{{ $event->start_date }}</td>
-                                            <td class="desc">{{ $event->end_date }}</td>
-                                            <td>2018-09-27 02:12</td>
-                                            <td>
-                                                @if ($event->start_date > now())
-                                                    <span class="status--denied">En attendant</span>
-                                                @else
-                                                    <span class="status--process">Passé</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <div class="table-data-feature">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send">
-                                                        <i class="zmdi zmdi-mail-send"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
+                                    <tr class="tr-shadow">
+                                        <td>
+                                            <label class="au-checkbox">
+                                                <input type="checkbox">
+                                                <span class="au-checkmark"></span>
+                                            </label>
+                                        </td>
+                                        <td>Lori Lynch</td>
+                                        <td>
+                                            <span class="block-email">lori@example.com</span>
+                                        </td>
+                                        <td class="desc">Samsung S8 Black</td>
+                                        <td>2018-09-27 02:12</td>
+                                        <td>2018-09-27 02:12</td>
+                                        <td>
+                                            <span class="status--process">Processed</span>
+                                        </td>
+                                        <td>
+                                            <div class="table-data-feature">
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send">
+                                                    <i class="zmdi zmdi-eye"></i>
+                                                </button>
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                    <i class="zmdi zmdi-edit"></i>
+                                                </button>
+                                                <a href="{{ route('admin') }}">
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                                                         <i class="zmdi zmdi-delete"></i>
                                                     </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="More">
-                                                        <i class="zmdi zmdi-more"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="spacer"></tr>
-                                    @endforeach
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="spacer"></tr>
                                 </tbody>
                             </table>
-                        </div> --}}
-                        <!-- END DATA TABLE -->
+                        </div>
                     </div>
                 </div>
     

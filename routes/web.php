@@ -30,14 +30,16 @@ Route::get('/admin', function(){
     return view('admin.welcome');
 })->name('admin');
 
-Route::get('/admin/events', function(){
-    return view('admin.events.events', ['events' => collect([new App\Event()])]);
-})->name('admin.events');
+Route::get('/admin/events', [
+    'as' => 'admin.events',
+    'uses' => 'EventsController@events'
+]);
+Route::get('/admin/events/new', [
+    'as' => 'admin.newEvent',
+    'uses' => 'EventsController@new'
+]);
 
-Route::get('/admin/events/new', function(){
-    return view('admin.events.new');
-})->name('admin.newEvent');
-
-Route::post('/admin/events/create', function(){
-    return view('admin.contact');
-})->name('admin.createEvent');
+Route::post('/admin/events/create', [
+    'as' => 'admin.createEvent',
+    'uses' => 'EventsController@create'
+]);
