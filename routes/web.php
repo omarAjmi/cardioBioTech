@@ -25,3 +25,19 @@ Route::get('/events', function(){
 Route::get('/contact', function(){
     return view('public.contact');
 })->name('contact');
+
+Route::get('/admin', function(){
+    return view('admin.welcome');
+})->name('admin');
+
+Route::get('/admin/events', function(){
+    return view('admin.events.events', ['events' => collect([new App\Event()])]);
+})->name('admin.events');
+
+Route::get('/admin/events/new', function(){
+    return view('admin.events.new');
+})->name('admin.newEvent');
+
+Route::post('/admin/events/create', function(){
+    return view('admin.contact');
+})->name('admin.createEvent');
