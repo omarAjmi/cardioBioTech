@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Session;
 
 class EventsController extends Controller
 {
+    public function construct()
+    {
+        $this->middleware(['admin']);
+    }
     public function events()
     {
         return view('admin.events.events');

@@ -3,8 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
-class Admin
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,7 +19,7 @@ class Admin
         if(Auth::user()->admin) {
             return $next($request);
         } else {
-            abort();
+            return redirect(route('welcome'));
         }
     }
 }

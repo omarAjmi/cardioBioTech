@@ -30,6 +30,19 @@
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
 <script>
+	var startDate = "{!! $event->startDate->toDateString() !!} {!! $event->startDate->toTimeString() !!}"
+ $('.counter').counterUp({
+        delay: 5,
+        time: 3000
+    });
+$(".countdown")
+        .countdown(startDate, function(event) {
+            $(this).html(
+                event.strftime('<div>%w <span>Semaines</span></div>  <div>%D <span>Jours</span></div>  <div>%H<span>Heures</span></div> <div>%M<span>Minutes</span></div> <div>%S<span>Secondes</span></div>')
+            );
+        });
+</script>
+<script>
     $("#create").click(function () {
         $("#register_form").show();
         $("#login_form").hide();

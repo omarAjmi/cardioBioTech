@@ -9,14 +9,14 @@
                         <div class="container">
                             <div class="slider-content-center">
                                 <h2 class="cover-title">
-                                    Prepare yourself for the
+                                    {{ $event->title }}
                                 </h2>
-                                <strong class="cover-xl-text">conference</strong>
+                                <strong class="cover-xl-text">{{ $event->abbreviation }}</strong>
                                 <p class="cover-date">
-                                    12-14 February 2018 - Los Angeles, CA.
+                                    {{ $event->startDate->toDayDateTimeString() }}
                                 </p>
                                 <a href="#" class=" btn btn-primary btn-rounded">
-                                    Buy Tickets Now
+                                    Prendre part
                                 </a>
                             </div>
                         </div>
@@ -76,11 +76,9 @@
     
     <!--event info -->
     <section class="pt100 pb100">
-    
         <div class="container">
-            <h1 style="text-align: center;color: #005792">Conference OF Blah</h1>
+            <h1 style="text-align: center;color: #005792">{{ $event->title }}</h1>
             <div class="row justify-content-center">
-    
                 <div class="col-6 col-md-3  ">
                     <div class="icon_box_two">
                         <i class="ion-ios-calendar-outline"></i>
@@ -89,7 +87,11 @@
                                 DATE
                             </h5>
                             <p>
-                                12-14 february 2018
+                                {{ $event->startDate->diffForHumans() }}
+                                {{ $event->startDate->formatLocalized('%A %d %B %Y') }} <br>
+                                @if ($event->startDate->diffInDays($event->endDate) > 0)
+                                    ({{ $event->startDate->diffInDays($event->endDate) }}) jours
+                                @endif
                             </p>
                         </div>
                     </div>
@@ -100,10 +102,12 @@
                         <i class="ion-ios-location-outline"></i>
                         <div class="content">
                             <h5 class="box_title">
-                                location
+                                locale
                             </h5>
                             <p>
-                                Los Angeles, CA.
+                                {{ $event->address->state }}, 
+                                {{ $event->address->city }} <br>
+                                {{ $event->address->street }}
                             </p>
                         </div>
                     </div>
@@ -114,7 +118,7 @@
                         <i class="ion-ios-person-outline"></i>
                         <div class="content">
                             <h5 class="box_title">
-                                speakers
+                                organisateur
                             </h5>
                             <p>
                                 Natalie James
@@ -149,10 +153,8 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10">
-                    <h4 class="mb30 text-center color-light">Counter until the big event</h4>
+                    <h4 class="mb30 text-center color-light">Conteur jusqu'au grand événement</h4>
                     <div class="countdown"></div>
-                </div>
-            </div>
         </div>
     </section>
     <!--event count down end-->
@@ -448,7 +450,7 @@
         <div class="container">
             <div class="section_title mb50">
                 <h3 class="title">
-                    our partners
+                    Nos partenaires
                 </h3>
             </div>
             <div class="brand_carousel owl-carousel">
@@ -478,20 +480,18 @@
         <div class="container">
             <div class="section_title mb30">
                 <h3 class="title color-light">
-                    GEt your tikets
+                    Prendre part
                 </h3>
             </div>
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-9 text-md-left text-center color-light">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec gravida tempus.
-                    Integer iaculis in aazzzCurabitur a pulvinar nunc. Maecenas laoreet finibus lectus, at volutpat
-                    ligula euismod.
+                    Nous avons le plaisir de vous inviter au notre prochain congrès pour faire partie de notre héritage toujours croissant.
                 </div>
                 <div class="col-md-3 text-md-right text-center">
-                    <a href="#" class="btn btn-primary btn-rounded mt30">buy now</a>
+                    <a href="#" class="btn btn-primary btn-rounded mt30">S'inscrire</a>
                 </div>
             </div>
         </div>
     </section>
-    <!--get tickets section end-->    
+    <!--get tickets section end-->
 @endsection

@@ -11,13 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [
+    'as' => 'welcome',
+    'uses' => 'WelcomeController@welcome'
+]);
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/events', function(){
     return view('public.events');
@@ -26,20 +25,23 @@ Route::get('/contact', function(){
     return view('public.contact');
 })->name('contact');
 
-Route::get('/admin', function(){
-    return view('admin.welcome');
-})->name('admin');
+Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
+    Route::get('/', [
+    'as' => 'admin',
+    'uses' => 'AdminController@welcome'
+    ]);
 
-Route::get('/admin/events', [
-    'as' => 'admin.events',
-    'uses' => 'EventsController@events'
-]);
-Route::get('/admin/events/new', [
-    'as' => 'admin.newEvent',
-    'uses' => 'EventsController@new'
-]);
+    Route::get('/events', [
+        'as' => 'admin.events',
+        'uses' => 'EventsController@events'
+    ]);
+    Route::get('/events/new', [
+        'as' => 'admin.newEvent',
+        'uses' => 'EventsController@new'
+    ]);
 
-Route::post('/admin/events/create', [
-    'as' => 'admin.createEvent',
-    'uses' => 'EventsController@create'
-]);
+    Route::post('/events/create', [
+        'as' => 'admin.createEvent',
+        'uses' => 'EventsController@create'
+    ]);
+});
