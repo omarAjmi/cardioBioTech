@@ -30,7 +30,7 @@
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
 <script>
-	var startDate = "{!! $event->startDate->toDateString() !!} {!! $event->startDate->toTimeString() !!}"
+	var startDate = "{!! $event->start_date->toDateString() !!} {!! $event->start_date->toTimeString() !!}"
  $('.counter').counterUp({
         delay: 5,
         time: 3000

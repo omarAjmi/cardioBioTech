@@ -53,10 +53,10 @@
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="description" class=" form-control-label">A propos</label>
+                                            <label for="about   " class=" form-control-label">A propos</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <textarea name="description" id="description" rows="9" placeholder="introduction qui apparaîtra sur la page d'accueil publique..." class="form-control"></textarea>
+                                            <textarea name="about" id="about" rows="9" placeholder="introduction qui apparaîtra sur la page d'accueil publique..." class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <div class="row form-group">

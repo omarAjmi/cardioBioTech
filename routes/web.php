@@ -44,4 +44,9 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
         'as' => 'admin.createEvent',
         'uses' => 'EventsController@create'
     ]);
+
+    Route::get('/events/download/event/{id}/{fileName}', [
+        'as' => 'admin.downloadFileEvent',
+        'uses' => 'EventsController@downloadProgram'
+    ]);
 });

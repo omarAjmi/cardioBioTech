@@ -60,63 +60,74 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="table-responsive table-responsive-data2">
-                            <table class="table table-data2">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <label class="au-checkbox">
-                                                <input type="checkbox">
-                                                <span class="au-checkmark"></span>
-                                            </label>
-                                        </th>
-                                        <th>abbreviation</th>
-                                        <th>titre</th>
-                                        <th>programme</th>
-                                        <th>début</th>
-                                        <th>fin</th>
-                                        <th>etat</th>
-                                        <th>options</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="tr-shadow">
-                                        <td>
-                                            <label class="au-checkbox">
-                                                <input type="checkbox">
-                                                <span class="au-checkmark"></span>
-                                            </label>
-                                        </td>
-                                        <td>Lori Lynch</td>
-                                        <td>
-                                            <span class="block-email">lori@example.com</span>
-                                        </td>
-                                        <td class="desc">Samsung S8 Black</td>
-                                        <td>2018-09-27 02:12</td>
-                                        <td>2018-09-27 02:12</td>
-                                        <td>
-                                            <span class="status--process">Processed</span>
-                                        </td>
-                                        <td>
-                                            <div class="table-data-feature">
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send">
-                                                    <i class="zmdi zmdi-eye"></i>
-                                                </button>
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                                    <i class="zmdi zmdi-edit"></i>
-                                                </button>
-                                                <a href="{{ route('admin') }}">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                        <i class="zmdi zmdi-delete"></i>
-                                                    </button>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="spacer"></tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        @if ($events->isEmpty())
+                            <h4>Pas encore des évènnement</h4>
+                        @else
+                            <div class="table-responsive table-responsive-data2">
+                                <table class="table table-data2">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <label class="au-checkbox">
+                                                    <input type="checkbox">
+                                                    <span class="au-checkmark"></span>
+                                                </label>
+                                            </th>
+                                            <th>abbreviation</th>
+                                            <th>titre</th>
+                                            <th>programme</th>
+                                            <th>début</th>
+                                            <th>fin</th>
+                                            <th>etat</th>
+                                            <th>options</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>                                      
+                                        @foreach ($events as $event)
+                                            <tr class="tr-shadow">
+                                                <td>
+                                                    <label class="au-checkbox">
+                                                        <input type="checkbox">
+                                                        <span class="au-checkmark"></span>
+                                                    </label>
+                                                </td>
+                                                <td>{{ $event->abbreviation }}</td>
+                                                <td>
+                                                    <span class="block-email">{{ $event->title }}</span>
+                                                </td>
+                                                <td class="desc"><a href="{{ route('admin.downloadFileEvent', [
+                                                    'id'=>$event->id,
+                                                    'filename'=>$event->program_file
+                                                    ]) }}">{{ $event->program_file }}<a>
+                                                        
+                                                    </td>
+                                                <td>{{ $event->start_date ->toDayDateTimeString()}}</td>
+                                                <td>{{ $event->end_date->toDayDateTimeString() }}</td>
+                                                <td>
+                                                    <span class="status--process">Processed</span>
+                                                </td>
+                                                <td>
+                                                    <div class="table-data-feature">
+                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send">
+                                                            <i class="zmdi zmdi-eye"></i>
+                                                        </button>
+                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                            <i class="zmdi zmdi-edit"></i>
+                                                        </button>
+                                                        <a href="{{ route('admin') }}">
+                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                                <i class="zmdi zmdi-delete"></i>
+                                                            </button>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="spacer"></tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
                     </div>
                 </div>
     

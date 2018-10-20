@@ -13,7 +13,7 @@
                                 </h2>
                                 <strong class="cover-xl-text">{{ $event->abbreviation }}</strong>
                                 <p class="cover-date">
-                                    {{ $event->startDate->toDayDateTimeString() }}
+                                    {{ $event->start_date->toDayDateTimeString() }}
                                 </p>
                                 <a href="#" class=" btn btn-primary btn-rounded">
                                     Prendre part
@@ -87,10 +87,9 @@
                                 DATE
                             </h5>
                             <p>
-                                {{ $event->startDate->diffForHumans() }}
-                                {{ $event->startDate->formatLocalized('%A %d %B %Y') }} <br>
-                                @if ($event->startDate->diffInDays($event->endDate) > 0)
-                                    ({{ $event->startDate->diffInDays($event->endDate) }}) jours
+                                {{ $event->start_date->formatLocalized('%A %d %B %Y') }} <br>
+                                @if ($event->start_date->diffInDays($event->end_date) > 0)
+                                    ({{ $event->start_date->diffInDays($event->end_date) }}) jours
                                 @endif
                             </p>
                         </div>
