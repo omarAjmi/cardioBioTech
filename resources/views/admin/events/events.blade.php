@@ -114,11 +114,13 @@
                                                         <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                                                             <i class="zmdi zmdi-edit"></i>
                                                         </button>
-                                                        <a href="{{ route('admin') }}">
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                        <form action="{{ route('admin.deleteEvent', [$event->id]) }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <button type="submit" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                                                                 <i class="zmdi zmdi-delete"></i>
                                                             </button>
-                                                        </a>
+                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>

@@ -165,9 +165,6 @@
             </div>
         </div>
     </div>
-    @if ($errors->any())
-        {{ dd($errors) }}
-    @endif
     @include('public.partials.scripts.indexjs')
 </body>
 </html>

@@ -3,13 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Slider;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\CreateEventRequest;
 
 class EventsController extends Controller
 {
+    /**
+     * serves the Events view
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function events()
     {
         $events = Event::all()->sortByDesc('created_at');
@@ -23,28 +31,44 @@ class EventsController extends Controller
         ]);
     }
 
+    /**
+     * serves the new Event view
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function new()
     {
         return view('admin.events.new');
     }
 
-    public function create(Request $request)
+    /**
+     * creates an Event
+     *
+     * @param CreateEventRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function create(CreateEventRequest $request)
     {
-        // dd($request);
-        $event = Event::create([
-            'title' => $request->title,
-            'abbreviation' => $request->abbreviation,
-            'about' => $request->about,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'storage' => env('EVENT_STORAGE_PATH').$request->abbreviation.'/',
-            'address' => json_encode([
-                'state' => $request->state,
-                'city' => $request->city,
-                'street' => $request->street
-                ])
-        ]);
-        $event->program_file = $event->uploadProgramFile($request->file('sliders'));
+        $event = new Event();
+        $event->title = $request->title;
+        $event->abbreviation = $request->abbreviation;
+        $event->about = $request->about;
+        $event->start_date = $request->start_date;
+        $event->end_date = $request->end_date;
+        $event->storage = env('EVENT_STORAGE_PATH').$request->abbreviation.'/';
+        $event->program_file = $event->uploadProgramFile($request->file('program'), $event->abbreviation);
+        $event->address = json_encode([
+            'state' => $request->state,
+            'city' => $request->city,
+            'street' => $request->street
+            ]);
+        $event->save();
+        foreach ($request->file('sliders') as $key => $sliderFile) {
+            Slider::create([
+                'event_id' => $event->id,
+                'name'=> $event->uploadSlider($sliderFile, $key)
+            ]);
+        }
         Session::flash('success', 'évènnement est créé');
         return redirect(route('admin.events'));
     }
@@ -54,6 +78,13 @@ class EventsController extends Controller
         return view('admin.events.edit', ['event' => Event::findOrFail($id)]);
     }
 
+    /**
+     * updates an Event
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, int $id)
     {
         $event = Event::findOrFail($id);
@@ -63,7 +94,7 @@ class EventsController extends Controller
             'about' => $request->about,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            'storage' => env('EVENTS_STORAGE_PATH').$request->abbreviation,
+            'storage' => env('EVENT_STORAGE_PATH').$request->abbreviation,
             'address' => json_encode([
                 'state' => $request->state,
                 'city' => $request->city,
@@ -74,16 +105,31 @@ class EventsController extends Controller
         return redirect(route('admin.events'));
     }
 
+    /**
+     * let client download Event program file
+     *
+     * @param integer $id
+     * @param string $fileName
+     * @return \Illuminate\Http\Response
+     */
     public function downloadProgram(int $id, string $fileName)
     {
         $event = Event::findOrFail($id);
         return Storage::disk('public')->download("events/$event->abbreviation/".$event->program_file);
     }
 
+    /**
+     * deletes an Event
+     *
+     * @param integer $id
+     * @return \Illuminate\Http\Response
+     */
     public function delete(int $id)
     {
-        Event::delete($id);
+        $event = Event::findOrFail($id);
+        Storage::disk('public')->deleteDirectory(env('EVENT_STORAGE_PATH').'/'.$event->abbreviation);
+        $event->delete($id);
         Session::flash('success', 'évènnement est suprimé');
-        redirect(route('admin.events'));
+        return redirect(route('admin.events'));
     }
 }

@@ -17,10 +17,12 @@ class WelcomeController extends Controller
     public function welcome()
     {
         $event = Event::latest()->first();
-        $event->start_date = new Carbon($event->start_date);
-        $event->end_date = new Carbon($event->end_date);
-        // dd($event->start_date);
-        $event->address = json_decode($event->address);
+        if (!is_null($event)) {
+            $event->start_date = new Carbon($event->start_date);
+            $event->end_date = new Carbon($event->end_date);
+            // dd($event->start_date);
+            $event->address = json_decode($event->address);
+        }
         return view('welcome')->with([
             'event' => $event
         ]);

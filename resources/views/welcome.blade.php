@@ -9,11 +9,11 @@
                         <div class="container">
                             <div class="slider-content-center">
                                 <h2 class="cover-title">
-                                    {{ $event->title }}
+                                    @if (!is_null($event)){{ $event->title }}@endif
                                 </h2>
-                                <strong class="cover-xl-text">{{ $event->abbreviation }}</strong>
+                                <strong class="cover-xl-text">@if (!is_null($event)){{ $event->abbreviation }}@endif</strong>
                                 <p class="cover-date">
-                                    {{ $event->start_date->toDayDateTimeString() }}
+                                    @if (!is_null($event)){{ $event->start_date->toDayDateTimeString() }}@endif
                                 </p>
                                 <a href="#" class=" btn btn-primary btn-rounded">
                                     Prendre part
@@ -77,7 +77,7 @@
     <!--event info -->
     <section class="pt100 pb100">
         <div class="container">
-            <h1 style="text-align: center;color: #005792">{{ $event->title }}</h1>
+            <h1 style="text-align: center;color: #005792">@if (!is_null($event)){{ $event->title }}@endif</h1>
             <div class="row justify-content-center">
                 <div class="col-6 col-md-3  ">
                     <div class="icon_box_two">
@@ -87,9 +87,10 @@
                                 DATE
                             </h5>
                             <p>
-                                {{ $event->start_date->formatLocalized('%A %d %B %Y') }} <br>
-                                @if ($event->start_date->diffInDays($event->end_date) > 0)
-                                    ({{ $event->start_date->diffInDays($event->end_date) }}) jours
+                                @if (!is_null($event)){{ $event->start_date->formatLocalized('%A %d %B %Y') }} <br>
+                                    @if ($event->start_date->diffInDays($event->end_date) > 0)
+                                        ({{ $event->start_date->diffInDays($event->end_date) }}) jours
+                                    @endif
                                 @endif
                             </p>
                         </div>
@@ -104,9 +105,9 @@
                                 locale
                             </h5>
                             <p>
-                                {{ $event->address->state }}, 
-                                {{ $event->address->city }} <br>
-                                {{ $event->address->street }}
+                                @if (!is_null($event)){{ $event->address->state }}@endif, 
+                                @if (!is_null($event)){{ $event->address->city }}@endif <br>
+                                @if (!is_null($event)){{ $event->address->street }}@endif
                             </p>
                         </div>
                     </div>

@@ -23,14 +23,14 @@ class CreateParticipationsTable extends Migration
             $table->foreign('participant_id')
                   ->references('id')
                   ->on('users')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                  ->onDelete('CASCADE')
+                  ->onUpdate('CASCADE');
 
             $table->foreign('event_id')
                   ->references('id')
                   ->on('events')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                  ->onDelete('CASCADE')
+                  ->onUpdate('CASCADE');
         });
     }
 

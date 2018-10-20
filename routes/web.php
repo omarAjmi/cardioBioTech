@@ -26,27 +26,17 @@ Route::get('/contact', function(){
 })->name('contact');
 
 Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
-    Route::get('/', [
-    'as' => 'admin',
-    'uses' => 'AdminController@welcome'
+    Route::get('/', ['as' => 'admin','uses' => 'AdminController@welcome'
     ]);
 
-    Route::get('/events', [
-        'as' => 'admin.events',
-        'uses' => 'EventsController@events'
-    ]);
-    Route::get('/events/new', [
-        'as' => 'admin.newEvent',
-        'uses' => 'EventsController@new'
-    ]);
+    Route::get('/events', ['as' => 'admin.events','uses' => 'EventsController@events']);
+    
+    Route::get('/events/new', ['as' => 'admin.newEvent','uses' => 'EventsController@new']);
 
-    Route::post('/events/create', [
-        'as' => 'admin.createEvent',
-        'uses' => 'EventsController@create'
-    ]);
+    Route::post('/events/create', ['as' => 'admin.createEvent','uses' => 'EventsController@create']);
 
-    Route::get('/events/download/event/{id}/{fileName}', [
-        'as' => 'admin.downloadFileEvent',
-        'uses' => 'EventsController@downloadProgram'
+    Route::delete('/events/{id}', ['as' => 'admin.deleteEvent','uses' => 'EventsController@delete']);
+
+    Route::get('/events/download/event/{id}/{fileName}', ['as' => 'admin.downloadFileEvent','uses' => 'EventsController@downloadProgram'
     ]);
 });
