@@ -73,9 +73,13 @@ class EventsController extends Controller
         return redirect(route('admin.events'));
     }
 
-    public function edit(int $id)
+    public function preview(int $id)
     {
-        return view('admin.events.edit', ['event' => Event::findOrFail($id)]);
+        $event = Event::findOrFail($id);
+        $event->start_date = new Carbon($event->start_date);
+        $event->end_date = new Carbon($event->end_date);
+        $event->address = json_decode($event->address);
+        return view('admin.events.preview', ['event' => $event]);
     }
 
     /**
