@@ -7,7 +7,7 @@
                 <div class="footer_box">
                     <div class="footer_header">
                         <div class="footer_logo">
-                            <img src="img/logo.png" alt="evento">
+                            <img src="/img/logo.png" alt="evento">
                         </div>
                     </div>
                     <div class="footer_box_body">
@@ -48,32 +48,32 @@
                         <ul class="instagram_list">
                             <li>
                                 <a href="#">
-                                    <img src="img/cleander/c1.png" alt="instagram">
+                                    <img src="/img/cleander/c1.png" alt="instagram">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="img/cleander/c2.png" alt="instagram">
+                                    <img src="/img/cleander/c2.png" alt="instagram">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="img/cleander/c3.png" alt="instagram">
+                                    <img src="/img/cleander/c3.png" alt="instagram">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="img/cleander/c3.png" alt="instagram">
+                                    <img src="/img/cleander/c3.png" alt="instagram">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="img/cleander/c2.png" alt="instagram">
+                                    <img src="/img/cleander/c2.png" alt="instagram">
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="img/cleander/c1.png" alt="instagram">
+                                    <img src="/img/cleander/c1.png" alt="instagram">
                                 </a>
                             </li>
                         </ul>
@@ -104,22 +104,20 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-12">
                 <p>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
-                    is made with
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | Cardio Bio Tech
                 </p>
             </div>
             <div class="col-12 col-md-6 ">
                 <ul class="footer_menu">
                     <li>
-                        <a href="#">Home</a>
+                        <a href="{{ route('welcome') }}">Accueil</a>
                     </li>
                     <li>
-                        <a href="#">Speakers</a>
+                        <a href="{{ route('welcome') }}#speakers">Comité</a>
                     </li>
                     <li>
-                        <a href="events.html">Events</a>
+                        <a href="{{ route('event', [$events->first()->id]) }}">Événements</a>
                     </li>
                     <li>
                         <a href="#">News</a>

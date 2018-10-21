@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Event;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
-class WelcomeController extends Controller
+class PublicController extends Controller
 {
     /**
      * Show the application dashboard.
@@ -16,15 +15,23 @@ class WelcomeController extends Controller
      */
     public function welcome()
     {
-        $event = Event::latest()->first();
+        return view('welcome');
+    }
+
+    public function event(int $id)
+    {
+        $event = Event::findOrFail($id);
         if (!is_null($event)) {
             $event->start_date = new Carbon($event->start_date);
             $event->end_date = new Carbon($event->end_date);
-            // dd($event->start_date);
             $event->address = json_decode($event->address);
         }
-        return view('welcome')->with([
-            'event' => $event
-        ]);
+        $participants = $event->participants;
+        return view('public.event',['event'=>$event, 'participants'=>$participants]);
+    }
+
+    public function contact(int $id)
+    {
+        return view('public.contact', ['event'=>Event::findOrFail($id)]);
     }
 }

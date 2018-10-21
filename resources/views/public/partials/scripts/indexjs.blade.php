@@ -1,36 +1,36 @@
 <!-- jquery -->
-<script src="js/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 <!-- bootstrap -->
-<script src="js/popper.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/waypoints.min.js"></script>
+<script src="/js/popper.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/waypoints.min.js"></script>
 <!--slick carousel -->
-<script src="js/owl.carousel.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
 <!--parallax -->
-<script src="js/parallax.min.js"></script>
+<script src="/js/parallax.min.js"></script>
 <!--Counter up -->
-<script src="js/jquery.counterup.min.js"></script>
+<script src="/js/jquery.counterup.min.js"></script>
 <!--Counter down -->
-<script src="js/jquery.countdown.min.js"></script>
+<script src="/js/jquery.countdown.min.js"></script>
 <!-- WOW JS -->
-<script src="js/wow.min.js"></script>
+<script src="/js/wow.min.js"></script>
 <!-- Custom js -->
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
 
 
 
-<script src="select2/select2.min.js"></script>
+<script src="/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-<script src="tilt/tilt.jquery.min.js"></script>
+<script src="/tilt/tilt.jquery.min.js"></script>
 <script>
     $('.js-tilt').tilt({
         scale: 1.1
     })
 </script>
 <!--===============================================================================================-->
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
 <script>
-	var startDate = "@if (!is_null($event)){!! $event->start_date->toDateString() !!} {!! $event->start_date->toTimeString() !!}@endif"
+	var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!} {!! $events->first()->start_date->toTimeString() !!}@endif"
  $('.counter').counterUp({
         delay: 5,
         time: 3000

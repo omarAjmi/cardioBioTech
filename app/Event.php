@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Event extends Model
 {
@@ -15,12 +14,17 @@ class Event extends Model
 
     public function participations()
     {
-        return $this->hasMany(App\Participation::class, 'id', 'event_id');
+        return $this->hasMany(Participation::class, 'event_id', 'id');
     }
 
     public function participants()
     {
-        return $this->hasMany(App\User::class, 'id', 'user_id');
+        return $this->hasManyThrough(User::class, Participation::class, 'event_id', 'id', 'id', 'participant_id');
+    }
+
+    public function sliders()
+    {
+        return $this->hasMany(Slider::class, 'event_id', 'id');
     }
 
     public function uploadProgramFile(UploadedFile $uploadedFile, string $fileName)

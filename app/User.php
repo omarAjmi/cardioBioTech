@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -31,5 +33,21 @@ class User extends Authenticatable
     public function participations()
     {
         return $this->hasMany(App\Participations::class, 'id', 'user_id');
+    }
+
+    public function uploadAvatar(UploadedFile $file)
+    {
+        $path = env('USER_STORAGE_PATH').'avatars/';
+        return $this->uploadFile($file, $path, $this->id);
+    }
+
+    public function uploadFile(UploadedFile $file, string $path, string $fileName)
+    {
+        if(!is_dir($path)) {
+            Storage::disk('public')->makeDirectory($path);
+        }
+        $fileName = $fileName.'.'.$file->getClientOriginalExtension();
+        Storage::disk('public')->putFileAs($path, $file, $fileName);
+        return $fileName;
     }
 }

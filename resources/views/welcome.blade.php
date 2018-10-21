@@ -3,17 +3,17 @@
     <!--cover section slider -->
     <section id="home" class="home-cover">
         <div class="cover_slider owl-carousel owl-theme">
-            <div class="cover_item" style="background: url('img/bg/background01.jpg');">
+            {{-- <div class="cover_item" style="background: url('img/bg/background01.jpg');">
                 <div class="slider_content">
                     <div class="slider-content-inner">
                         <div class="container">
                             <div class="slider-content-center">
                                 <h2 class="cover-title">
-                                    @if (!is_null($event)){{ $event->title }}@endif
+                                    @if (!is_null($events->first())){{ $events->first()->title }}@endif
                                 </h2>
-                                <strong class="cover-xl-text">@if (!is_null($event)){{ $event->abbreviation }}@endif</strong>
+                                <strong class="cover-xl-text">@if (!is_null($events->first())){{ $events->first()->abbreviation }}@endif</strong>
                                 <p class="cover-date">
-                                    @if (!is_null($event)){{ $event->start_date->toDayDateTimeString() }}@endif
+                                    @if (!is_null($events->first())){{ $events->first()->start_date->toDayDateTimeString() }}@endif
                                 </p>
                                 <a href="#" class=" btn btn-primary btn-rounded">
                                     Prendre part
@@ -22,48 +22,31 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="cover_item" style="background: url('img/bg/background02.jpg');">
-                <div class="slider_content">
-                    <div class="slider-content-inner">
-                        <div class="container">
-                            <div class="slider-content-left">
-                                <h2 class="cover-title">
-                                    Prepare yourself for the
-                                </h2>
-                                <strong class="cover-xl-text">conference</strong>
-                                <p class="cover-date">
-                                    12-14 February 2018 - Los Angeles, CA.
-                                </p>
-                                <a href="#" class=" btn btn-primary btn-rounded">
-                                    Buy Tickets Now
-                                </a>
+            </div> --}}
+            {{-- {{ dd($events->first()->sliders) }} --}}
+            @foreach ($events->first()->sliders as $slide)
+                <div class="cover_item" style="background: url('/storage{{ $events->first()->storage.'sliders/'.$events->first()->sliders->first()->name }}');">
+                    <div class="slider_content">
+                        <div class="slider-content-inner">
+                            <div class="container">
+                                <div class="slider-content-left">
+                                    <h2 class="cover-title">
+                                        Prepare yourself for the
+                                    </h2>
+                                    <strong class="cover-xl-text">conference</strong>
+                                    <p class="cover-date">
+                                        12-14 February 2018 - Los Angeles, CA.
+                                    </p>
+                                    <a href="#" class=" btn btn-primary btn-rounded">
+                                        Buy Tickets Now
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="cover_item" style="background: url('img/bg/galery02.jpg');">
-                <div class="slider_content">
-                    <div class="slider-content-inner">
-                        <div class="container">
-                            <div class="slider-content-center">
-                                <h2 class="cover-title">
-                                    Prepare yourself for the
-                                </h2>
-                                <strong class="cover-xl-text">conference</strong>
-                                <p class="cover-date">
-                                    12-14 February 2018 - Los Angeles, CA.
-                                </p>
-                                <a href="#" class=" btn btn-primary btn-rounded">
-                                    Buy Tickets Now
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            @endforeach
+            
         <div class="cover_nav">
             <ul class="cover_dots">
                 <li class="active" data="0"><span>1</span></li>
@@ -77,7 +60,7 @@
     <!--event info -->
     <section class="pt100 pb100">
         <div class="container">
-            <h1 style="text-align: center;color: #005792">@if (!is_null($event)){{ $event->title }}@endif</h1>
+            <h1 style="text-align: center;color: #005792">@if (!is_null($events->first())){{ $events->first()->title }}@endif</h1>
             <div class="row justify-content-center">
                 <div class="col-6 col-md-3  ">
                     <div class="icon_box_two">
@@ -87,9 +70,9 @@
                                 DATE
                             </h5>
                             <p>
-                                @if (!is_null($event)){{ $event->start_date->formatLocalized('%A %d %B %Y') }} <br>
-                                    @if ($event->start_date->diffInDays($event->end_date) > 0)
-                                        ({{ $event->start_date->diffInDays($event->end_date) }}) jours
+                                @if (!is_null($events->first())){{ $events->first()->start_date->formatLocalized('%A %d %B %Y') }} <br>
+                                    @if ($events->first()->start_date->diffInDays($events->first()->end_date) > 0)
+                                        ({{ $events->first()->start_date->diffInDays($events->first()->end_date) }}) jours
                                     @endif
                                 @endif
                             </p>
@@ -105,9 +88,9 @@
                                 locale
                             </h5>
                             <p>
-                                @if (!is_null($event)){{ $event->address->state }}@endif, 
-                                @if (!is_null($event)){{ $event->address->city }}@endif <br>
-                                @if (!is_null($event)){{ $event->address->street }}@endif
+                                @if (!is_null($events->first())){{ $events->first()->address->state }}@endif, 
+                                @if (!is_null($events->first())){{ $events->first()->address->city }}@endif <br>
+                                @if (!is_null($events->first())){{ $events->first()->address->street }}@endif
                             </p>
                         </div>
                     </div>
@@ -251,11 +234,11 @@
     
     
     <!--speaker section-->
-    <section class="pb100" id="speakers">
-        <div class="container">
+    <section class="pb100">
+        <div class="container" id="speakers">
             <div class="section_title mb50">
                 <h3 class="title">
-                    our speakers
+                    Comité
                 </h3>
             </div>
         </div>
@@ -474,24 +457,5 @@
         </div>
     </section>
     <!--brands section end-->
-    
-    <!--get tickets section -->
-    <section class="bg-img pt100 pb100" style="background-image: url('img/bg/tickets.png');">
-        <div class="container">
-            <div class="section_title mb30">
-                <h3 class="title color-light">
-                    Prendre part
-                </h3>
-            </div>
-            <div class="row justify-content-center align-items-center">
-                <div class="col-md-9 text-md-left text-center color-light">
-                    Nous avons le plaisir de vous inviter au notre prochain congrès pour faire partie de notre héritage toujours croissant.
-                </div>
-                <div class="col-md-3 text-md-right text-center">
-                    <a href="#" class="btn btn-primary btn-rounded mt30">S'inscrire</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--get tickets section end-->
+    @include('public.partials.subscribe')
 @endsection

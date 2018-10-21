@@ -34,7 +34,7 @@
                         <div class="container-login100">
                             <div class="wrap-login100">
                                 <div class="login100-pic js-tilt" id="log-pic" data-tilt>
-                                    <img src="img/img-01.png" alt="IMG">
+                                    <img src="/img/img-01.png" alt="IMG">
                                 </div>
 
                                 <form class="login100-form validate-form" id="login_form" action="{{ route('login') }}" method="POST">
@@ -83,7 +83,7 @@
                                 </form>
 
                                 <div class="login100-pic js-tilt" id="register-pic" data-tilt style="display:none;margin-left: 5%">
-                                    <img src="img/signup.png" width="90%" height="90%" alt="IMG">
+                                    <img src="/img/signup.png" width="90%" height="90%" alt="IMG">
                                 </div>
                                 <form class="login100-form validate-form" id="register_form" style="display:none" action="{{ route('register') }}" method="POST">
                                     @csrf

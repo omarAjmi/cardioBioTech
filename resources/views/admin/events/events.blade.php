@@ -111,9 +111,11 @@
                                                         <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send">
                                                             <i class="zmdi zmdi-eye"></i>
                                                         </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                                            <i class="zmdi zmdi-edit"></i>
-                                                        </button>
+                                                        <a href="{{ route('admin.previewEvent', [$event->id]) }}">
+                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                                <i class="zmdi zmdi-edit"></i>
+                                                            </button>
+                                                        </a>
                                                         <form action="{{ route('admin.deleteEvent', [$event->id]) }}" method="POST">
                                                             @csrf
                                                             <input type="hidden" name="_method" value="DELETE">
