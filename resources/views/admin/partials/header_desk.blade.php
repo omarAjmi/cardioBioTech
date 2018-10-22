@@ -12,120 +12,45 @@
                 <div class="header-button">
                     <div class="noti-wrap">
                         <div class="noti__item js-item-menu">
-                            <i class="zmdi zmdi-comment-more"></i>
-                            <span class="quantity">1</span>
-                            <div class="mess-dropdown js-dropdown">
-                                <div class="mess__title">
-                                    <p>You have 2 news message</p>
-                                </div>
-                                <div class="mess__item">
-                                    <div class="image img-cir img-40">
-                                        <img src="/admin_site/images/icon/avatar-06.jpg" alt="Michelle Moreno" />
-                                    </div>
-                                    <div class="content">
-                                        <h6>Michelle Moreno</h6>
-                                        <p>Have sent a photo</p>
-                                        <span class="time">3 min ago</span>
-                                    </div>
-                                </div>
-                                <div class="mess__item">
-                                    <div class="image img-cir img-40">
-                                        <img src="/admin_site/images/icon/avatar-04.jpg" alt="Diane Myers" />
-                                    </div>
-                                    <div class="content">
-                                        <h6>Diane Myers</h6>
-                                        <p>You are now connected on message</p>
-                                        <span class="time">Yesterday</span>
-                                    </div>
-                                </div>
-                                <div class="mess__footer">
-                                    <a href="#">View all messages</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="noti__item js-item-menu">
-                            <i class="zmdi zmdi-email"></i>
-                            <span class="quantity">1</span>
-                            <div class="email-dropdown js-dropdown">
-                                <div class="email__title">
-                                    <p>You have 3 New Emails</p>
-                                </div>
-                                <div class="email__item">
-                                    <div class="image img-cir img-40">
-                                        <img src="/admin_site/images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
-                                    </div>
-                                    <div class="content">
-                                        <p>Meeting about new dashboard...</p>
-                                        <span>Cynthia Harvey, 3 min ago</span>
-                                    </div>
-                                </div>
-                                <div class="email__item">
-                                    <div class="image img-cir img-40">
-                                        <img src="/admin_site/images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
-                                    </div>
-                                    <div class="content">
-                                        <p>Meeting about new dashboard...</p>
-                                        <span>Cynthia Harvey, Yesterday</span>
-                                    </div>
-                                </div>
-                                <div class="email__item">
-                                    <div class="image img-cir img-40">
-                                        <img src="/admin_site/images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
-                                    </div>
-                                    <div class="content">
-                                        <p>Meeting about new dashboard...</p>
-                                        <span>Cynthia Harvey, April 12,,2018</span>
-                                    </div>
-                                </div>
-                                <div class="email__footer">
-                                    <a href="#">See all emails</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="noti__item js-item-menu">
                             <i class="zmdi zmdi-notifications"></i>
-                            <span class="quantity">3</span>
+                            @if ($notifs->isNotEmpty())
+                                <span class="quantity">{{ $notifs->count() }}</span>
+                            @endif
                             <div class="notifi-dropdown js-dropdown">
                                 <div class="notifi__title">
-                                    <p>You have 3 Notifications</p>
+                                    <p>Vous avez {{ $notifs->count() }} Notifications</p>
                                 </div>
-                                <div class="notifi__item">
-                                    <div class="bg-c1 img-cir img-40">
-                                        <i class="zmdi zmdi-email-open"></i>
-                                    </div>
-                                    <div class="content">
-                                        <p>You got a email notification</p>
-                                        <span class="date">April 12, 2018 06:50</span>
-                                    </div>
-                                </div>
-                                <div class="notifi__item">
-                                    <div class="bg-c2 img-cir img-40">
-                                        <i class="zmdi zmdi-account-box"></i>
-                                    </div>
-                                    <div class="content">
-                                        <p>Your account has been blocked</p>
-                                        <span class="date">April 12, 2018 06:50</span>
-                                    </div>
-                                </div>
-                                <div class="notifi__item">
-                                    <div class="bg-c3 img-cir img-40">
-                                        <i class="zmdi zmdi-file-text"></i>
-                                    </div>
-                                    <div class="content">
-                                        <p>You got a new file</p>
-                                        <span class="date">April 12, 2018 06:50</span>
-                                    </div>
-                                </div>
-                                <div class="notifi__footer">
-                                    <a href="#">All notifications</a>
-                                </div>
+                                @if ($notifs->isNotEmpty())
+                                    @foreach ($notifs as $notif)
+                                        <div class="notifi__item">
+                                            <div class="bg-c1 img-cir img-40">
+                                                <i class="zmdi zmdi-file-text"></i>
+                                            </div>
+                                            <a href="{{ route('notifs') }}">
+                                                <script>
+                                                    function notifSeen(id) {
+                                                        $.ajax({
+                                                                url: "{!! route('notif.seen', [$notif->id]) !!}",
+                                                                type: "GET",
+                                                                success: null
+                                                            });
+                                                    }
+                                                </script>
+                                                <div class="content">
+                                                    <p>{{ $notif->context }}</p>
+                                                    <span class="date">{{ $notif->created_at->toDayDateTimeString() }}</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
                     <div class="account-wrap">
                         <div class="account-item clearfix js-item-menu">
                             <div class="image">
-                                <img src="/admin_site/images/icon/avatar-01.jpg" alt="John Doe" />
+                                <img src="/storage/users/avatars/{{ Auth::user()->photo }}" alt="avatar" />
                             </div>
                             <div class="content">
                                 <a class="js-acc-btn" href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
@@ -134,7 +59,7 @@
                                 <div class="info clearfix">
                                     <div class="image">
                                         <a href="#">
-                                            <img src="/admin_site/images/icon/avatar-01.jpg" alt="John Doe" />
+                                            <img src="/storage/users/avatars/{{ Auth::user()->photo }}" alt="avatar" />
                                         </a>
                                     </div>
                                     <div class="content">
@@ -146,7 +71,7 @@
                                 </div>
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
-                                        <a href="{{ route('admin') }}">
+                                        <a href="{{ route('profile') }}">
                                             <i class="zmdi zmdi-account"></i>Account</a>
                                     </div>
                                     <div class="account-dropdown__item">
@@ -159,8 +84,12 @@
                                     </div>
                                 </div>
                                 <div class="account-dropdown__footer">
-                                    <a href="{{ route('logout') }}">
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
                                         <i class="zmdi zmdi-power"></i>Logout</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
                                 </div>
                             </div>
                         </div>
@@ -170,4 +99,7 @@
         </div>
     </div>
 </header>
+<script>
+
+</script>
 <!-- END HEADER DESKTOP-->

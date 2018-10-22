@@ -17,6 +17,7 @@ class CreateParticipationsTable extends Migration
             $table->increments('id');
             $table->integer('participant_id')->unsigned();
             $table->integer('event_id')->unsigned();
+            $table->string('file');
             $table->boolean('confirmation')->default(false);
             $table->timestamps();
 

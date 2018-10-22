@@ -11,7 +11,11 @@
                     Nous avons le plaisir de vous inviter au notre prochain congrès pour faire partie de notre héritage toujours croissant.
                 </div>
                 <div class="col-md-3 text-md-right text-center">
-                    <a href="#" class="btn btn-primary btn-rounded mt30">S'inscrire</a>
+                    @if ($events->isNotEmpty())
+                        <a href="{{ route('participation',[$events->first()->id]) }}" class="btn btn-primary btn-rounded mt30">S'inscrire</a>
+                    @else
+                        <a href="#" class="btn btn-primary btn-rounded mt30">S'inscrire</a>
+                    @endif    
                 </div>
             </div>
         </div>

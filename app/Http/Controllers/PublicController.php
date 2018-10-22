@@ -20,18 +20,22 @@ class PublicController extends Controller
 
     public function event(int $id)
     {
-        $event = Event::findOrFail($id);
+        $event = Event::with('participations')->findOrFail($id);
+        foreach ($event->participations as $key => $p) {
+            if (!$p->confirmation) {
+                $event->participations->forget($key);
+            }
+        }
         if (!is_null($event)) {
             $event->start_date = new Carbon($event->start_date);
             $event->end_date = new Carbon($event->end_date);
             $event->address = json_decode($event->address);
         }
-        $participants = $event->participants;
-        return view('public.event',['event'=>$event, 'participants'=>$participants]);
+        return view('public.event',['event'=>$event]);
     }
 
-    public function contact(int $id)
+    public function contact()
     {
-        return view('public.contact', ['event'=>Event::findOrFail($id)]);
+        return view('public.contact');
     }
 }

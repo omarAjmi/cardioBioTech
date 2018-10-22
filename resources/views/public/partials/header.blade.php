@@ -18,7 +18,11 @@
                 </li>
                 <li class="nav-item">
                     <div class="dropdown">
-                        <a class="nav-link " href="{{ route('event', [$events->first()->id]) }}">Événements</a>
+                        @if ($events->isNotEmpty())
+                            <a class="nav-link " href="{{ route('event', [$events->first()->id]) }}     ">Événements</a>                            
+                        @else
+                            <a class="nav-link " href="#">Événements</a>
+                        @endif    
                         <div class="dropdown-content">
                             @foreach ($events as $event)
                                 <a href="{{ route('event', [$event->id]) }}">{{ $event->abbreviation }}</a>
@@ -41,7 +45,14 @@
                                 @if (Auth::user()->admin)
                                     <a href="{{ route('admin') }}">Site Admin</a>
                                 @endif
-                                <a href="{{ route('logout') }}">Se Déconnecter</a>
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    Se Déconnecter
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
                     </li>

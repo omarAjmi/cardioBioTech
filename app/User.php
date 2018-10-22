@@ -50,4 +50,9 @@ class User extends Authenticatable
         Storage::disk('public')->putFileAs($path, $file, $fileName);
         return $fileName;
     }
+
+    public function getFullName()
+    {
+        return $this->last_name.' '.$this->first_name;
+    }
 }

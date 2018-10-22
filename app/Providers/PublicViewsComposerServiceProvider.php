@@ -18,6 +18,7 @@ class PublicViewsComposerServiceProvider extends ServiceProvider
                             'public.event',
                             'public.contact',
                             'public.profile',
+                            'public.participate',
                         ], 'App\Http\ViewComposers\PublicViewComposer');
     }
 

@@ -88,8 +88,6 @@
                                                 type="file" value="{{ old('sliders[]') }}">
                                             @if ($errors->has('sliders'))
                                                 <small class="form-text status--denied">{{ $errors->first('sliders') }}</small>
-                                            @else                                                
-                                                 <small class="form-text text-muted"> 4 images aux plus</small>
                                             @endif                                           
                                         </div>
                                     </div>

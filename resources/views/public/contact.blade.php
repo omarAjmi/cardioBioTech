@@ -1,7 +1,7 @@
 @extends('layouts.public_layout')
 @section('content')
     <!--page title section-->
-    <section class="inner_cover parallax-window" data-parallax="scroll" data-image-src="img/bg/bg-img.png">
+    <section class="inner_cover parallax-window" data-parallax="scroll" data-image-src="/img/bg/bg-img.png">
         <div class="overlay_dark"></div>
         <div class="container">
             <div class="row justify-content-center align-items-center">
@@ -28,7 +28,7 @@
     <!--contact section -->
     <section class="pt100 pb100">
         <div class="container">
-            <img src="img/logo-dark.png" alt="evento">
+            <img src="/img/logo-dark.png" alt="evento">
             <div class="row justify-content-center mt100">
                 <div class="col-md-6 col-12">
                     <div class="contact_info">

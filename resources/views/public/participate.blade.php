@@ -8,7 +8,7 @@
                 <div class="col-12">
                     <div class="inner_cover_content">
                         <h3>
-                            {{ $event->abbreviation }}
+                            Participer
                         </h3>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
             <div class="breadcrumbs">
                 <ul>
                     <li><a href="{{ route('welcome') }}">Acceuil</a> | </li>
-                    <li><span>Événements</span></li>
+                    <li><span>Participation</span></li>
                 </ul>
             </div>
         </div>
@@ -57,7 +57,7 @@
                 <div class="speakers">
                     <strong>Speakers</strong>
                     <span>
-                        @foreach ($participants as $p)
+                        @foreach ($event->participants as $p)
                             {{ $p->first_name.' '.$p->last_name }} ,
                         @endforeach
                     </span>
@@ -68,14 +68,38 @@
             </div>
             <div class="event_word">
                 <div class="row justify-content-center">
-                    <div class="col-md-6 col-12">
-                        {{ $event->about }}
-                    </div>
+                    @foreach ($event->breakLongAbout() as $p)
+                        <div class="col-md-6 col-12">
+                            {{ $p }}
+                        </div>
+                    @endforeach
                     <div class="col-md-6 col-12"></div>
+                </div>
+            </div>
+            <div class="row justify-content-center mt100">
+                <div class="col-md-6 col-12">
+                    <div class="contact_info">
+                        <h5>
+                            Participation
+                        </h5>
+                        <p>
+                            pour la participation, merci de télécharger <a href="{{ route('admin.downloadFileEvent', ['id'=>$event->id,'filename'=>$event->program_file]) }}"><b><u>cette fichier</u></b></a> formelle, de lui fournir les données nécessaires puis de le renvoyer à l’aide de ce formulaire.
+                        </p>
+                        <div class="col-md-6 col-12">
+                            <form class="contact_form" method="POST" action="{{ route('events.participate', [$event->id]) }}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <input class="btn btn-rounded btn-primary" name="participation" type="file" class="form-control" placeholder="Format De Participation">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-rounded btn-success" type="submit">Déposer</button>
+                                </div>
+                            </form> 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    <!--event section end -->
-    @include('public.partials.subscribe')   
+    @include('public.partials.subscribe')
 @endsection

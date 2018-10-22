@@ -3,42 +3,21 @@
     <!--cover section slider -->
     <section id="home" class="home-cover">
         <div class="cover_slider owl-carousel owl-theme">
-            {{-- <div class="cover_item" style="background: url('img/bg/background01.jpg');">
-                <div class="slider_content">
-                    <div class="slider-content-inner">
-                        <div class="container">
-                            <div class="slider-content-center">
-                                <h2 class="cover-title">
-                                    @if (!is_null($events->first())){{ $events->first()->title }}@endif
-                                </h2>
-                                <strong class="cover-xl-text">@if (!is_null($events->first())){{ $events->first()->abbreviation }}@endif</strong>
-                                <p class="cover-date">
-                                    @if (!is_null($events->first())){{ $events->first()->start_date->toDayDateTimeString() }}@endif
-                                </p>
-                                <a href="#" class=" btn btn-primary btn-rounded">
-                                    Prendre part
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-            {{-- {{ dd($events->first()->sliders) }} --}}
-            @foreach ($events->first()->sliders as $slide)
-                <div class="cover_item" style="background: url('/storage{{ $events->first()->storage.'sliders/'.$events->first()->sliders->first()->name }}');">
+            @foreach ($events->first()->sliders as $slider)
+                <div class="cover_item" style="background: url('/storage/events/{{ $events->first()->abbreviation }}/sliders/{{ $slider->name }}');">
                     <div class="slider_content">
                         <div class="slider-content-inner">
                             <div class="container">
-                                <div class="slider-content-left">
+                                <div class="slider-content-center">
                                     <h2 class="cover-title">
-                                        Prepare yourself for the
+                                        {{ $events->first()->title }}
                                     </h2>
-                                    <strong class="cover-xl-text">conference</strong>
+                                    <strong class="cover-xl-text">{{ $events->first()->abbreviation }}</strong>
                                     <p class="cover-date">
-                                        12-14 February 2018 - Los Angeles, CA.
+                                        {{ $events->first()->title }}
                                     </p>
-                                    <a href="#" class=" btn btn-primary btn-rounded">
-                                        Buy Tickets Now
+                                    <a href="{{ route('participation',[$events->first()->id]) }}" class=" btn btn-primary btn-rounded">
+                                        prendre part
                                     </a>
                                 </div>
                             </div>
@@ -46,12 +25,13 @@
                     </div>
                 </div>
             @endforeach
-            
+        </div>
         <div class="cover_nav">
             <ul class="cover_dots">
                 <li class="active" data="0"><span>1</span></li>
-                <li data="1"><span>2</span></li>
-                <li data="2"><span>3</span></li>
+                @for ($i = 1; $i <= $events->first()->sliders->count(); $i++)
+                    <li data="{{ $i }}"><span>{{ $i+1 }}</span></li>
+                @endfor
             </ul>
         </div>
     </section>
@@ -148,25 +128,15 @@
         <div class="container">
             <div class="section_title">
                 <h3 class="title">
-                    About the event
+                    À propos
                 </h3>
             </div>
             <div class="row justify-content-center">
-                <div class="col-12 col-md-6">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing eli. Integer iaculis in lacus a
-                        sollicitudin. Ut hendrerit hendrerit nisl a accumsan. Pellentesque convallis consectetur tortor
-                        id placerat. Curabitur a pulvinar nunc. Maecenas laoreet finibus lectus, at volutpat ligula
-                        euismod.
-                    </p>
-                </div>
-                <div class="col-12 col-md-6">
-                    <p>
-                        In rhoncus massa nec sollicitudin. Ut hendrerit hendrerit nisl a accumsan. Pellentesque
-                        convallis consectetur tortor id placerat. Curabitur a pulvinar nunc. Maecenas laoreet finibus
-                        lectus, at volutpat ligula euismod quis. Maecenas ornare, ex in malesuada tempus.
-                    </p>
-                </div>
+                @foreach ($events->first()->breakLongAbout() as $p)
+                    <div class="col-md-6 col-12">
+                        {{ $p }}
+                    </div>
+                @endforeach
             </div>
     
             <!--event features-->

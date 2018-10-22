@@ -15,7 +15,7 @@
                 <div class="">
                     <div class="col-md-12">
                         <!-- DATA TABLE -->
-                        <h3 class="title-5 m-b-35">Évènement</h3>
+                        <h3 class="title-5 m-b-35">Évènements</h3>
                         <div class="table-data__tool">
                             <div class="table-data__tool-left">
                                 <div class="rs-select2--light rs-select2--md">
@@ -138,7 +138,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="copyright">
-                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="{{ route('welcome') }}">Cardio Bio Tech</a>.</p>
                         </div>
                     </div>
                 </div>

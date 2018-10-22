@@ -52,14 +52,16 @@
             <!--Carousel Wrapper-->
             <div class="event_info">
                 <div class="event_title">
-                    {{ $event->address->state }}, {{ $event->address->state }} <br> {{ $event->address->state }}
+                    {{ $event->address->state }}, {{ $event->address->city }} <br> {{ $event->address->street }}
                 </div>
                 <div class="speakers">
                     <strong>Speakers</strong>
                     <span>
-                        @foreach ($participants as $p)
-                            {{ $p->first_name.' '.$p->last_name }} ,
-                        @endforeach
+                        @if (!empty($event->participations))
+                            @foreach ($event->participations as $p)
+                                {{ $p->participant->first_name.' '.$p->participant->last_name }} ,
+                            @endforeach
+                        @endif
                     </span>
                 </div>
                 <div class="event_date">
@@ -68,10 +70,11 @@
             </div>
             <div class="event_word">
                 <div class="row justify-content-center">
-                    <div class="col-md-6 col-12">
-                        {{ $event->about }}
-                    </div>
-                    <div class="col-md-6 col-12"></div>
+                    @foreach ($event->breakLongAbout() as $p)
+                        <div class="col-md-6 col-12">
+                            {{ $p }}
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

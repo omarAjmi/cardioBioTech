@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -47,4 +48,40 @@ class Event extends Model
         return $fileName;
     }
 
+    public function breakLongAbout()
+    {
+        $length = 300;
+        $maxLength = 300;
+        $paragraphs = [];
+        //Text length
+        $textLength = strlen($this->about);
+        //return without breaking if text is already short
+        if (!($textLength > $maxLength)){
+            $splitText[] = $this->about;
+            return $splitText;
+        }
+        //Guess sentence completion
+        $needle = '.';
+
+        /*iterate over $this->about length 
+        as substr_replace deleting it*/  
+        while (strlen($this->about) > $length){
+            $end = strpos($this->about, $needle, $length);
+            if ($end === false){
+                //Returns FALSE if the needle (in this case ".") was not found.
+                $splitText[] = substr($this->about,0);
+                $this->about = '';
+                break;
+            }
+            $end++;
+            $splitText[] = substr($this->about,0,$end);
+            $this->about = substr_replace($this->about,'',0,$end);
+        }
+        
+        if ($this->about){
+            $splitText[] = substr($this->about,0);
+        }
+
+        return $splitText;
+    }
 }

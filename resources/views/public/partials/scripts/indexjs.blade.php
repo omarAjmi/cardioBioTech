@@ -30,7 +30,9 @@
 <!--===============================================================================================-->
 <script src="/js/main.js"></script>
 <script>
-	var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!} {!! $events->first()->start_date->toTimeString() !!}@endif"
+@if($events->isNotEmpty())
+    var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!} {!! $events->first()->start_date->toTimeString() !!}@endif"
+@endif	
  $('.counter').counterUp({
         delay: 5,
         time: 3000
@@ -57,5 +59,16 @@ $(".countdown")
         $("#login_form").show();
         $("#log-pic").show();
         $("#register-pic").hide();
-    }); 
+    });
+
+@if(Session::has('auth'))
+    $('document').ready(function () {
+        $('#myModal').modal('show');
+    })
+@endif
+@if(Session::has('outdated'))
+    $('document').ready(function () {
+        $('#outDatedModal').modal('show');
+    })
+@endif
 </script>
