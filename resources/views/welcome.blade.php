@@ -358,7 +358,7 @@
     
     
     <!--event calender-->
-    <section class="pb100">
+    {{-- <section class="pb100">
         <div class="container">
             <div class="table-responsive">
                 <table class="event_calender table">
@@ -445,7 +445,7 @@
                 </table>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!--event calender end -->
     
     <!--brands section -->

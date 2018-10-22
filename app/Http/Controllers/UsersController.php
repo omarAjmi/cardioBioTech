@@ -20,6 +20,7 @@ class UsersController extends Controller
         $user->last_name = $request->last_name;
         $user->email = $request->email;
         $user->address = $request->address;
+        $user->phone = $request->phone;
         $user->save();
         return back();
     }
