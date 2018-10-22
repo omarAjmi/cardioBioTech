@@ -2,38 +2,70 @@
 @section('content')
     <!--cover section slider -->
     <section id="home" class="home-cover">
-        <div class="cover_slider owl-carousel owl-theme">
-            @foreach ($events->first()->sliders as $slider)
-                <div class="cover_item" style="background: url('/storage/events/{{ $events->first()->abbreviation }}/sliders/{{ $slider->name }}');">
-                    <div class="slider_content">
-                        <div class="slider-content-inner">
-                            <div class="container">
-                                <div class="slider-content-center">
-                                    <h2 class="cover-title">
-                                        {{ $events->first()->title }}
-                                    </h2>
-                                    <strong class="cover-xl-text">{{ $events->first()->abbreviation }}</strong>
-                                    <p class="cover-date">
-                                        {{ $events->first()->title }}
-                                    </p>
-                                    <a href="{{ route('participation',[$events->first()->id]) }}" class=" btn btn-primary btn-rounded">
-                                        prendre part
-                                    </a>
+        @if($events->isNotEmpty())
+            <div class="cover_slider owl-carousel owl-theme">
+                @foreach ($events->first()->sliders as $slider)
+                    <div class="cover_item" style="background: url('/storage/events/{{ $events->first()->abbreviation }}/sliders/{{ $slider->name }}');">
+                        <div class="slider_content">
+                            <div class="slider-content-inner">
+                                <div class="container">
+                                    <div class="slider-content-center">
+                                        <h2 class="cover-title">
+                                            {{ $events->first()->title }}
+                                        </h2>
+                                        <strong class="cover-xl-text">{{ $events->first()->abbreviation }}</strong>
+                                        <p class="cover-date">
+                                            {{ $events->first()->title }}
+                                        </p>
+                                        <a href="{{ route('participation',[$events->first()->id]) }}" class=" btn btn-primary btn-rounded">
+                                            prendre part
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endforeach
-        </div>
-        <div class="cover_nav">
-            <ul class="cover_dots">
-                <li class="active" data="0"><span>1</span></li>
-                @for ($i = 1; $i <= $events->first()->sliders->count(); $i++)
-                    <li data="{{ $i }}"><span>{{ $i+1 }}</span></li>
-                @endfor
-            </ul>
-        </div>
+                <div class="cover_nav">
+                    <ul class="cover_dots">
+                        <li class="active" data="0"><span>1</span></li>
+                        @for ($i = 1; $i <= $events->first()->sliders->count(); $i++)
+                            <li data="{{ $i }}"><span>{{ $i+1 }}</span></li>
+                        @endfor
+                    </ul>
+                </div>
+                @endforeach
+            @else
+                <div class="cover_slider owl-carousel owl-theme">
+                    <div class="cover_item" style="background: url('img/bg/background01.jpg');">
+                        <div class="slider_content">
+                            <div class="slider-content-inner">
+                                <div class="container">
+                                    <div class="slider-content-center">
+                                        <h2 class="cover-title">
+                                            Prepare yourself for the
+                                        </h2>
+                                        <strong class="cover-xl-text">conference</strong>
+                                        <p class="cover-date">
+                                            12-14 February 2018 - Los Angeles, CA.
+                                        </p>
+                                        <a href="#" class=" btn btn-primary btn-rounded">
+                                            Buy Tickets Now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cover_nav">
+                    <ul class="cover_dots">
+                        <li class="active" data="0"><span>1</span></li>
+                        <li data="1"><span>2</span></li>
+                        <li data="2"><span>3</span></li>
+                    </ul>
+                </div>
+            @endif
     </section>
     <!--cover section slider end -->
     
@@ -132,11 +164,30 @@
                 </h3>
             </div>
             <div class="row justify-content-center">
-                @foreach ($events->first()->breakLongAbout() as $p)
+                @if($events->isNotEmpty())
+                    @foreach ($events->first()->breakLongAbout() as $p)
+                        <div class="col-md-6 col-12">
+                            {{ $p }}
+                        </div>
+                    @endforeach
+                @else
                     <div class="col-md-6 col-12">
-                        {{ $p }}
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
                     </div>
-                @endforeach
+                    <div class="col-md-6 col-12">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
+                    </div>
+                @endif
             </div>
     
             <!--event features-->
@@ -147,8 +198,7 @@
                         <div class="content">
                             <h4>9 Speakers</h4>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec
-                                graviante.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
                             </p>
                             <a href="#">read more</a>
                         </div>
@@ -408,20 +458,20 @@
             </div>
             <div class="brand_carousel owl-carousel">
                 <div class="brand_item text-center">
-                    <img src="img/brands/b1.png" alt="brand">
+                    <img src="/img/brands/b1.png" alt="brand">
                 </div>
                 <div class="brand_item text-center">
-                    <img src="img/brands/b2.png" alt="brand">
+                    <img src="/img/brands/b2.png" alt="brand">
                 </div>
     
                 <div class="brand_item text-center">
-                    <img src="img/brands/b3.png" alt="brand">
+                    <img src="/img/brands/b3.png" alt="brand">
                 </div>
                 <div class="brand_item text-center">
-                    <img src="img/brands/b4.png" alt="brand">
+                    <img src="/img/brands/b4.png" alt="brand">
                 </div>
                 <div class="brand_item text-center">
-                    <img src="img/brands/b5.png" alt="brand">
+                    <img src="/img/brands/b5.png" alt="brand">
                 </div>
             </div>
         </div>
