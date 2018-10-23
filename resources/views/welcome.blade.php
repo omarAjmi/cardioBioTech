@@ -15,7 +15,9 @@
                                         </h2>
                                         <strong class="cover-xl-text">{{ $events->first()->abbreviation }}</strong>
                                         <p class="cover-date">
-                                            {{ $events->first()->title }}
+                                            @if($date = new Carbon\Carbon($events->first()->created_at))
+                                                {{ $date->toDayDateTimeString() }}
+                                            @endif
                                         </p>
                                         <a href="{{ route('participation',[$events->first()->id]) }}" class=" btn btn-primary btn-rounded">
                                             prendre part
@@ -263,95 +265,21 @@
             </div>
         </div>
         <div class="row justify-content-center no-gutters">
-            <div class="col-md-3 col-sm-6">
-                <div class="speaker_box">
-                    <div class="speaker_img">
-                        <img src="img/speakers/s1.png" alt="speaker name">
-                        <div class="info_box">
-                            <h5 class="name">Patricia Stone</h5>
-                            <p class="position">CEO Company</p>
+            @if($events->isNotEmpty())
+                @foreach($events->first()->commitee->members as $member)
+                    <div class="col-md-3 col-sm-6">
+                        <div class="speaker_box">
+                            <div class="speaker_img">
+                                <img src="/storage/users/avatars/{{ $member->data->photo }}" alt="speaker name">
+                                <div class="info_box">
+                                    <h5 class="name">{{ $member->data->getFullName() }}</h5>
+                                    {{-- <p class="position">CEO Company</p> --}}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="speaker_box">
-                    <div class="speaker_img">
-                        <img src="img/speakers/s2.png" alt="speaker name">
-                        <div class="info_box">
-                            <h5 class="name">James Oliver</h5>
-                            <p class="position">CEO Company</p>
-                        </div>
-                    </div>
-                </div>
-    
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="speaker_box">
-                    <div class="speaker_img">
-                        <img src="img/speakers/s3.png" alt="speaker name">
-                        <div class="info_box">
-                            <h5 class="name">Carla Banks</h5>
-                            <p class="position">CEO Company</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="speaker_box">
-                    <div class="speaker_img">
-                        <img src="img/speakers/s4.png" alt="speaker name">
-                        <div class="info_box">
-                            <h5 class="name">William Smith</h5>
-                            <p class="position">CEO Company</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="speaker_box">
-                    <div class="speaker_img">
-                        <img src="img/speakers/s5.png" alt="speaker name">
-                        <div class="info_box">
-                            <h5 class="name">Jessica Black</h5>
-                            <p class="position">CEO Company</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="speaker_box">
-                    <div class="speaker_img">
-                        <img src="img/speakers/s6.png" alt="speaker name">
-                        <div class="info_box">
-                            <h5 class="name">Patricia Stone</h5>
-                            <p class="position">CEO Company</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="speaker_box">
-                    <div class="speaker_img">
-                        <img src="img/speakers/s7.png" alt="speaker name">
-                        <div class="info_box">
-                            <h5 class="name">Duncan Stan</h5>
-                            <p class="position">CEO Company</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="speaker_box">
-                    <div class="speaker_img">
-                        <img src="img/speakers/s8.png" alt="speaker name">
-                        <div class="info_box">
-                            <h5 class="name">Patricia Stone</h5>
-                            <p class="position">CEO Company</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                @endforeach
+            @endif
         </div>
     </section>
     <!--speaker section end -->
