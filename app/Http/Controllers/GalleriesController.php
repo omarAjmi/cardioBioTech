@@ -10,6 +10,10 @@ use App\Http\Requests\GalleriesRequest;
 
 class GalleriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
     public function galleries()
     {
         $galleries = Gallery::latest()->get();
@@ -26,7 +30,11 @@ class GalleriesController extends Controller
 
     public function create(GalleriesRequest $request)
     {
-        $gallery = Gallery::create(['event_id'=> $request->category]);
+        $event = Event::find($request->event);
+        $gallery = $event->gallery;
+        if (is_null($gallery)) {
+            $gallery = Gallery::create(['event_id'=> $request->event]);
+        }
         foreach ($request->file('files') as $key => $file) {
             Image::create([
                 'gallery_id' => $gallery->id,

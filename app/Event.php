@@ -28,6 +28,11 @@ class Event extends Model
         return $this->hasMany(Slider::class, 'event_id', 'id');
     }
 
+    public function gallery()
+    {
+        return $this->hasOne(Gallery::class, 'event_id', 'id');
+    }
+
     public function commitee()
     {
         return $this->hasOne(Commitee::class, 'event_id', 'id');

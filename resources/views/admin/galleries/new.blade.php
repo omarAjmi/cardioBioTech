@@ -15,10 +15,10 @@
                                     
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="category" class=" form-control-label"> Événnement</label>
+                                            <label for="event" class=" form-control-label"> Événnement</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <select name="category" id="category" class="form-control">
+                                            <select name="event" id="event" class="form-control">
                                                 <option disabled>choisissez un évènement</option>
                                                 @foreach ($events as $event)
                                                     <option value="{{ $event->id }}">{{ $event->abbreviation }}</option>

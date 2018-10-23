@@ -31,6 +31,15 @@
             <div class="row">
                 <!-- galery owl -->
                 <div id="galery-owl" class="owl-carousel owl-theme">
+                    @if (!is_null($event->gallery))
+                        @foreach ($event->gallery->album as $slider)
+                            <!-- galery item -->
+                            <div class="galery-item">
+                                <img src="/storage{{ $slider->path }}" alt="">
+                            </div>
+                            <!-- /galery item -->
+                        @endforeach
+                    @else
                         @foreach ($event->sliders as $slider)
                             <!-- galery item -->
                             <div class="galery-item">
@@ -38,6 +47,7 @@
                             </div>
                             <!-- /galery item -->
                         @endforeach
+                    @endif
     
                 </div>
                 <!-- /galery owl -->
