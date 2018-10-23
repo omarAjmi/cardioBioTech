@@ -16,7 +16,7 @@
                             <a href="{{ route('admin.events') }}">Tous</a>
                         </li>
                         <li>
-                            <a href="index2.html">Galleries</a>
+                            <a href="{{ route('participation.postponed') }}">creer nouveau</a>
                         </li>
                     </ul>
                 </li>
@@ -33,6 +33,18 @@
                         </li>
                         <li>
                             <a href="{{ route('participation.postponed') }}">En attente</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-sub">
+                    <a class="js-arrow" href="#">
+                        <i class="fas fa-handshake"></i>Galleries</a>
+                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <li>
+                            <a href="{{ route('galleries') }}">tous</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('galleries.new') }}">creer nouveau</a>
                         </li>
                     </ul>
                 </li>

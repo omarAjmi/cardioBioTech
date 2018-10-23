@@ -38,7 +38,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="row form-group">
+                                    {{-- <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="category" class=" form-control-label"> Catégorie</label>
                                         </div>
@@ -50,7 +50,7 @@
                                                 <option value="3">Option #3</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="program" class=" form-control-label">Fichier du programme</label>
