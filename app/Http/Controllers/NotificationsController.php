@@ -18,12 +18,12 @@ class NotificationsController extends Controller
 
     public function notifications()
     {
-        $notifications = Notif::latest()->get();
+        $notifications = Notif::paginate(6);
         foreach ($notifications as $notif) {
             $notif->created_at = new Carbon($notif->created_at);
         }
         return view('admin.notifications', [
-            'notifications' => $notifications
+            'notifications' => $notifications->sortByDesc('created_at')
         ]);
     }
 }

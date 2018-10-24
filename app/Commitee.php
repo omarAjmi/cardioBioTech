@@ -12,7 +12,7 @@ class Commitee extends Model
 
     public function event()
     {
-        return $this->belonsTo(Event::class, 'event_id', 'id');
+        return $this->belongsTo(Event::class, 'event_id', 'id');
     }
 
     public function members()

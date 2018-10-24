@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-3 text-md-right text-center">
                     @if ($events->isNotEmpty())
-                        <a href="{{ route('participation',[$events->first()->id]) }}" class="btn btn-primary btn-rounded mt30">S'inscrire</a>
+                        <a href="{{ route('event',[$events->first()->id]) }}" class="btn btn-primary btn-rounded mt30">S'inscrire</a>
                     @else
                         <a href="#" class="btn btn-primary btn-rounded mt30">S'inscrire</a>
                     @endif    

@@ -21,7 +21,6 @@ Route::group([], function(){
     Route::get('/users/profile', ['as'=> 'profile', 'uses'=>'UsersController@profile']);
     Route::put('/users/profile/update', ['as'=> 'profile.update', 'uses'=>'UsersController@update']);
     Route::put('/users/profile/update_avatar', ['as'=> 'profile.updateAvatar', 'uses'=>'UsersController@updateAvatar']);
-    Route::get('/users/event/{id}/participation', ['as'=> 'participation', 'uses'=>'ParticipationsController@participation']);
     Route::post('/users/event/{id}/participation', ['as'=> 'events.participate', 'uses'=>'ParticipationsController@participate']);
 });
 
@@ -62,4 +61,13 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
     Route::post('/galleries/create', ['as' => 'galleries.create', 'uses' => 'GalleriesController@create']);
 
     Route::get('/galleries/{id}', ['as' => 'galleries.files', 'uses' => 'GalleriesController@preview']);
+
+    Route::get('/commitees/', ['as' => 'commitees', 'uses' => 'CommiteesController@commitees']);
+
+    Route::get('/commitees/{id}/members', ['as' => 'commitees.members', 'uses' => 'CommiteesController@members']);
+
+    Route::post('/commitees/create', ['as' => 'commitees.addMember', 'uses' => 'CommiteesController@create']);
+
+    Route::get('/commitees/add_member', ['as' => 'commitees.new', 'uses' => 'CommiteesController@addMember']);
+
 });

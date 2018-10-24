@@ -19,11 +19,11 @@
                             <table class="table table-borderless table-data3">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>Date</th>
+                                        <th>Participant</th>
+                                        <th>Notification</th>
+                                        <th>Fichier</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -33,7 +33,11 @@
                                             <td>{{ $notif->participation->participant->getFullName() }}</td>
                                             <td>{{ $notif->context }}</td>
                                             <td class="process"><a href="{{ route('participation.download', [$notif->participation->id]) }}" target="_blank">{{ $notif->participation->file }}</a></td>
-                                            <td>$999.00</td>
+                                            @if ($notif->seen)
+                                                <td><i class="fa fa-eye"></i></td>
+                                            @else
+                                                <td><i class="fa fa-eye-slash"></i></td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -45,7 +49,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="copyright">
-                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="{{ route('welcome') }}">Cardio Bio Tech</a>.</p>
                         </div>
                     </div>
                 </div>

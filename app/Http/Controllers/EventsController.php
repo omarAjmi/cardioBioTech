@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\Slider;
+use App\Gallery;
+use App\Commitee;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -26,6 +28,7 @@ class EventsController extends Controller
             $event->end_date = new Carbon($event->end_date);
             $event->address = json_decode($event->address);
         }
+        
         return view('admin.events.events', [
             'events' => $events
         ]);
@@ -69,7 +72,9 @@ class EventsController extends Controller
                 'name'=> $event->uploadSlider($sliderFile, $key)
             ]);
         }
-        Session::flash('success', 'évènnement est créé');
+        Commitee::create(['event_id'=>$event->id]);
+        Gallery::create(['event_id'=>$event->id]);
+        Session::flash('success', 'événement est créé avec succès');
         return redirect(route('admin.events'));
     }
 

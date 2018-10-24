@@ -16,7 +16,7 @@
                             <a href="{{ route('admin.events') }}">Tous</a>
                         </li>
                         <li>
-                            <a href="{{ route('participation.postponed') }}">creer nouveau</a>
+                            <a href="{{ route('admin.newEvent') }}">creer nouveau</a>
                         </li>
                     </ul>
                 </li>
@@ -45,6 +45,18 @@
                         </li>
                         <li>
                             <a href="{{ route('galleries.new') }}">creer nouveau</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-sub">
+                    <a class="js-arrow" href="#">
+                        <i class="fas fa-handshake"></i>Commitées</a>
+                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <li>
+                            <a href="{{ route('commitees') }}">tous</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('commitees.new') }}">creer nouveau</a>
                         </li>
                     </ul>
                 </li>

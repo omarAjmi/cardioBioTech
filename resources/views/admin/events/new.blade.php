@@ -142,14 +142,21 @@
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary btn-sm">
-                                            <i class="zmdi zmdi-dot-circle-o"></i> Submit
+                                            <i class="zmdi zmdi-dot-circle-o"></i> Créer
                                         </button>
                                         <button type="reset" class="btn btn-danger btn-sm">
-                                            <i class="zmdi zmdi-ban"></i> Reset
+                                            <i class="zmdi zmdi-ban"></i> Annuler
                                         </button>
                                     </div>
                                 </form>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="copyright">
+                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="{{ route('welcome') }}">Cardio Bio Tech</a>.</p>
                         </div>
                     </div>
                 </div>

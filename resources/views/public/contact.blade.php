@@ -8,7 +8,7 @@
                 <div class="col-12">
                     <div class="inner_cover_content">
                         <h3>
-                            Events
+                            Contactez nous
                         </h3>
                     </div>
                 </div>
@@ -16,7 +16,7 @@
     
             <div class="breadcrumbs">
                 <ul>
-                    <li><a href="{{ route('welcome') }}">Home</a> | </li>
+                    <li><a href="{{ route('welcome') }}">Acceuil</a> | </li>
                     <li><span>Contact</span></li>
                 </ul>
             </div>

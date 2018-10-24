@@ -19,7 +19,7 @@
                                                 {{ $date->toDayDateTimeString() }}
                                             @endif
                                         </p>
-                                        <a href="{{ route('participation',[$events->first()->id]) }}" class=" btn btn-primary btn-rounded">
+                                        <a href="{{ route('event',[$events->first()->id]) }}" class=" btn btn-primary btn-rounded">
                                             prendre part
                                         </a>
                                     </div>
@@ -120,20 +120,6 @@
                             <p>
                                 Natalie James
                                 + guests
-                            </p>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="col-6 col-md-3  ">
-                    <div class="icon_box_two">
-                        <i class="ion-ios-pricetag-outline"></i>
-                        <div class="content">
-                            <h5 class="box_title">
-                                tikets
-                            </h5>
-                            <p>
-                                $65 early bird
                             </p>
                         </div>
                     </div>
@@ -265,7 +251,7 @@
             </div>
         </div>
         <div class="row justify-content-center no-gutters">
-            @if($events->isNotEmpty())
+            @if($events->isNotEmpty() and !is_null($events->first()->commitee))
                 @foreach($events->first()->commitee->members as $member)
                     <div class="col-md-3 col-sm-6">
                         <div class="speaker_box">

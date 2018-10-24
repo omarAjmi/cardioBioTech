@@ -4,9 +4,9 @@
         <div class="section__content section__content--p30">
             <div class="container-fluid">
                 @if (Session::has('success'))
-                    <div class="sufee-alert alert with-close alert-primary alert-dismissible fade show">
-                        <span class="badge badge-pill badge-primary">Success</span>
-                        You successfully read this important alert.
+                    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+                        <span class="badge badge-pill badge-success">Succée</span>
+                        {{ Storage::get('success') }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -22,16 +22,16 @@
                                         <th>Date</th>
                                         <th>évènnement</th>
                                         <th>totale</th>
-                                        <th>Fichies</th>
+                                        <th>membres</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($galleries as $gallery)
+                                    @foreach ($commitees as $com)
                                         <tr>
-                                            <td>{{ $gallery->created_at->diffForHumans() }}</td>
-                                            <td>{{ $gallery->event->abbreviation }}</td>
-                                            <td>{{ $gallery->album->count() }} images</td>
-                                            <td class="process"><a href="{{ route('galleries.files', [$gallery->id]) }}">fichiers</a></td>
+                                            <td>{{ $com->created_at->diffForHumans() }}</td>
+                                            <td>{{ $com->event->abbreviation }}</td>
+                                            <td>{{ $com->members->count() }}</td>
+                                            <td><a href="{{ route('commitees.members', [$com->id]) }}">membres</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse flex-sm-row-reverse" id="headernav">
             <ul class=" nav navbar-nav menu">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('welcome') }}">Acceuil</a>
+                    <a class="nav-link active" href="{{ route('welcome') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route('welcome') }}#speakers">Comité</a>
@@ -19,9 +19,9 @@
                 <li class="nav-item">
                     <div class="dropdown">
                         @if ($events->isNotEmpty())
-                            <a class="nav-link " href="{{ route('event', [$events->first()->id]) }}     ">Événements</a>                            
+                            <a class="nav-link " href="{{ route('event', [$events->first()->id]) }}     ">Évènements</a>                            
                         @else
-                            <a class="nav-link " href="#">Événements</a>
+                            <a class="nav-link " href="#">Évènements</a>
                         @endif    
                         <div class="dropdown-content">
                             @foreach ($events as $event)
@@ -29,9 +29,6 @@
                             @endforeach
                         </div>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="news.html">News</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route('contact') }}">Contact</a>

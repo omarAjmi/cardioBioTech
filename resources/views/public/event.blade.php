@@ -62,16 +62,16 @@
             <!--Carousel Wrapper-->
             <div class="event_info">
                 <div class="event_title">
-                    {{ $event->address->state }}, {{ $event->address->city }} <br> {{ $event->address->street }}
+                    {{ $event->address->state }}, {{ $event->address->state }} <br> {{ $event->address->state }}
                 </div>
                 <div class="speakers">
                     <strong>Speakers</strong>
                     <span>
-                        @if (!empty($event->participations))
-                            @foreach ($event->participations as $p)
-                                {{ $p->participant->first_name.' '.$p->participant->last_name }} ,
-                            @endforeach
-                        @endif
+                        @foreach ($event->participations as $p)
+                            @if ($p->confirmation)
+                                <u>{{ $p->participant->getFullName() }}</u> ,
+                            @endif
+                        @endforeach
                     </span>
                 </div>
                 <div class="event_date">
@@ -85,8 +85,34 @@
                             {{ $p }}
                         </div>
                     @endforeach
+                    <div class="col-md-6 col-12"></div>
                 </div>
             </div>
+            @if ($event->start_date > now())
+                <div class="row justify-content-center mt100">
+                    <div class="col-md-6 col-12">
+                        <div class="contact_info">
+                            <h5>
+                                Participation
+                            </h5>
+                            <p>
+                                pour la participation, merci de télécharger <a href="{{ route('admin.downloadFileEvent', ['id'=>$event->id,'filename'=>$event->program_file]) }}"><b><u>cette fichier</u></b></a> formelle, de lui fournir les données nécessaires puis de le renvoyer à l’aide de ce formulaire.
+                            </p>
+                            <div class="col-md-6 col-12">
+                                <form class="contact_form" method="POST" action="{{ route('events.participate', [$event->id]) }}" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group">
+                                        <input class="btn btn-rounded btn-primary" name="participation" type="file" class="form-control" placeholder="Format De Participation">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-rounded btn-success" type="submit">Déposer</button>
+                                    </div>
+                                </form> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </section>
     <!--event section end -->
