@@ -14,10 +14,10 @@
 
 </head>
 <body>
-    <!-- <div class="loader">
-        <div class="loader-outter"></div>
-        <div class="loader-inner"></div>
-    </div> -->
+    {{--<div class="loader">--}}
+        {{--<div class="loader-outter"></div>--}}
+        {{--<div class="loader-inner"></div>--}}
+    {{--</div>--}}
     @include('public.partials.header')
     @yield('content')
     @include('public.partials.footer')
@@ -25,7 +25,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" style="text-align: center">Welcome</h4>
+                    <h4 class="modal-title" style="text-align: center">Bienvenue</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
                 </div>
@@ -40,11 +40,11 @@
                                 <form class="login100-form validate-form" id="login_form" action="{{ route('login') }}" method="POST">
                                     @csrf
                                     <span class="login100-form-title">
-                                        Member Login
+                                        Se Connecter
                                     </span>
 
                                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                                        <input class="input100" type="email" name="email" placeholder="Email">
+                                        <input class="input100 {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" placeholder="Email" value="{{ old('email') }}">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -92,7 +92,7 @@
                                     </span>
 
                                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                                        <input class="input100" type="email" name="email" placeholder="Email">
+                                        <input class="input100" type="email" name="email" placeholder="Email"  value="{{ old('email') }}" >
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -102,7 +102,7 @@
 
 
                                     <div class="wrap-input100 validate-input" data-validate="First name is required">
-                                        <input class="input100" type="text" name="first_name" placeholder="first name">
+                                        <input class="input100" type="text" name="first_name" placeholder="first name" value="{{ old('first_name') }}">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-user" aria-hidden="true"></i>
@@ -110,7 +110,7 @@
                                     </div>
 
                                     <div class="wrap-input100 validate-input" data-validate="Last name is required">
-                                        <input class="input100" type="text" name="last_name" placeholder="first name">
+                                        <input class="input100" type="text" name="last_name" placeholder="first name" value="{{ old('last_name') }}">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-user" aria-hidden="true"></i>

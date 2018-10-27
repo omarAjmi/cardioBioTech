@@ -38,7 +38,7 @@
                 </li>
                 <li class="has-sub">
                     <a class="js-arrow" href="#">
-                        <i class="fas fa-handshake"></i>Galleries</a>
+                        <i class="fas fa-picture-o"></i>Galleries</a>
                     <ul class="list-unstyled navbar__sub-list js-sub-list">
                         <li>
                             <a href="{{ route('galleries') }}">tous</a>
@@ -50,7 +50,7 @@
                 </li>
                 <li class="has-sub">
                     <a class="js-arrow" href="#">
-                        <i class="fas fa-handshake"></i>Commitées</a>
+                        <i class="fas fa-users"></i>Commitées</a>
                     <ul class="list-unstyled navbar__sub-list js-sub-list">
                         <li>
                             <a href="{{ route('commitees') }}">tous</a>

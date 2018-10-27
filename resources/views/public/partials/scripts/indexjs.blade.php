@@ -61,14 +61,27 @@ $(".countdown")
         $("#register-pic").hide();
     });
 
-@if(Session::has('auth'))
-    $('document').ready(function () {
-        $('#myModal').modal('show');
-    })
-@endif
-@if(Session::has('outdated'))
-    $('document').ready(function () {
-        $('#outDatedModal').modal('show');
-    })
-@endif
+    @if(Session::has('outdated'))
+        $('document').ready(function () {
+            $('#outDatedModal').modal('show');
+        })
+    @endif
+
+    @if(Session::has('registerfail'))
+        $('document').ready(function () {
+            $('#myModal').modal('show');
+            $("#register_form").show();
+            $("#login_form").hide();
+            $("#log-pic").hide();
+            $("#register-pic").show();
+        })
+    @elseif($errors->count() > 0)
+        $('document').ready(function () {
+            $('#myModal').modal('show');
+            $("#register_form").hide();
+            $("#login_form").show();
+            $("#log-pic").show();
+            $("#register-pic").hide();
+        })
+    @endif
 </script>

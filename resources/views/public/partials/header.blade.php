@@ -19,7 +19,7 @@
                 <li class="nav-item">
                     <div class="dropdown">
                         @if ($events->isNotEmpty())
-                            <a class="nav-link " href="{{ route('event', [$events->first()->id]) }}     ">Évènements</a>                            
+                            <a class="nav-link " href="{{ route('event', [$events->first()->id]) }} ">Évènements</a>
                         @else
                             <a class="nav-link " href="#">Évènements</a>
                         @endif    
@@ -36,7 +36,9 @@
                 @if (Auth::check())
                     <li class="nav-item">
                         <div class="dropdown">
-                            <a class="nav-link " href="events.html"><b>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</b></a>
+                            <a class="nav-link " href="events.html"><b>{{ Auth::user()->getFullName() }}</b>
+                                <img src="/storage/users/avatars/{{ Auth::user()->photo }}" alt=" logo" style="height: 30px;width: 30px;border-radius: 50%;">
+                            </a>
                             <div class="dropdown-content">
                                 <a href="{{ route('profile') }}">profile</a>
                                 @if (Auth::user()->admin)
