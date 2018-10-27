@@ -54,8 +54,10 @@ class CommiteesController extends Controller
         return back();
     }
 
-    public function members()
+    public function members(int $id)
     {
-
+        return view('admin.commitees.members', [
+            'commitee' => Commitee::findOrFail($id)
+        ]);
     }
 }
