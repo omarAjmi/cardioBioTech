@@ -15,7 +15,7 @@ class PublicController extends Controller
      */
     public function welcome()
     {
-        return view('welcome');
+        return view('public.welcome');
     }
 
     public function event(int $id)

@@ -112,6 +112,20 @@
                                         </div>
                                     </div>
                                     <div class="row form-group">
+                                        <div class="col col-md-4">
+                                            <label for="final_date" class=" form-control-label"> Date finale des propositions</label>
+                                        </div>
+                                        <div class="col-4 input-group date" id="datetimepicker1">
+                                            <input name="final_date" type='text' class="form-control" value="{{ old('final_date') }}"/>
+                                            <span class="input-group-addon">
+                                                <span class="fas fa-calendar-alt"></span>
+                                            </span>
+                                        </div>
+                                        @if ($errors->has('final_date'))
+                                            <small class="form-text status--denied">{{ $errors->first('final_date') }}</small>
+                                        @endif
+                                    </div>
+                                    <div class="row form-group">
                                         <div class="col col-md-1">
                                             <label for="start_date" class=" form-control-label"> De</label>
                                         </div>

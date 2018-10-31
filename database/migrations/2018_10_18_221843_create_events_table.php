@@ -20,6 +20,7 @@ class CreateEventsTable extends Migration
             $table->text('about');
             $table->timestamp('start_date')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('end_date')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('dead_line')->nullable();
             $table->string('address');
             $table->string('storage');
             $table->string('program_file');
