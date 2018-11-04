@@ -10,29 +10,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ParticipationRequest;
 
 class ParticipationsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth'])->except(['participation']);
-    }
-    
-    public function participation(int $id)
-    {
-        $event = Event::with('participants')->findOrFail($id);
-        if ($event->start_date < now()) {
-            Session::flash('outdated', 'cet événement est obsolète');
-            return back();
-        }
-        $event->start_date = new Carbon($event->start_date);
-        $event->end_date = new Carbon($event->end_date);
-        $event->end_date = new Carbon($event->end_date);
-        $event->address = json_decode($event->address);
-        return view('public.participate', [
-            'event' => $event
-        ]);
+        $this->middleware(['auth']);
     }
 
     public function confirmedParticipants()
@@ -47,8 +32,15 @@ class ParticipationsController extends Controller
         return view('admin.participations', ['participations' => $participations]);
     }
 
-    public function participate(ParticipationRequest $request, int $id)
+    public function participate(Request $request, int $id)
     {
+        $validation = new ParticipationRequest();
+        $validator = Validator::make($request->toArray(), $validation->rules());
+        if ($validator->fails()) {
+            Session::flash('partFail');
+            $validator->errors()->add('participation', 'Champs requis');
+            return back();
+        }
         $event = Event::findOrFail($id);
         $user = Auth::user();
         $fileName = $event->abbreviation.'_'.$user->first_name.'_'.$user->last_name;
@@ -63,7 +55,7 @@ class ParticipationsController extends Controller
             'participation_id' => $participation->id,
             'context' => $user->first_name.' '.$user->last_name.' a demandé une participation à l\'événement à venir'
         ]);
-        Session::flash('success', 'Votre demande a été déposer');
+        Session::flash('partSuccess', 'Votre demande a été déposer');
         return back();
     }
 

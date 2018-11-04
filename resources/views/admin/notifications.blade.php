@@ -12,19 +12,23 @@
                         </button>
                     </div>
                 @endif
+                 @if ($notifications->isEmpty())
+                            <div class="alert alert-info"> <strong>Info!</strong> pas de notification</div>
+                        @else
                 <div class="">
                     <div class="col-md-12">
                         <!-- DATA TABLE -->
-                        <div class="table-responsive m-b-40">
-                            <table class="table table-borderless table-data3">
-                                <thead>
-                                    <tr>
+                        <div class="table-responsive table-responsive-data2 card">
+                            <table class="table table-data2">
+                                <thead class="card-header">
+                                    
                                         <th>Date</th>
                                         <th>Participant</th>
                                         <th>Notification</th>
                                         <th>Fichier</th>
                                         <th>Status</th>
-                                    </tr>
+                                        <th>Action</th>
+                                    
                                 </thead>
                                 <tbody>
                                     @foreach ($notifications as $notif)
@@ -34,10 +38,33 @@
                                             <td>{{ $notif->context }}</td>
                                             <td class="process"><a href="{{ route('participation.download', [$notif->participation->id]) }}" target="_blank">{{ $notif->participation->file }}</a></td>
                                             @if ($notif->seen)
-                                                <td><i class="fa fa-eye"></i></td>
+                                                <td><i class="fa fa-eye"></i>&nbsp;
+
+                                              </td>
+
                                             @else
                                                 <td><i class="fa fa-eye-slash"></i></td>
                                             @endif
+                                            <td>
+                                                @if ($notif->seen)
+                                               
+                                                    <button class="item"  style="border-radius: 50%;background: #cecece;width: 30px;height: 30px"
+                                                    disabled >
+                                                      <i class="zmdi zmdi-eye"></i>
+
+                                                    </button>
+                                               
+                                                @else
+                                                    <form action="{{ route('notif.makeSeen', $notif->id) }}" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="_method" value="PUT">
+                                                        <button class="item"  style="border-radius: 50%;background: #E5E5E5;width: 30px;height: 30px" >
+                                                        <i class="zmdi zmdi-eye"></i>
+                                                        </button>
+                                                    </form>
+                                               
+                                            @endif
+                                        </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -45,14 +72,8 @@
                         </div>
                     </div>
                 </div>
-    
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="copyright">
-                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="{{ route('welcome') }}">Cardio Bio Tech</a>.</p>
-                        </div>
-                    </div>
-                </div>
+                @endif
+               
             </div>
         </div>
     </div> 

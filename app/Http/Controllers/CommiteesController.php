@@ -28,19 +28,14 @@ class CommiteesController extends Controller
         ]);
     }
 
-    public function findMembers(string $request)
+    public function removeMember(int $commitee_id, int $member_id)
     {
-        $results = collect();
-        $members = User::where('first_name', 'like', '%'.$request.'%');
-        foreach ($members as $member) {
-            $results->put(collect([
-                'label' => '<label class="" for="member">'.$member->getFullName().'</label>',
-                'field'=> '<input type="radio" value ="'.$member->id.'" name="member"/>'
-            ]));
-        }
-        dd(response()->json($results, 200));
-    }
-    
+        $commitee = Commitee::findOrFail($commitee_id);
+        $member = $commitee->members->where('user_id', $member_id)->first();
+        $member->where('user_id', $member_id)->where('commitee_id', $commitee_id)->delete();
+        Session::flash('success', 'Membre supprimé avec succès');
+        return back();
+    }    
 
     public function create(CommiteesRequest $request)
     {

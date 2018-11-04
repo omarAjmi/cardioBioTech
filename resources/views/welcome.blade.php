@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
 
     <link href="/css/owl.carousel.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/admin_site/css/theme.css">
+
     <link rel="stylesheet" type="text/css" href="/css/hamburgers.min.css">
     <link rel="stylesheet" href="/css/flaticon.css">
     <link rel="stylesheet" href="/css/icomoon.css">
@@ -25,178 +25,74 @@
     <link rel="stylesheet" href="/css/main.css">
   </head>
   <body>
-<header class="header navbar fixed-top navbar-expand-md" >
-    <div class="container">
-        <a class="navbar-brand logo" href="{{ route('welcome') }}">
-            <img src="/img/logo.png" alt="Evento" />
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headernav" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="lnr lnr-text-align-right"></span>
-        </button>
-        <div class="collapse navbar-collapse flex-sm-row-reverse" id="headernav">
-            <ul class=" nav navbar-nav menu">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('welcome') }}">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route('welcome') }}#speakers">Comité</a>
-                </li>
-                <li class="nav-item">
-                    <div class="dropdown">
-                        @if ($events->isNotEmpty())
-                            <a class="nav-link " href="{{ route('wel')}} ">Évènements</a>
-                        @else
-                            <a class="nav-link " href="#">Évènements</a>
-                        @endif    
-                        <div class="dropdown-content">
-                            @foreach ($events as $event)
-                                <a href="{{ route('event', [$event->id]) }}">{{ $event->abbreviation }}</a>
-                            @endforeach
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route('contact') }}">Contact</a>
-                </li>
-                @if(!Auth::user())
-                <li class="nav-item">
-                   <a class="nav-link " href="#" data-toggle="modal" data-target="#myModal">Login</a>
-                </li>
-                @elseif(Auth::user()->admin)
-                <li class="nav-item">
-                    
-                        <div class="account-item clearfix js-item-menu">
-                            @if(Auth::user()->photo == "default.png")
-                          
-                             <div class="header-button">
-                                
 
-                            <div class="content" style="margin-top: 10%">
-                                  <div class="image">
-                                <img src="/storage/default_wlc.png" alt="avatar" style="width: 70%;height: 70%" />
-                            
-                        </div></div>
-                            @else
-                            <div class="image">
-                                <img src="/storage/usersavatars/{{ Auth::user()->photo }}" alt="avatar" />
-                            </div>
-                            @endif
-                                <a class="dropdown-toggle" style="color: white;">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
-                               
-                            </div>
-                            <div class="account-dropdown js-dropdown">
-                                <div class="info clearfix">
-                                    @if(Auth::user()->photo=="default.png")
-                                    <div class="image">
-
-                                        <a href="#">
-                                            <img src="/storage/default.png" alt="avatar" />
-                                        </a>
-                                    </div>
-                                    @else
-                                     <div class="image">
-
-                                        <a href="#">
-                                            <img src="/storage/usersavatars/{{ Auth::user()->photo }}" alt="avatar" />
-                                        </a>
-                                    </div>
-                                    @endif
-                                    <div class="content">
-                                        <h5 class="name">
-                                            <a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
-                                        </h5>
-                                        <span class="email">{{ Auth::user()->email }}</span>
-                                    </div>
-                                </div>
-                                <div class="account-dropdown__body">
-                                    <div class="account-dropdown__item">
-                                        <a href="{{ route('admin') }}">
-                                            <i class="zmdi zmdi-account"></i>Admin</a>
-                                    </div>
-                                </div>
-                                <div class="account-dropdown__body">
-                                    <div class="account-dropdown__item">
-                                        <a href="{{ route('profile') }}">
-                                            <i class="zmdi zmdi-account"></i>Profile</a>
-                                    </div>
-                                </div>
-                                <div class="account-dropdown__footer">
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+  <!--header start here -->
+  <header class="header navbar fixed-top navbar-expand-md">
+      <div class="container">
+          <a class="navbar-brand logo" href="{{ route('welcome') }}">
+              <img src="/img/logo-white.png" alt="Cardio" />
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headernav" aria-expanded="false"
+                  aria-label="Toggle navigation">
+              <span class="lnr lnr-text-align-right"></span>
+          </button>
+          <div class="collapse navbar-collapse flex-sm-row-reverse" id="headernav">
+              <ul class=" nav navbar-nav menu">
+                  <li class="nav-item">
+                      <a class="nav-link active" href="{{ route('welcome') }}">Accueil</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link " href="{{ route('current') }}">Nouveautés</a>
+                  </li>
+                  <li class="nav-item">
+                      <div class="dropdown">
+                          @if ($events->isNotEmpty())
+                              <a class="nav-link " href="{{ route('event', [$events->first()->id]) }} ">Évènements</a>
+                          @else
+                              <a class="nav-link " href="#">Évènements</a>
+                          @endif
+                          <div class="dropdown-content">
+                              @foreach ($events as $event)
+                                  <a href="{{ route('event', [$event->id]) }}">{{ $event->abbreviation }}</a>
+                              @endforeach
+                          </div>
+                      </div>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link " href="{{ route('contact') }}">Contact</a>
+                  </li>
+                  @if (Auth::check())
+                      <li class="nav-item">
+                          <div class="dropdown">
+                              <a class="nav-link " href="events.html"><b>{{ Auth::user()->getFullName() }}</b>
+                                  <img src="/storage{{ Auth::user()->photo }}" alt=" logo" style="height: 30px;width: 30px;border-radius: 50%;">
+                              </a>
+                              <div class="dropdown-content">
+                                  <a href="{{ route('profile', Auth::id()) }}">profile</a>
+                                  @if (Auth::user()->admin)
+                                      <a href="{{ route('admin') }}">Site Admin</a>
+                                  @endif
+                                  <a href="{{ route('logout') }}"
+                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
-                                        <i class="zmdi zmdi-power"></i>Logout</a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-               
-              </li>
-                @else
-                       <div class="account-item clearfix js-item-menu" style="padding-top: 2%">
-                            @if(Auth::user()->photo == "default.png")
-                            <div class="image">
-                                <img src="/storage/default.png" />
-                            </div>
-                            @else
-                            <div class="image">
-                                <img src="/storage/usersavatars/{{ Auth::user()->photo }}" />
-                            </div>
-                            @endif
-                            <div class="content">
-                                <h5 class="name">
-                                <a class="dropdown-toggle" href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
-                                </h5>
-                            </div>
-                            <div class="account-dropdown js-dropdown">
-                                <div class="info clearfix">
-                                    @if(Auth::user()->photo=="default.png")
-                                    <div class="image">
+                                      Se Déconnecter
+                                  </a>
+                                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                      @csrf
+                                  </form>
+                              </div>
+                          </div>
+                      </li>
+                  @else
+                      <li class="nav-item">
+                          <a class="nav-link " href="#" data-toggle="modal" data-target="#myModal">Se connecter</a>
+                      </li>
+                  @endif
+              </ul>
+          </div>
+      </div>
+  </header>
 
-                                        <a href="#">
-                                            <img src="/storage/default.png" alt="avatar" />
-                                        </a>
-                                    </div>
-                                    @else
-                                     <div class="image">
-
-                                       
-                                            <img src="/storage/usersavatars/{{ Auth::user()->photo }}" alt="avatar" />
-                                       
-                                    </div>
-                                    @endif
-                                    <div class="content">
-                                        <h5 class="name">
-                                            <a href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
-                                        </h5>
-                                        <span class="email">{{ Auth::user()->email }}</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="account-dropdown__body">
-                                    <div class="account-dropdown__item">
-                                        <a href="{{ route('profile') }}">
-                                            <i class="zmdi zmdi-account"></i>Profile</a>
-                                    </div>
-                                </div>
-                                <div class="account-dropdown__footer">
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                        <i class="zmdi zmdi-power"></i>Logout</a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                </div>
-                            </div>
-                        </div>
-                @endif
-            </ul>
-        </div>
-    </div>
-</header>
 <!--header end here-->
 
 <!--cover section slider -->
@@ -464,7 +360,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-10">
-                <h4 class="mb30 text-center color-light">Counter until the big event</h4>
+                <h4 class="mb30 text-center color-light">Compteur jusqu'au grand événement</h4>
                 <div class="countdown"></div>
             </div>
         </div>
@@ -478,7 +374,7 @@
             <div class="col-md-6 col-12">
                 <p>
                     Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> All rights reserved | Cardio Bio Tech
+                    <script>document.write(new Date().getFullYear());</script> Tous droits reservés | Cardio Bio Tech
                 </p>
             </div>
             <div class="col-12 col-md-6 ">
@@ -497,10 +393,10 @@
                         @endif
                     </li>
                     <li>
-                        <a href="#">News</a>
+                        <a href="{{ route('current') }}">Nouveatés</a>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                        <a href="{{ route('contact') }}">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -803,5 +699,20 @@
 
 <!-- Main JS-->
 <script src="/admin_site/js/main.js"></script>
+<script>
+@if($events->isNotEmpty())
+    var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!} {!! $events->first()->start_date->toTimeString() !!}@endif"
+@endif	
+ $('.counter').counterUp({
+        delay: 5,
+        time: 3000
+    });
+$(".countdown")
+        .countdown(startDate, function(event) {
+            $(this).html(
+                event.strftime('<div>%w <span>Semaines</span></div>  <div>%D <span>Jours</span></div>  <div>%H<span>Heures</span></div> <div>%M<span>Minutes</span></div> <div>%S<span>Secondes</span></div>')
+            );
+        });
+</script>
   </body>
 </html>

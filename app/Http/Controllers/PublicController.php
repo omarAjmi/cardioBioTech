@@ -15,8 +15,24 @@ class PublicController extends Controller
      */
     public function welcome()
     {
-        return view('public.welcome');
+        $events = Event::all();
+        return view('welcome', ['events'=> $events]);
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function currentEvent()
+    {
+        $events = Event::all();
+        $events->first()->start_date = new Carbon($events->first()->start_date);
+        $events->first()->end_date = new Carbon($events->first()->end_date);
+        $events->first()->address = json_decode($events->first()->address);
+        return view('public.news', ['events'=> $events]);
+    }
+
 
     public function event(int $id)
     {

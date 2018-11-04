@@ -17,6 +17,6 @@ class Member extends Model
 
     public function commitee()
     {
-        return $this->belongsTo(Commetee::class, 'commitee_id', 'id');
+        return $this->belongsTo(Commitee::class, 'commitee_id', 'id');
     }
 }

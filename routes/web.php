@@ -15,12 +15,19 @@ Auth::routes();
 
 Route::group([], function(){
     Route::get('/', ['as' => 'welcome','uses' => 'PublicController@welcome']);
+
+    Route::get('/current', ['as' => 'current','uses' => 'PublicController@currentEvent']);
+
     Route::get('/event/{id}', ['as'=>'event', 'uses'=>'PublicController@event']);
+
     Route::get('/contact', ['as'=>'contact', 'uses'=>'PublicController@contact']);
 
-    Route::get('/users/profile', ['as'=> 'profile', 'uses'=>'UsersController@profile']);
+    Route::get('/users/{id}', ['as'=> 'profile', 'uses'=>'UsersController@profile']);
+
     Route::put('/users/profile/update', ['as'=> 'profile.update', 'uses'=>'UsersController@update']);
+
     Route::put('/users/profile/update_avatar', ['as'=> 'profile.updateAvatar', 'uses'=>'UsersController@updateAvatar']);
+
     Route::post('/users/event/{id}/participation', ['as'=> 'events.participate', 'uses'=>'ParticipationsController@participate']);
 });
 
@@ -34,7 +41,7 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
 
     Route::post('/events/create', ['as' => 'admin.createEvent','uses' => 'EventsController@create']);
 
-    Route::get('/notifications/{id}/seen', ['as' => 'notif.seen','uses' => 'NotificationsController@seenNotif']);
+    Route::put('/notifications/{id}', ['as' => 'notif.makeSeen','uses' => 'NotificationsController@markSeenNotif']);
 
     Route::get('/notifications', ['as' => 'notifs','uses' => 'NotificationsController@notifications']);
 
@@ -46,7 +53,7 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
 
     Route::get('/participations/{id}/confirm', ['as' => 'participation.confirm','uses' => 'ParticipationsController@confirm']);
 
-    Route::get('/participations/{id}/refuse', ['as' => 'participation.refuse','uses' => 'ParticipationsController@refuse']);
+    Route::delete('/participations/{id}/refuse', ['as' => 'participation.refuse','uses' => 'ParticipationsController@refuse']);
 
     Route::delete('/events/{id}', ['as' => 'admin.deleteEvent','uses' => 'EventsController@delete']);
 
@@ -62,12 +69,14 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
 
     Route::get('/galleries/{id}', ['as' => 'galleries.files', 'uses' => 'GalleriesController@preview']);
 
-    Route::get('/commitees/', ['as' => 'commitees', 'uses' => 'CommiteesController@commitees']);
+    Route::get('/commitees', ['as' => 'commitees', 'uses' => 'CommiteesController@commitees']);
 
     Route::get('/commitees/{id}/members', ['as' => 'commitees.members', 'uses' => 'CommiteesController@members']);
 
     Route::post('/commitees/create', ['as' => 'commitees.addMember', 'uses' => 'CommiteesController@create']);
 
     Route::get('/commitees/add_member', ['as' => 'commitees.new', 'uses' => 'CommiteesController@addMember']);
+
+    Route::delete('/commitees/{commitee_id}/remove_member/{member_id}', ['as' => 'commitees.removeMember', 'uses' => 'CommiteesController@removeMember']);
 
 });

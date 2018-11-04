@@ -5,7 +5,7 @@
         @if($events->isNotEmpty())
             <div class="cover_slider owl-carousel owl-theme">
                 @foreach ($events->first()->sliders as $slider)
-                    <div class="cover_item" style="background: url('/storage/events/{{ $events->first()->abbreviation }}/sliders/{{ $slider->name }}');">
+                    <div class="cover_item" style="background: url('/storage{{ $slider->name }}');">
                         <div class="slider_content">
                             <div class="slider-content-inner">
                                 <div class="container">
@@ -39,7 +39,7 @@
             </div>
         @else
             <div class="cover_slider owl-carousel owl-theme">
-                <div class="cover_item" style="background: url('img/bg/background01.jpg');">
+                <div class="cover_item" style="background: url('/img/bg/background01.jpg');">
                     <div class="slider_content">
                         <div class="slider-content-inner">
                             <div class="container">
@@ -131,12 +131,12 @@
     
     
     <!--event countdown -->
-    <section class="bg-img pt70 pb70" style="background-image: url('img/bg/bg-img.png');">
+    <section class="bg-img pt70 pb70" style="background-image: url('img/bg/img.png');">
         <div class="overlay_dark"></div>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10">
-                    <h4 class="mb30 text-center color-light">Conteur jusqu'au grand événement</h4>
+                    <h4 class="mb30 text-center color-light">Compteur jusqu'au grand événement</h4>
                     <div class="countdown"></div>
         </div>
     </section>
@@ -201,7 +201,7 @@
                     <div class="col-md-3 col-sm-6">
                         <div class="speaker_box">
                             <div class="speaker_img">
-                                <img src="/storage/users/avatars/{{ $member->data->photo }}" alt="speaker name">
+                                <img src="/storage{{ $member->data->photo }}" alt="speaker name">
                                 <div class="info_box">
                                     <h5 class="name">{{ $member->data->getFullName() }}</h5>
                                     {{-- <p class="position">CEO Company</p> --}}
@@ -214,98 +214,6 @@
         </div>
     </section>
     <!--speaker section end -->
-    
-    
-    <!--event calender-->
-    {{-- <section class="pb100">
-        <div class="container">
-            <div class="table-responsive">
-                <table class="event_calender table">
-                    <thead class="event_title">
-                        <tr>
-                            <th>
-                                <i class="ion-ios-calendar-outline"></i>
-                                <span>next events calendar</span>
-                            </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <img src="img/cleander/c1.png" alt="event">
-                            </td>
-                            <td class="event_date">
-                                14
-                                <span>February</span>
-                            </td>
-                            <td>
-                                <div class="event_place">
-                                    <h5>Conference in Amsterdam</h5>
-                                    <h6>08 AM - 04 PM</h6>
-                                    <p>Speaker: Daniel Hill</p>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-primary btn-rounded">Read More</a>
-                            </td>
-                            <td class="buy_link">
-                                <a href="#">buy now</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/cleander/c2.png" alt="event">
-                            </td>
-                            <td class="event_date">
-                                18
-                                <span>February</span>
-                            </td>
-                            <td>
-                                <div class="event_place">
-                                    <h5>Conference in Amsterdam</h5>
-                                    <h6>08 AM - 04 PM</h6>
-                                    <p>Speaker: Daniel Hill</p>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-primary btn-rounded">Read More</a>
-                            </td>
-                            <td class="buy_link">
-                                <a href="#">buy now</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/cleander/c3.png" alt="event">
-                            </td>
-                            <td class="event_date">
-                                22
-                                <span>February</span>
-                            </td>
-                            <td>
-                                <div class="event_place">
-                                    <h5>Conference in Amsterdam</h5>
-                                    <h6>08 AM - 04 PM</h6>
-                                    <p>Speaker: Daniel Hill</p>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-primary btn-rounded">Read More</a>
-                            </td>
-                            <td class="buy_link">
-                                <a href="#">buy now</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section> --}}
-    <!--event calender end -->
     
     <!--brands section -->
     <section class="bg-gray pt100 pb100">

@@ -14,7 +14,7 @@
                                     @csrf
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="title" class=" form-control-label"> Titre</label>
+                                           <label for="title" class=" form-control-label"> Titre</label>
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input id="title" name="title" placeholder="titre" class="form-control" type="text" value="{{ old('title') }}">
@@ -38,19 +38,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    {{-- <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label for="category" class=" form-control-label"> Catégorie</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <select name="category" id="category" class="form-control">
-                                                <option value="0">choisissez catégorie d'évènement</option>
-                                                <option value="1">Option #1</option>
-                                                <option value="2">Option #2</option>
-                                                <option value="3">Option #3</option>
-                                            </select>
-                                        </div>
-                                    </div> --}}
+                                    
                                     <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="program" class=" form-control-label">Fichier du programme</label>
@@ -71,7 +59,7 @@
                                             <label for="about   " class=" form-control-label">A propos</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <textarea name="about" id="about" rows="9" placeholder="introduction qui apparaîtra sur la page d'accueil publique..." class="form-control"></textarea>
+                                            <textarea name="about" id="about" rows="9" placeholder="introduction qui apparaîtra sur la page d'accueil publique..." class="form-control">{{ old('about') }}</textarea>
                                             @if ($errors->has('about'))
                                                 <small class="form-text status--denied">{{ $errors->first('about') }}</small>
                                             @else                                                
@@ -81,7 +69,7 @@
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="sliders" class=" form-control-label">Sélectionnez les curseurs d'événement</label>
+                                            <label for="sliders" class=" form-control-label">Sélectionnez les curseurs d'événement(images)</label>
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input id="sliders" name="sliders[]" multiple="" class="form-control-file"
@@ -92,19 +80,32 @@
                                         </div>
                                     </div>
                                     <div class="row form-group">
-                                        <div class="col-4">
+                                        <div class="col col-md-3">
+                                            <label for="sliders" class=" form-control-label">Gouvernerat :</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
                                             <input name="state" placeholder="Governorat" class="form-control" type="text" value="{{ old('state') }}">
                                              @if ($errors->has('state'))
                                                 <small class="form-text status--denied">{{ $errors->first('state') }}</small>
                                             @endif
                                         </div>
-                                        <div class="col-4">
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="sliders" class=" form-control-label">Ville :</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
                                             <input name="city" placeholder="Ville" class="form-control" type="text" value="{{ old('city') }}">
                                             @if ($errors->has('city'))
                                                 <small class="form-text status--denied">{{ $errors->first('city') }}</small>
                                             @endif
                                         </div>
-                                        <div class="col-4">
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="sliders" class=" form-control-label">Rue :</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
                                             <input name="street" placeholder="Rue" class="form-control" type="text" value="{{ old('street') }}">
                                             @if ($errors->has('street'))
                                                 <small class="form-text status--denied">{{ $errors->first('street') }}</small>
@@ -112,51 +113,61 @@
                                         </div>
                                     </div>
                                     <div class="row form-group">
-                                        <div class="col col-md-4">
-                                            <label for="final_date" class=" form-control-label"> Date finale des propositions</label>
+                                        <div class="col col-md-3">
+                                            <label for="dead_line" class=" form-control-label"> Date finale des <br> propositions</label>
                                         </div>
-                                        <div class="col-4 input-group date" id="datetimepicker1">
-                                            <input name="final_date" type='text' class="form-control" value="{{ old('final_date') }}"/>
+                                        <div class=" col-12 col-md-9 
+                                         " >
+                                           <div class="input-group " id="datetimepicker1">
+                                            <input name="dead_line" type='text' id="date" class="form-control" value="{{ old('dead_line') }}"/>
                                             <span class="input-group-addon">
                                                 <span class="fas fa-calendar-alt"></span>
                                             </span>
-                                        </div>
-                                        @if ($errors->has('final_date'))
-                                            <small class="form-text status--denied">{{ $errors->first('final_date') }}</small>
+                                            </div>
+                                             @if ($errors->has('dead_line'))
+                                            <small class="form-text status--denied">{{ $errors->first('dead_line') }}</small>
                                         @endif
+                                        </div>
+                                       
                                     </div>
                                     <div class="row form-group">
-                                        <div class="col col-md-1">
+                                        <div class="col-9 col-md-3">
                                             <label for="start_date" class=" form-control-label"> De</label>
                                         </div>
-                                        <div class="col-4 input-group date" id="datetimepicker1">
-                                            <input name="start_date" type='text' class="form-control" value="{{ old('start_date') }}"/>
+                                        <div class="col-9 col-md-4 "  >
+                                            <div class="input-group " id="datetimepicker2">
+                                            <input name="start_date" type='text' id="date" class="form-control" value="{{ old('start_date') }}"/>
                                             <span class="input-group-addon">
                                                 <span class="fas fa-calendar-alt"></span>
                                             </span>
-                                        </div>
-                                        @if ($errors->has('start_date'))
+                                            </div>
+                                             @if ($errors->has('start_date'))
                                             <small class="form-text status--denied">{{ $errors->first('start_date') }}</small>
                                         @endif
-                                        <div class="col-1">
-                                            
+                                        
                                         </div>
-                                        <div class="col col-md-1">
-                                            <label for="end_date" class=" form-control-label"> À</label>
+                                       
+                                        <div class="col">
+                                           <label>A</label> 
                                         </div>
-                                        <div class="col-4 input-group date" id="datetimepicker1">
-                                            <input name="end_date" type='text' class="form-control"value="{{ old('end_date') }}"/>
+                                        <div class="col-9 col-md-4">
+                                            <div class="input-group " id="datetimepicker3">
+                                            <input name="end_date" type='text' id="date" class="form-control"value="{{ old('end_date') }}"/>
                                             <span class="input-group-addon">
                                                 <span class="fas fa-calendar-alt"></span>
                                             </span>
-                                        </div>
-                                        @if ($errors->has('end_date'))
+                                            </div>
+                                             @if ($errors->has('end_date'))
                                             <small class="form-text status--denied">{{ $errors->first('end_date') }}</small>
                                         @endif
+                                        </div>
+                                       
                                     </div>
-                                    <div class="card-footer">
+                                    <br>
+                                    <hr>
+                                    <div class=" pull-right">
                                         <button type="submit" class="btn btn-primary btn-sm">
-                                            <i class="zmdi zmdi-dot-circle-o"></i> Créer
+                                            <i class="zmdi zmdi-dot-circle-o"></i> Créer un evenement
                                         </button>
                                         <button type="reset" class="btn btn-danger btn-sm">
                                             <i class="zmdi zmdi-ban"></i> Annuler

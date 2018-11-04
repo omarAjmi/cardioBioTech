@@ -1,7 +1,7 @@
 @extends('layouts.public_layout')
 @section('content')
     <!--page title section-->
-    <section class="inner_cover parallax-window" data-parallax="scroll" data-image-src="/img/bg/bg-img.png">
+    <section class="inner_cover parallax-window" data-parallax="scroll" style="background-image: url(/img/bg/img.png)" >
         <div class="overlay_dark"></div>
         <div class="container">
             <div class="row justify-content-center align-items-center">
@@ -31,19 +31,20 @@
             <div class="row">
                 <!-- galery owl -->
                 <div id="galery-owl" class="owl-carousel owl-theme">
-                    @if (!is_null($event->gallery))
+                    @if ($event->gallery->album->isNotEmpty())
                         @foreach ($event->gallery->album as $slider)
                             <!-- galery item -->
                             <div class="galery-item">
-                                <img src="/storage{{ $slider->path }}" alt="">
+                                <img src="/storage{{ $slider->path }}" >
                             </div>
                             <!-- /galery item -->
                         @endforeach
                     @else
+
                         @foreach ($event->sliders as $slider)
                             <!-- galery item -->
-                            <div class="galery-item">
-                                <img src="/storage{{ $event->storage.'sliders/'.$slider->name }}" alt="">
+                            <div class="galery-item" >
+                                <img src="/storage{{ $slider->name }}"  >
                             </div>
                             <!-- /galery item -->
                         @endforeach
@@ -56,65 +57,152 @@
         </div>
         <!-- /container -->
     </div>
-    <!--events section -->
-    <section class="pt100 pb100">
+    <!--event info -->
+    <section class="pt100 ">
         <div class="container">
-            <!--Carousel Wrapper-->
-            <div class="event_info">
-                <div class="event_title">
-                    {{ $event->address->state }}, {{ $event->address->state }} <br> {{ $event->address->state }}
+            <h1 style="text-align: center;color: #005792">@if (!is_null($events->first())){{ $events->first()->title }}@endif</h1>
+            <div class="row justify-content-center">
+                <div class="col-6 col-md-3  ">
+                    <div class="icon_box_two">
+                        <i class="ion-ios-calendar-outline"></i>
+                        <div class="content">
+                            <h5 class="box_title">
+                                DATE
+                            </h5>
+                            <p>
+                                @if (!is_null($events->first())){{ $events->first()->start_date->formatLocalized('%A %d %B %Y') }} <br>
+                                    @if ($events->first()->start_date->diffInDays($events->first()->end_date) > 0)
+                                        ({{ $events->first()->start_date->diffInDays($events->first()->end_date) }}) jours
+                                    @endif
+                                @endif
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="speakers">
-                    <strong>Speakers</strong>
-                    <span>
-                        @foreach ($event->participations as $p)
-                            @if ($p->confirmation)
-                                <u>{{ $p->participant->getFullName() }}</u> ,
-                            @endif
-                        @endforeach
-                    </span>
+    
+                <div class="col-6 col-md-3  ">
+                    <div class="icon_box_two">
+                        <i class="ion-ios-location-outline"></i>
+                        <div class="content">
+                            <h5 class="box_title">
+                                locale
+                            </h5>
+                            <p>
+                                @if (!is_null($events->first())){{ $events->first()->address->state }}@endif, 
+                                @if (!is_null($events->first())){{ $events->first()->address->city }}@endif <br>
+                                @if (!is_null($events->first())){{ $events->first()->address->street }}@endif
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="event_date">
-                    {{ $event->start_date->toDayDateTimeString() }}
+    
+                <div class="col-6 col-md-3  ">
+                    <div class="icon_box_two">
+                        <i class="ion-ios-person-outline"></i>
+                        <div class="content">
+                            <h5 class="box_title">
+                                speekers
+                            </h5>
+                            <p>
+                             
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="event_word">
+        </div>
+    </section>
+    <!--events section -->
+
+          
+    <section class="pt100 pb100">
+        <div class="container">
+            <div class="section_title">
+                <h3 class="title">
+                    À propos
+                </h3>
+            </div>
+            <div >
                 <div class="row justify-content-center">
                     @foreach ($event->breakLongAbout() as $p)
                         <div class="col-md-6 col-12">
                             {{ $p }}
                         </div>
                     @endforeach
-                    <div class="col-md-6 col-12"></div>
+                    
                 </div>
             </div>
+        </div>
+    </section>
             @if ($event->start_date > now())
-                <div class="row justify-content-center mt100">
-                    <div class="col-md-6 col-12">
-                        <div class="contact_info">
-                            <h5>
-                                Participation
-                            </h5>
+             <div class="container">
+            <div class="section_title">
+                <h3 class="title">
+                   Participation
+                </h3>
+            </div>      
+             <div >
+                <div class="row justify-content-center">      
+                            <div class="col-md-6 col-12">
                             <p>
                                 pour la participation, merci de télécharger <a href="{{ route('admin.downloadFileEvent', ['id'=>$event->id,'filename'=>$event->program_file]) }}"><b><u>cette fichier</u></b></a> formelle, de lui fournir les données nécessaires puis de le renvoyer à l’aide de ce formulaire.
                             </p>
+                            </div>
                             <div class="col-md-6 col-12">
                                 <form class="contact_form" method="POST" action="{{ route('events.participate', [$event->id]) }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
-                                        <input class="btn btn-rounded btn-primary" name="participation" type="file" class="form-control" placeholder="Format De Participation">
+                                        <input class="btn btn-rounded btn-success" name="participation" type="file" class="form-control" placeholder="Format De Participation">
+                                   
+                                    
+                                        <button class="btn btn-rounded btn-primary " type="submit"><i class="fa fa-plus-circle"></i> Déposer</button>
                                     </div>
-                                    <div class="form-group">
-                                        <button class="btn btn-rounded btn-success" type="submit">Déposer</button>
-                                    </div>
+
                                 </form> 
                             </div>
                         </div>
                     </div>
                 </div>
             @endif
-        </div>
-    </section>
+        </div>   
     <!--event section end -->
-    @include('public.partials.subscribe')   
+
+    @if(Session::has('partSuccess'))
+        <div class="modal fade show" id="staticModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" data-backdrop="static" style="display: block; padding-left: 15px;">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticModalLabel">Succès</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            {{ Session::get('partSuccess') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @elseif(Session::has('partFail'))
+        <div class="modal fade show" id="staticModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" data-backdrop="static" style="display: block; padding-left: 15px;">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticModalLabel">Violation a eu lieu</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Fichier requis doit être de type pdf ou docx
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    {{-- @include('public.partials.subscribe')    --}}
 @endsection

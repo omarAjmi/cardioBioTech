@@ -1,9 +1,44 @@
 <!-- Jquery JS-->
-<script src="/admin_site/vendor/jquery-3.2.1.min.js"></script>
-<script src="/admin_site/vendor/momentjs/moment.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <!-- Bootstrap JS-->
 <script src="/admin_site/vendor/bootstrap-4.1/popper.min.js"></script>
-<script src="/admin_site/vendor/bootstrap-4.1/bootstrap.js"></script>
+{{-- <script src="/admin_site/vendor/bootstrap-4.1/bootstrap.js"></script> --}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.14.30/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript">
+	    jQuery(document).ready(function ($) {
+        console.log("hhh");
+$(function () {
+                $('#datetimepicker1').datetimepicker({
+                    defaultDate: new Date(),
+                    format: 'YYYY-MM-DD HH:mm:ss',
+
+                    sideBySide: true,
+
+                });
+                 $('#datetimepicker2').datetimepicker({
+                    defaultDate: new Date(),
+                    format: 'YYYY-MM-DD HH:mm:ss',
+
+                    sideBySide: true,
+
+                });
+                  $('#datetimepicker3').datetimepicker({
+                    defaultDate: new Date(),
+                    format: 'YYYY-MM-DD HH:mm:ss',
+
+                    sideBySide: true,
+
+                });
+                   
+            });
+           });
+         
+           
+</script>
 <!-- Vendor JS       -->
 <script src="/admin_site/vendor/slick/slick.min.js">
 </script>

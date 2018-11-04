@@ -3,7 +3,11 @@
     <div class="main-content">
         <div class="section__content section__content--p30">
             <div class="container-fluid">
-                <div class="row">                        
+                <div class="row">  
+
+                @if($gallery->album->isEmpty()) 
+                   <div class="alert alert-info"> <strong>Info!</strong> pas de photo dans la gallerie</div>
+                @else                   
                     @foreach ($gallery->album as $file)
                         <div class="col-md-4" style="display: inline-block;">
                             <div class="card">
@@ -14,6 +18,7 @@
                             </div>
                         </div>
                     @endforeach
+                    @endif
                 </div>
             </div>
         </div>

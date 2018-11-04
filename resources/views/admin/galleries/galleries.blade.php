@@ -12,17 +12,22 @@
                         </button>
                     </div>
                 @endif
-                <div class="">
-                    <div class="col-md-12">
-                        <!-- DATA TABLE -->
-                        <div class="table-responsive m-b-40">
-                            <table class="table table-borderless table-data3">
-                                <thead>
+                @if($galleries->isEmpty())
+                <div class="alert alert-info"> <strong>Info!</strong> pas de gallery</div>
+                @else
+                <div>
+                    
+                            <div class="table-responsive table-responsive-data2 ">
+                                
+                                <table class="table table-data2">
+                                    <div class="card">
+                                    <thead class="card-header">
                                     <tr>
                                         <th>Date</th>
                                         <th>évènnement</th>
                                         <th>totale</th>
                                         <th>Fichies</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -32,6 +37,23 @@
                                             <td>{{ $gallery->event->abbreviation }}</td>
                                             <td>{{ $gallery->album->count() }} images</td>
                                             <td class="process"><a href="{{ route('galleries.files', [$gallery->id]) }}">fichiers</a></td>
+                                             <td>
+                                                    <div class="table-data-feature">
+                                                    
+                                                        <a href="">
+                                                            <button class="item"  data-original-title="Edit">
+                                                                <i class="zmdi zmdi-edit"></i>
+                                                            </button>
+                                                        </a>&nbsp;
+                                                        <form action="" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <button type="submit" class="item"  data-original-title="Delete">
+                                                                <i class="zmdi zmdi-delete" style=""></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -39,14 +61,8 @@
                         </div>
                     </div>
                 </div>
-    
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="copyright">
-                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
-                        </div>
-                    </div>
-                </div>
+                @endif
+                
             </div>
         </div>
     </div> 

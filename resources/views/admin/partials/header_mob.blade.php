@@ -2,9 +2,10 @@
 <header class="header-mobile d-block d-lg-none">
     <div class="header-mobile__bar">
         <div class="container-fluid">
-            <div class="header-mobile-inner">
-                <a class="logo" href="index.html">
-                    <img src="/admin_site/images/icon/logo.png" alt="CoolAdmin" />
+            <div class="header-mobile-inner" style="background: white">
+                <a class="logo" href="{{ route('welcome') }}" class="pull-left">
+                    <h6 ><img src="/img/card_logo.png" style="width: 20%;height: 20%"  />Cardiobiotec
+                    </h6>
                 </a>
                 <button class="hamburger hamburger--slider" type="button">
                     <span class="hamburger-box">
@@ -19,96 +20,58 @@
             <ul class="navbar-mobile__list list-unstyled">
                 <li class="has-sub">
                     <a class="js-arrow" href="#">
-                        <i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                       <i class="fas fa-tachometer-alt"></i>Événements</a>
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                         <li>
-                            <a href="index.html">Dashboard 1</a>
+                            <a href="{{ route('admin.events') }}">Tous</a>
                         </li>
                         <li>
-                            <a href="index2.html">Dashboard 2</a>
-                        </li>
-                        <li>
-                            <a href="index3.html">Dashboard 3</a>
-                        </li>
-                        <li>
-                            <a href="index4.html">Dashboard 4</a>
+                            <a href="{{ route('admin.newEvent') }}">creer nouveau</a>
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="chart.html">
-                        <i class="fas fa-chart-bar"></i>Charts</a>
+                  <li>
+                    <a href="{{ route('notifs') }}">
+                        <i class="fas fa-bullhorn"></i>Notifications</a>
                 </li>
-                <li>
-                    <a href="table.html">
-                        <i class="fas fa-table"></i>Tables</a>
-                </li>
-                <li>
-                    <a href="form.html">
-                        <i class="far fa-check-square"></i>Forms</a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-calendar-alt"></i>Calendar</a>
-                </li>
-                <li>
-                    <a href="map.html">
-                        <i class="fas fa-map-marker-alt"></i>Maps</a>
-                </li>
-                <li class="has-sub">
+                 <li class="has-sub">
                     <a class="js-arrow" href="#">
-                        <i class="fas fa-copy"></i>Pages</a>
+                        <i class="fas fa-handshake"></i>Participations</a>
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                        <li>
-                            <a href="login.html">Login</a>
+                         <li>
+                            <a href="{{ route('participation.confirmed') }}">Confirmé</a>
                         </li>
                         <li>
-                            <a href="register.html">Register</a>
-                        </li>
-                        <li>
-                            <a href="forget-pass.html">Forget Password</a>
+                            <a href="{{ route('participation.postponed') }}">En attente</a>
                         </li>
                     </ul>
                 </li>
-                <li class="has-sub">
+                 <li class="has-sub">
                     <a class="js-arrow" href="#">
-                        <i class="fas fa-desktop"></i>UI Elements</a>
+                        <i class="fas fa-picture-o"></i>Galleries</a>
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                         <li>
-                            <a href="button.html">Button</a>
+                            <a href="{{ route('galleries') }}">tous</a>
                         </li>
                         <li>
-                            <a href="badge.html">Badges</a>
-                        </li>
-                        <li>
-                            <a href="tab.html">Tabs</a>
-                        </li>
-                        <li>
-                            <a href="card.html">Cards</a>
-                        </li>
-                        <li>
-                            <a href="alert.html">Alerts</a>
-                        </li>
-                        <li>
-                            <a href="progress-bar.html">Progress Bars</a>
-                        </li>
-                        <li>
-                            <a href="modal.html">Modals</a>
-                        </li>
-                        <li>
-                            <a href="switch.html">Switchs</a>
-                        </li>
-                        <li>
-                            <a href="grid.html">Grids</a>
-                        </li>
-                        <li>
-                            <a href="fontawesome.html">Fontawesome Icon</a>
-                        </li>
-                        <li>
-                            <a href="typo.html">Typography</a>
+                            <a href="{{ route('galleries.new') }}">creer nouveau</a>
                         </li>
                     </ul>
                 </li>
+                 <li class="has-sub">
+                    <a class="js-arrow" href="#">
+                                                <i class="fas fa-users"></i>Commitées</a>
+
+                    <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                        <li>
+                            <a href="{{ route('commitees') }}">tous</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('commitees.new') }}">creer nouveau</a>
+                        </li>
+                    </ul>
+                </li>
+                
             </ul>
         </div>
     </nav>

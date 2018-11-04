@@ -57,6 +57,7 @@ class EventsController extends Controller
         $event->abbreviation = $request->abbreviation;
         $event->about = $request->about;
         $event->start_date = $request->start_date;
+        $event->dead_line = $request->dead_line;
         $event->end_date = $request->end_date;
         $event->storage = env('EVENT_STORAGE_PATH').$request->abbreviation.'/';
         $event->program_file = $event->uploadProgramFile($request->file('program'), $event->abbreviation);
@@ -69,7 +70,7 @@ class EventsController extends Controller
         foreach ($request->file('sliders') as $key => $sliderFile) {
             Slider::create([
                 'event_id' => $event->id,
-                'name'=> $event->uploadSlider($sliderFile, $key)
+                'name'=> $event->storage.'sliders/'.$event->uploadSlider($sliderFile, $key)
             ]);
         }
         Commitee::create(['event_id'=>$event->id]);

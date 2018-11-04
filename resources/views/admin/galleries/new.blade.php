@@ -5,20 +5,23 @@
             <div class="container-fluid">
                 <div class="row">                    
                     <div class="col-lg-10">
+                         <h3 class="title-5 m-b-35">Gallery</h3>
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header ">
                                 <strong>Créer nouvel</strong> Gallerie
                             </div>
-                            <div class="card-body card-block">
-                                <form action="{{ route('galleries.create') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                             <form action="{{ route('galleries.create') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                     @csrf
+                            <div class="card-body card-block ">
+                               
                                     
-                                    <div class="row form-group">
+                                    <div class="row form-group" >
                                         <div class="col col-md-3">
-                                            <label for="event" class=" form-control-label"> Événnement</label>
+                                            
+                                             <label for="title" class=" form-control-label"> Événnement</label>
                                         </div>
-                                        <div class="col-12 col-md-9">
-                                            <select name="event" id="event" class="form-control">
+                                        <div class="col-12 col-md-9" >
+                                            <select name="event" id="event" class="form-control" style="height: 100%" >
                                                 <option disabled>choisissez un évènement</option>
                                                 @foreach ($events as $event)
                                                     <option value="{{ $event->id }}">{{ $event->abbreviation }}</option>
@@ -29,7 +32,8 @@
                                     
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="sliders" class=" form-control-label">Sélectionnez les images d'événement</label>
+                                            
+                                              <label for="title" class=" form-control-label"> Sélectionnez les images d'événement</label>
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input id="files" name="files[]" multiple="" class="form-control-file"
@@ -39,16 +43,20 @@
                                             @endif                                           
                                         </div>
                                     </div>
-                                    <div class="card-footer">
+                                     </div>
+                                     <hr>
+                                    <div  class="pull-right" style="padding-bottom:  2%;padding-right: 2%">
+                                        <div>
                                         <button type="submit" class="btn btn-primary btn-sm">
-                                            <i class="zmdi zmdi-dot-circle-o"></i> Creer
+                                            <i class="zmdi zmdi-dot-circle-o"></i> Creer une Gallerie
                                         </button>
                                         <button type="reset" class="btn btn-danger btn-sm">
                                             <i class="zmdi zmdi-ban"></i> Annuler
                                         </button>
                                     </div>
+                                    </div>
                                 </form>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>

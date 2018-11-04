@@ -12,24 +12,29 @@
                         </button>
                     </div>
                 @endif
-                <div class="">
-                    <div class="col-md-12">
+                
+                    <div class="col-md-12 ">
                         <!-- DATA TABLE -->
+                         <a class="btn btn-primary pull-right" href="{{ route('admin.newEvent') }}">Creer un nouveau évènement</a>
                         <h3 class="title-5 m-b-35">Évènements</h3>
-                        
+                       
                         @if ($events->isEmpty())
-                            <h4>Pas encore des évènnement</h4>
+                            <div class="alert alert-info"> <strong>Info!</strong>  Pas encore des évènnement</div>
                         @else
-                            <div class="table-responsive table-responsive-data2">
+
+                            <div class="table-responsive table-responsive-data2 ">
+                                
                                 <table class="table table-data2">
-                                    <thead>
-                                        <tr>
-                                            <th>
+                                    <div class="card">
+                                    <thead class="card-header">
+                                       
+                                           {{--  <th>
                                                 <label class="au-checkbox">
                                                     <input type="checkbox">
                                                     <span class="au-checkmark"></span>
                                                 </label>
-                                            </th>
+                                            </th> --}}
+                                           
                                             <th>abbreviation</th>
                                             <th>titre</th>
                                             <th>programme</th>
@@ -37,17 +42,12 @@
                                             <th>fin</th>
                                             <th>etat</th>
                                             <th>options</th>
-                                        </tr>
+                                            
                                     </thead>
-                                    <tbody>                                      
+                                    <tbody class="card-body">                                      
                                         @foreach ($events as $event)
                                             <tr class="tr-shadow">
-                                                <td>
-                                                    <label class="au-checkbox">
-                                                        <input type="checkbox">
-                                                        <span class="au-checkmark"></span>
-                                                    </label>
-                                                </td>
+                                               
                                                 <td>{{ $event->abbreviation }}</td>
                                                 <td>
                                                     <span class="block-email">{{ $event->title }}</span>
@@ -55,7 +55,7 @@
                                                 <td class="desc"><a href="{{ route('admin.downloadFileEvent', [
                                                     'id'=>$event->id,
                                                     'filename'=>$event->program_file
-                                                    ]) }}">{{ $event->program_file }}<a>
+                                                    ]) }}">{{ $event->program_file }}</a>
                                                         
                                                     </td>
                                                 <td>{{ $event->start_date ->toDayDateTimeString()}}</td>
@@ -71,41 +71,35 @@
                                                 @endif
                                                 <td>
                                                     <div class="table-data-feature">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send">
-                                                            <i class="zmdi zmdi-eye"></i>
-                                                        </button>
+                                                        
                                                         <a href="{{ route('admin.previewEvent', [$event->id]) }}">
-                                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                            <button class="item"  data-original-title="Edit">
                                                                 <i class="zmdi zmdi-edit"></i>
                                                             </button>
-                                                        </a>
+                                                        </a>&nbsp;
                                                         <form action="{{ route('admin.deleteEvent', [$event->id]) }}" method="POST">
                                                             @csrf
                                                             <input type="hidden" name="_method" value="DELETE">
-                                                            <button type="submit" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                                <i class="zmdi zmdi-delete"></i>
+                                                            <button type="submit" class="item"  data-original-title="Delete">
+                                                                <i class="zmdi zmdi-delete" style=""></i>
                                                             </button>
                                                         </form>
                                                     </div>
                                                 </td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
+                                           </tr>
+                                            
                                         @endforeach
                                     </tbody>
+                                     </div>
                                 </table>
+                               
                             </div>
                         @endif
                     </div>
-                </div>
-    
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="copyright">
-                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="{{ route('welcome') }}">Cardio Bio Tech</a>.</p>
-                        </div>
-                    </div>
-                </div>
+               
+   
             </div>
         </div>
-    </div>   
+    </div> 
+
 @endsection

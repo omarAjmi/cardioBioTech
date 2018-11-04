@@ -2,36 +2,45 @@
 <script src="/js/jquery.min.js"></script>
 <!-- bootstrap -->
 <script src="/js/popper.js"></script>
+
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/waypoints.min.js"></script>
 <!--slick carousel -->
 <script src="/js/owl.carousel.min.js"></script>
-<!--parallax -->
 <script src="/js/parallax.min.js"></script>
+
+<script src="/js/aos.js"></script>
+
+
+
+
 <!--Counter up -->
 <script src="/js/jquery.counterup.min.js"></script>
 <!--Counter down -->
 <script src="/js/jquery.countdown.min.js"></script>
 <!-- WOW JS -->
 <script src="/js/wow.min.js"></script>
+<script src="/js/main_slider.js"></script>
 <!-- Custom js -->
 <script src="/js/main.js"></script>
 
 
+<!--parallax -->
 
-<script src="/select2/select2.min.js"></script>
+<script src="/js/select2.min.js"></script> 
 <!--===============================================================================================-->
-<script src="/tilt/tilt.jquery.min.js"></script>
+<script src="/js/tilt.jquery.min.js"></script>
 <script>
     $('.js-tilt').tilt({
         scale: 1.1
     })
 </script>
 <!--===============================================================================================-->
+
 <script src="/js/main.js"></script>
 <script>
 @if($events->isNotEmpty())
-    var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!} {!! $events->first()->start_date->toTimeString() !!}@endif"
+    var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!}-{!! $events->first()->start_date->toTimeString() !!}@endif"
 @endif	
  $('.counter').counterUp({
         delay: 5,
@@ -75,7 +84,7 @@ $(".countdown")
             $("#log-pic").hide();
             $("#register-pic").show();
         })
-    @elseif($errors->count() > 0)
+    @elseif($errors->count() > 0 and Session::get('previous') == route('welcome'))
         $('document').ready(function () {
             $('#myModal').modal('show');
             $("#register_form").hide();
@@ -84,4 +93,28 @@ $(".countdown")
             $("#register-pic").hide();
         })
     @endif
+
+    @if(Session::has('partSuccess'))
+        $('document').ready(function () {
+            $('#staticModal').modal('show');
+        })
+    @elseif(Session::has('partFail'))
+        $('document').ready(function () {
+            $('#staticModal').modal('show');
+        })
+    @endif
+</script>
+<script type="text/javascript">
+
+    jQuery(document).ready(function ($) {
+    $('.galery-item').on('click', function () {
+    $('.owl-carousel').trigger('stop.owl.autoplay');
+
+   
+    var carousel = $('.owl-carousel').data('owl.carousel');
+    carousel.settings.autoplay = false; //don't know if both are necessary
+    carousel.options.autoplay = false;
+    $('.owl-carousel').trigger('refresh.owl.carousel');
+});
+});
 </script>

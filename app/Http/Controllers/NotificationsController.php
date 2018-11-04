@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 
 class NotificationsController extends Controller
 {
-     public function seenNotif(int $id)
+    public function markSeenNotif(int $id)
     {
         $notif = Notif::findOrFail($id);
         $notif->seen = true;
         $notif->save();
-        return response(200);
+        return back();
     }
 
     public function notifications()

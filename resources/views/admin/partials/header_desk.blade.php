@@ -50,16 +50,17 @@
                     <div class="account-wrap">
                         <div class="account-item clearfix js-item-menu">
                             <div class="image">
-                                <img src="/storage/users/avatars/{{ Auth::user()->photo }}" alt="avatar" />
+                                <img src="/storage{{ Auth::user()->photo }}" />
                             </div>
                             <div class="content">
                                 <a class="js-acc-btn" href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
                             </div>
                             <div class="account-dropdown js-dropdown">
                                 <div class="info clearfix">
-                                    <div class="image">
+                                     <div class="image">
+
                                         <a href="#">
-                                            <img src="/storage/users/avatars/{{ Auth::user()->photo }}" alt="avatar" />
+                                            <img src="/storage{{ Auth::user()->photo }}" alt="avatar" />
                                         </a>
                                     </div>
                                     <div class="content">
@@ -71,7 +72,13 @@
                                 </div>
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
-                                        <a href="{{ route('profile') }}">
+                                        <a href="{{ route('welcome') }}">
+                                            <i class="zmdi zmdi-tv"></i>Site Publique</a>
+                                    </div>
+                                </div>
+                                <div class="account-dropdown__body">
+                                    <div class="account-dropdown__item">
+                                        <a href="{{ route('profile', [Auth::id()]) }}">
                                             <i class="zmdi zmdi-account"></i>Profile</a>
                                     </div>
                                 </div>

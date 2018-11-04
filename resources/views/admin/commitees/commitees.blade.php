@@ -12,12 +12,16 @@
                         </button>
                     </div>
                 @endif
+                @if($commitees->isEmpty())
+                <div class="alert alert-info"> <strong>Info!</strong> pas de commitees</div>
+                @else
                 <div class="">
-                    <div class="col-md-12">
-                        <!-- DATA TABLE -->
-                        <div class="table-responsive m-b-40">
-                            <table class="table table-borderless table-data3">
-                                <thead>
+        
+                            <div class="table-responsive table-responsive-data2 ">
+                                
+                                <table class="table table-data2">
+                                    <div class="card">
+                                    <thead class="card-header">
                                     <tr>
                                         <th>Date</th>
                                         <th>évènnement</th>
@@ -40,13 +44,7 @@
                     </div>
                 </div>
     
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="copyright">
-                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
-                        </div>
-                    </div>
-                </div>
+                @endif
             </div>
         </div>
     </div> 

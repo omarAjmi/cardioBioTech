@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class Event extends Model
 {
     protected $fillable = [
-        'title', 'abbreviation', 'about', 'startDate', 'endDate', 'address', 'storage', 'program_file'
+        'title', 'abbreviation', 'about', 'start_date', 'end_date', 'address', 'storage', 'program_file', 'dead_line'
     ];
 
     public function participations()
@@ -60,8 +60,8 @@ class Event extends Model
 
     public function breakLongAbout()
     {
-        $length = 300;
-        $maxLength = 300;
+        $length = 400;
+        $maxLength = 400;
         $paragraphs = [];
         //Text length
         $textLength = strlen($this->about);

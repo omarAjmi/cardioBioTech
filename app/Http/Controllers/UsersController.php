@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    public function profile()
+    public function profile(int $id)
     {
-        return view('public.profile', ['user'=>Auth::user()]);
+        return view('public.profile', ['user'=>User::findOrFail($id)]);
     }
 
     public function update(Request $request)
@@ -29,7 +29,7 @@ class UsersController extends Controller
     {
         $user = Auth::user();
         if($request->file('avatar')) {
-            $user->photo = $user->uploadAvatar($request->file('avatar'));
+            $user->photo = '/users/avatars/'.$user->uploadAvatar($request->file('avatar'));
             $user->save();
         }
         return back();

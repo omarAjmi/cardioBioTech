@@ -1,7 +1,7 @@
 @extends('layouts.public_layout')
 @section('content')
     <!--page title section-->
-    <section class="inner_cover parallax-window" data-parallax="scroll" data-image-src="/img/bg/bg-img.png">
+    <section class="inner_cover parallax-window" data-parallax="scroll" style="background: url(/img/bg/img.png)">
         <div class="overlay_dark"></div>
         <div class="container">
             <div class="row justify-content-center align-items-center">
@@ -28,65 +28,24 @@
     <!--contact section -->
     <section class="pt100 pb100">
         <div class="container">
-            <img src="/img/logo-dark.png" alt="evento">
+          
             <div class="row justify-content-center mt100">
                 <div class="col-md-6 col-12">
                     <div class="contact_info">
                         <h5>
-                            Evento is here for you
+                            CardioBioTec is here for you
                         </h5>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec gravida tempus.
-                            Integer iaculis in lacus a sollicitudin. Ut hendrerit hendrerit nisl a accumsan. Pellentesque
-                            convallis consectetur tortor id placerat. Curabitur a pulvinar nunc. Maecenas laoreet finibus
-                            lectus, at volutpat ligula euismod.
-                        </p>
-                        <ul class="social_list">
-                            <li>
-                                <a href="#"><i class="ion-social-pinterest"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="ion-social-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="ion-social-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="ion-social-dribbble"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="ion-social-instagram"></i></a>
-                            </li>
-                        </ul>
+                           
+                            L’Association Médicale CARDIOBIOTEC du Tunisie , a été créée en 7 avril 2013 à l’initiative d’un groupe de médecins de différentes disciplines.
+                            <br> <span><b>Contacter nous:</b> </span> 
+                        </p><br>
+                       <ul style="list-style: none;">
+                           <li><i class="fa fa-phone-square" style="color: #005792"></i> (+216)73.10.60.69 / (+216)92.00.44.66</li>
+                           <li><i class="fa fa-envelope" style="color: #005792"></i> cardiobiotec@yahoo.fr</li>
+                           <li><i class="fa fa-facebook" style="color: #005792"></i> <a href="https://www.facebook.com/pg/Cardiobiotech"> page facebook cardiobiotec</a></li>
+                       </ul>
     
-                        <ul class="icon_list pt50">
-                            <li>
-                                <i class="ion-location"></i>
-                                <span>
-                                    Rosia Road , No234/56<br />
-                                    Gibraltar , UK
-                                </span>
-                            </li>
-                            <li>
-                                <i class="ion-ios-telephone"></i>
-                                <span>
-                                    +5463 834 53 2245
-                                </span>
-                            </li>
-                            <li>
-                                <i class="ion-email-unread"></i>
-                                <span>
-                                    contact@evento.com
-                                </span>
-                            </li>
-    
-                            <li>
-                                <i class="ion-planet"></i>
-                                <span>
-                                    www.colorlib.com
-                                </span>
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
@@ -108,11 +67,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 mt70">
-                    <!--map -->
-                    <div id="map" data-lon="24.036176" data-lat="57.039986" class="map"></div>
-                    <!--map end-->
-                </div>
+              
             </div>    
         </div>
     </section>

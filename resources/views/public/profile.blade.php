@@ -8,21 +8,23 @@
         <div class="row">
             <div class="col-sm-3"><!--left col-->
                 <div class="text-center" style="margin-top: -50%" >
-                    <img src="/storage/users/avatars/{{ $user->photo }}" class="avatar img-circle img-thumbnail" alt="avatar" style="border: 2px dashed #c7c7c9">
-                    <h6>Upload a different photo...</h6>
+                    <img src="/storage{{ $user->photo }}"  alt="avatar" style="border: 2px dashed #c7c7c9;">
+                    <h6> Ajouter une photo différente ...</h6>
                     <form action="{{ route('profile.updateAvatar') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="_method" value="PUT">
-                        <input type="file" class="text-center center-block file-upload" name="avatar">
+                        <input type="file" class="text-center center-block file-upload" name="avatar"><br><br>
                         <button class="btn btn-lg btn-primary btn-rounded" type="submit">Upload</button>
                     </form>
                 </div>
+            </div>
                 </hr><br>
-            </div><!--/col-3-->
-            <div class="col-9 col-sm-9 col-md-9">
-                <div class="tab-content">
-                    <div class="tab-pane active" id="home">
-                        <hr>
+            <!--/col-3-->
+            <div class="col-lg-8 card" style="margin-left: 5%">
+                <div class=" card-body">
+
+                    <div class="" id="home">
+                      
                         <form class="form" action="{{ route('profile.update') }}" method="POST" id="registrationForm">
                             @csrf
                             <input type="hidden" name="_method" value="PUT">

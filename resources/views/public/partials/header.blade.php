@@ -1,11 +1,12 @@
+
 <!--header start here -->
 <header class="header navbar fixed-top navbar-expand-md">
     <div class="container">
         <a class="navbar-brand logo" href="{{ route('welcome') }}">
-            <img src="/img/logo.png" alt="Evento" />
+            <img src="/img/logo-white.png" alt="Evento" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headernav" aria-expanded="false"
-            aria-label="Toggle navigation">
+                aria-label="Toggle navigation">
             <span class="lnr lnr-text-align-right"></span>
         </button>
         <div class="collapse navbar-collapse flex-sm-row-reverse" id="headernav">
@@ -14,15 +15,11 @@
                     <a class="nav-link active" href="{{ route('welcome') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ route('welcome') }}#speakers">Comité</a>
+                    <a class="nav-link " href="{{ route('current') }}#speakers">Comité</a>
                 </li>
                 <li class="nav-item">
                     <div class="dropdown">
-                        @if ($events->isNotEmpty())
-                            <a class="nav-link " href="{{ route('event', [$events->first()->id]) }} ">Évènements</a>
-                        @else
-                            <a class="nav-link " href="#">Évènements</a>
-                        @endif    
+                        <a class="nav-link " href="#">Évènements</a>
                         <div class="dropdown-content">
                             @foreach ($events as $event)
                                 <a href="{{ route('event', [$event->id]) }}">{{ $event->abbreviation }}</a>
@@ -37,15 +34,15 @@
                     <li class="nav-item">
                         <div class="dropdown">
                             <a class="nav-link " href="events.html"><b>{{ Auth::user()->getFullName() }}</b>
-                                <img src="/storage/users/avatars/{{ Auth::user()->photo }}" alt=" logo" style="height: 30px;width: 30px;border-radius: 50%;">
+                                <img src="/storage{{ Auth::user()->photo }}" alt=" logo" style="height: 30px;width: 30px;border-radius: 50%;">
                             </a>
                             <div class="dropdown-content">
-                                <a href="{{ route('profile') }}">profile</a>
+                                <a href="{{ route('profile', [Auth::id()]) }}">profile</a>
                                 @if (Auth::user()->admin)
                                     <a href="{{ route('admin') }}">Site Admin</a>
                                 @endif
                                 <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
+                                   onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                     Se Déconnecter
                                 </a>
@@ -60,8 +57,7 @@
                         <a class="nav-link " href="#" data-toggle="modal" data-target="#myModal">Se connecter</a>
                     </li>
                 @endif
-                </ul>
+            </ul>
         </div>
     </div>
 </header>
-<!--header end here-->

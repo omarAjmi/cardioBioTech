@@ -40,6 +40,29 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
 /*                   GENERIC                           */
 /*-----------------------------------------------------*/
 /* ----- Normalize ----- */
+ 
+  /* width */
+  ::-webkit-scrollbar {
+      width: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey; 
+      border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+      background: grey; 
+      border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+      background: #286090; 
+  }
+
 * {
     margin: 0;
     padding: 0;
@@ -115,7 +138,7 @@ h4,
 h5,
 h6 {
     color: #333333;
-    font-weight: 700;
+    
     margin: 0;
     line-height: 1.2;
 }
@@ -136,9 +159,7 @@ h4 {
     font-size: 18px;
 }
 
-h5 {
-    font-size: 15px;
-}
+
 
 h6 {
     font-size: 13px;
@@ -1140,6 +1161,19 @@ section {
     -moz-border-radius: 2px;
     border-radius: 2px;
 }
+.name a  {
+    color: white;
+}
+.name a i {
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
 
 .card {
     margin-bottom: 30px;
@@ -1316,7 +1350,7 @@ section {
 }
 
 .noti-wrap .noti__item:last-child {
-    margin-right: 50px;
+   
 }
 
 @media (max-width: 1200px) {
@@ -1406,7 +1440,9 @@ section {
 }
 
 .account-item .image > img {
-    width: 100%;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%
 }
 
 .account-item > .content {
@@ -1528,7 +1564,7 @@ section {
 }
 
 .account-dropdown__item a:hover {
-    background: #4272d7;
+    background: #53cde2;
     color: #fff;
 }
 
@@ -1555,7 +1591,7 @@ section {
 }
 
 .account-dropdown__footer a:hover {
-    background: #4272d7;
+    background: #53cde2;
     color: #fff;
 }
 
@@ -1577,9 +1613,9 @@ section {
 }
 
 .menu-sidebar .logo {
-    background: #f5f5f5;
+    background: #fff;
     height: 75px;
-    padding: 0 35px;
+   
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -4621,7 +4657,14 @@ section {
     background: #e5e5e5;
     margin-right: 5px;
 }
-
+.table-data-feature .item:hover {
+   background:#53cde2;
+  
+}
+.item:hover {
+   background:#53cde2;
+  
+}
 .table-data-feature .item:last-child {
     margin-right: 0;
 }
