@@ -49,12 +49,19 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $validator =  Validator::make($data, [
+        $messages = [
+            'required' => ':attribute est requis',
+            'unique' => 'email est déja utilisé',
+            'min' => 'mot de passe de taille 6 au minimum',
+            'confirmed' => 'mot de passe confirmation est requis',
+        ];
+        $rules = [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
+            'password' => ['required', 'string', 'min:6', 'confirmed']
+        ];
+        $validator =  Validator::make($data, $rules, $messages);
 
         if($validator->fails()){
             Session::flash('registerfail');

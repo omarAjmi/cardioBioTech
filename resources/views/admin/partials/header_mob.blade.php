@@ -60,7 +60,7 @@
                 </li>
                  <li class="has-sub">
                     <a class="js-arrow" href="#">
-                                                <i class="fas fa-users"></i>Commitées</a>
+                                                <i class="fas fa-users"></i>Comités</a>
 
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                         <li>

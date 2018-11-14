@@ -5,14 +5,14 @@
     
     /*==================================================================
     [ Validate ]*/
-    var input = $('.validate-input .input100');
-
-    $('.validate-form').on('submit',function(){
+    var inputlg = $('.lg-val .input100');
+    var inputrg = $('.rg-val .input100');
+    $(".lg-btn").click(function () {
         var check = true;
 
-        for(var i=0; i<input.length; i++) {
-            if(validate(input[i]) == false){
-                showValidate(input[i]);
+        for(var i=0; i<inputlg.length; i++) {
+            if(validate(inputlg[i]) == false){
+                showValidate(inputlg[i]);
                 check=false;
             }
         }
@@ -20,10 +20,29 @@
         return check;
     });
 
+    $(".rg-btn").click(function () {
+        var check = true;
 
-    $('.validate-form .input100').each(function(){
+        for (var i = 0; i < inputrg.length; i++) {
+            if (validate(inputrg[i]) == false) {
+                showValidate(inputrg[i]);
+                check = false;
+            }
+        }
+
+        return check;
+    });
+
+
+    $(".lg-btn").click(function () {
         $(this).focus(function(){
            hideValidate(this);
+        });
+    });
+
+    $(".rg-btn").click(function () {
+        $(this).focus(function () {
+            hideValidate(this);
         });
     });
 

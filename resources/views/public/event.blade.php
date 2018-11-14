@@ -126,7 +126,7 @@
                 <div class="row justify-content-center">
                     @foreach ($event->breakLongAbout() as $p)
                         <div class="col-md-6 col-12">
-                            {{ $p }}
+                            <p>{{ $p }}</p> <br>
                         </div>
                     @endforeach
                     
@@ -142,10 +142,10 @@
                 </h3>
             </div>      
              <div >
-                <div class="row justify-content-center">      
+                <div class="row justify-content-center" id="participation">      
                             <div class="col-md-6 col-12">
                             <p>
-                                pour la participation, merci de télécharger <a href="{{ route('admin.downloadFileEvent', ['id'=>$event->id,'filename'=>$event->program_file]) }}"><b><u>cette fichier</u></b></a> formelle, de lui fournir les données nécessaires puis de le renvoyer à l’aide de ce formulaire.
+                                pour la participation, merci de télécharger <a href="{{ route('downloadFileEvent', ['id'=>$event->id,'filename'=>$event->program_file]) }}"><b><u>cette fichier</u></b></a> formelle, de lui fournir les données nécessaires puis de le renvoyer à l’aide de ce formulaire.
                             </p>
                             </div>
                             <div class="col-md-6 col-12">

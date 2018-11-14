@@ -20,7 +20,6 @@
 <script src="/js/jquery.countdown.min.js"></script>
 <!-- WOW JS -->
 <script src="/js/wow.min.js"></script>
-<script src="/js/main_slider.js"></script>
 <!-- Custom js -->
 <script src="/js/main.js"></script>
 
@@ -28,6 +27,7 @@
 <!--parallax -->
 
 <script src="/js/select2.min.js"></script> 
+<script src="/js/login_signup.js"></script>
 <!--===============================================================================================-->
 <script src="/js/tilt.jquery.min.js"></script>
 <script>
@@ -37,21 +37,11 @@
 </script>
 <!--===============================================================================================-->
 
-<script src="/js/main.js"></script>
+<script src="/js/main2.js"></script>
 <script>
 @if($events->isNotEmpty())
     var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!}-{!! $events->first()->start_date->toTimeString() !!}@endif"
-@endif	
- $('.counter').counterUp({
-        delay: 5,
-        time: 3000
-    });
-$(".countdown")
-        .countdown(startDate, function(event) {
-            $(this).html(
-                event.strftime('<div>%w <span>Semaines</span></div>  <div>%D <span>Jours</span></div>  <div>%H<span>Heures</span></div> <div>%M<span>Minutes</span></div> <div>%S<span>Secondes</span></div>')
-            );
-        });
+@endif
 </script>
 <script>
     $("#create").click(function () {
@@ -75,25 +65,6 @@ $(".countdown")
             $('#outDatedModal').modal('show');
         })
     @endif
-
-    @if(Session::has('registerfail'))
-        $('document').ready(function () {
-            $('#myModal').modal('show');
-            $("#register_form").show();
-            $("#login_form").hide();
-            $("#log-pic").hide();
-            $("#register-pic").show();
-        })
-    @elseif($errors->count() > 0 and Session::get('previous') == route('welcome'))
-        $('document').ready(function () {
-            $('#myModal').modal('show');
-            $("#register_form").hide();
-            $("#login_form").show();
-            $("#log-pic").show();
-            $("#register-pic").hide();
-        })
-    @endif
-
     @if(Session::has('partSuccess'))
         $('document').ready(function () {
             $('#staticModal').modal('show');
@@ -104,6 +75,11 @@ $(".countdown")
         })
     @endif
 </script>
+@if(Session::has('registerfail'))
+        @include('public.partials.scripts.registerValidation')
+@elseif($errors->count() > 0)
+    @include('public.partials.scripts.loginValidation')
+@endif
 <script type="text/javascript">
 
     jQuery(document).ready(function ($) {

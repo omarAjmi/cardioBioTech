@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="header-wrap">
                 <form class="form-header" action="" method="POST">
-                    <input class="au-input au-input--xl" type="text" name="search" placeholder="Search for datas &amp; reports..." />
+                    <input class="au-input au-input--xl" type="text" name="search" placeholder="Rechercher..." />
                     <button class="au-btn--submit" type="submit">
                         <i class="zmdi zmdi-search"></i>
                     </button>
@@ -27,15 +27,6 @@
                                                 <i class="zmdi zmdi-file-text"></i>
                                             </div>
                                             <a href="{{ route('notifs') }}">
-                                                <script>
-                                                    function notifSeen(id) {
-                                                        $.ajax({
-                                                                url: "{!! route('notif.seen', [$notif->id]) !!}",
-                                                                type: "GET",
-                                                                success: null
-                                                            });
-                                                    }
-                                                </script>
                                                 <div class="content">
                                                     <p>{{ $notif->context }}</p>
                                                     <span class="date">{{ $notif->created_at->toDayDateTimeString() }}</span>
@@ -73,7 +64,7 @@
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
                                         <a href="{{ route('welcome') }}">
-                                            <i class="zmdi zmdi-tv"></i>Site Publique</a>
+                                            <i class="zmdi zmdi-tv"></i>Site Public</a>
                                     </div>
                                 </div>
                                 <div class="account-dropdown__body">

@@ -12,9 +12,9 @@
 <link href="/css/owl.theme.default.min.css" rel="stylesheet">
 <!-- Animate CSS -->
 <link rel="stylesheet" href="/css/animate.min.css">
-<link rel="stylesheet" type="text/css" href="/css/main_slider.css">
 <!-- Custom styles for this template -->
 <link href="/css/main.css" rel="stylesheet">
+
 
 
 <!--===============================================================================================-->

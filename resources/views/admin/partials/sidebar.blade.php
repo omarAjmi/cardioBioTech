@@ -51,7 +51,7 @@
                 </li>
                 <li class="has-sub">
                     <a class="js-arrow" href="#">
-                        <i class="fas fa-users"></i>Commitées</a>
+                        <i class="fas fa-users"></i>Comités</a>
                     <ul class="list-unstyled navbar__sub-list js-sub-list">
                         <li>
                             <a href="{{ route('commitees') }}">tous</a>

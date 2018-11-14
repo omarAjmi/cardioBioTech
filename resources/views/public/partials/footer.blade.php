@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 col-12">
-                p>
+                <p>
                     Copyright &copy;
                     <script>document.write(new Date().getFullYear());</script> Tous droits reservés | Cardio Bio Tech
                 </p>

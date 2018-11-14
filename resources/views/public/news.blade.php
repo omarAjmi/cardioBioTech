@@ -84,12 +84,15 @@
                                 DATE
                             </h5>
                             <p>
-                                @if (!is_null($events->first())){{ $events->first()->start_date->formatLocalized('%A %d %B %Y') }} <br>
-                                    @if ($events->first()->start_date->diffInDays($events->first()->end_date) > 0)
-                                        ({{ $events->first()->start_date->diffInDays($events->first()->end_date) }}) jours
-                                    @endif
+                                @if (!is_null($events->first()))
+                                    {{-- {{ $events->first()->start_date->formatLocalized('%A %d %B %Y') }} --}}
+                                    {{ $events->first()->start_date->toDateTimeString("Y-m-d H:m") }}
+                                @endif <br>
+                                @if ($events->first()->start_date->diffInDays($events->first()->end_date) > 0)
+                                    ({{ $events->first()->start_date->diffInDays($events->first()->end_date) }}) jours
                                 @endif
                             </p>
+                                
                         </div>
                     </div>
                 </div>
@@ -131,7 +134,7 @@
     
     
     <!--event countdown -->
-    <section class="bg-img pt70 pb70" style="background-image: url('img/bg/img.png');">
+    <section class="bg-img pt70 pb70" style="background-image: url('/img/bg/img.png');">
         <div class="overlay_dark"></div>
         <div class="container">
             <div class="row justify-content-center">
@@ -155,25 +158,12 @@
                 @if($events->isNotEmpty())
                     @foreach ($events->first()->breakLongAbout() as $p)
                         <div class="col-md-6 col-12">
-                            {{ $p }}
+                            <p>{{ $p }}</p> <br>
                         </div>
                     @endforeach
                 @else
                     <div class="col-md-6 col-12">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
-                    </div>
-                    <div class="col-md-6 col-12">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rhoncus massa nec graviante.
+                        <p>Non disponible</p>
                     </div>
                 @endif
             </div>

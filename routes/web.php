@@ -26,6 +26,9 @@ Route::group([], function(){
 
     Route::put('/users/profile/update', ['as'=> 'profile.update', 'uses'=>'UsersController@update']);
 
+    Route::get('/events/download/event/{id}/{fileName}', ['as' => 'downloadFileEvent','uses' => 'EventsController@downloadProgram'
+    ]);
+
     Route::put('/users/profile/update_avatar', ['as'=> 'profile.updateAvatar', 'uses'=>'UsersController@updateAvatar']);
 
     Route::post('/users/event/{id}/participation', ['as'=> 'events.participate', 'uses'=>'ParticipationsController@participate']);
@@ -58,9 +61,6 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
     Route::delete('/events/{id}', ['as' => 'admin.deleteEvent','uses' => 'EventsController@delete']);
 
     Route::get('/events/{id}', ['as' => 'admin.previewEvent','uses' => 'EventsController@preview']);
-
-    Route::get('/events/download/event/{id}/{fileName}', ['as' => 'admin.downloadFileEvent','uses' => 'EventsController@downloadProgram'
-    ]);
     Route::get('/galleries', ['as' => 'galleries', 'uses' => 'GalleriesController@galleries']);
 
     Route::get('/galleries/new', ['as' => 'galleries.new', 'uses' => 'GalleriesController@new']);

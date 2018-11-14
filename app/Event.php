@@ -60,8 +60,8 @@ class Event extends Model
 
     public function breakLongAbout()
     {
-        $length = 400;
-        $maxLength = 400;
+        $length = 600;
+        $maxLength = 600;
         $paragraphs = [];
         //Text length
         $textLength = strlen($this->about);

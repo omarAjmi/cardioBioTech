@@ -74,12 +74,14 @@ h6, .h6 {
 }
 
 p {
-  font-size: 14px;
+  font-size: 16px;
   font-family: "Montserrat", sans-serif;
   margin: 0 0 15px;
   line-height: 24px;
   font-weight: 400;
-  color: #838383;
+  color: #000;
+  text-align: justify;
+  text-justify: inter-word;
 }
 p:last-child {
   margin-bottom: 0;
@@ -1637,7 +1639,7 @@ header {
   margin-top: 20px;
   -webkit-transition: all ease-in-out 0.4s;
   transition: all ease-in-out 0.4s;
-  background-color: rgba(0, 0, 0, 0.2);"
+  background-color: rgba(0, 0, 0, 0.2);
 }
 header .menu {
   position: relative;
@@ -1715,8 +1717,8 @@ header.sticky_header {
 }
 
 .navbar-toggler {
-  border: 1px solid black;
-  color: #black;
+  border: 1px solid #ffffff;
+  color: #ffffff;
   padding: 5px 10px;
   font-size: 22px;
   outline: 0 !important;
@@ -1734,7 +1736,7 @@ header.sticky_header {
 }
 @media (max-width: 767px) {
   header {
-    background-color: #fff;
+    background-color: #18181c;
     margin: 0;
     -webkit-box-shadow: 0 0 42px rgba(0, 0, 0, 0.08);
     box-shadow: 0 0 42px rgba(0, 0, 0, 0.08);
@@ -1792,7 +1794,7 @@ footer .footer_social li a {
   border: solid 1px #53cde2;
   display: block;
   border-radius: 50px;
-  padding: 0px 0;
+  padding: 7px 0;
   font-size: 24px;
   color: #53cde2;
   width: 40px;
@@ -2403,6 +2405,16 @@ Cover
 .icon_box_two .content p {
   font-weight: 500;
   color: #838383;
+  word-spacing: 0;
+}
+
+.list-contact li{
+color: #000;
+font-size: 16px;
+}
+.list-contact li a{
+color: #000;
+font-size: 16px;
 }
 
 /*  ----------------------------------------------------
@@ -3192,7 +3204,22 @@ textarea.form-control {
 .dropdown:hover .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
-
+.galery-item img {
+ 
+  width:1000px;
+  max-width:1080px;
+  min-height: 200px;
+  max-height: 500px;
+  padding: auto;
+}
+@media only screen and (max-width: 600px) {
+  .galery-item img {
+ 
+  width:350px;
+  height: 400px;
+  padding-left:5%;
+}
+}
 #galery-owl .owl-item .galery-item {
   opacity: 0.5;
   -webkit-transform: scale(0.9);
@@ -3472,10 +3499,12 @@ textarea.form-control {
     padding: 100px 80px 33px 80px;
   }
 
-  .login100-pic {
+  .login100-pic img{
     display: none;
   }
-
+  .login100-pic {
+    display: none !important  ;
+  }
   .login100-form {
     width: 100%;
   }

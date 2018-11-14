@@ -15,11 +15,11 @@
                 
                     <div class="col-md-12 ">
                         <!-- DATA TABLE -->
-                         <a class="btn btn-primary pull-right" href="{{ route('admin.newEvent') }}">Creer un nouveau évènement</a>
+                         <a class="btn btn-primary pull-right" href="{{ route('admin.newEvent') }}">Creer un nouvel évènement</a>
                         <h3 class="title-5 m-b-35">Évènements</h3>
                        
                         @if ($events->isEmpty())
-                            <div class="alert alert-info"> <strong>Info!</strong>  Pas encore des évènnement</div>
+                            <div class="alert alert-info"> <strong>Info!</strong>  Pas encore des évènnements</div>
                         @else
 
                             <div class="table-responsive table-responsive-data2 ">
@@ -52,10 +52,10 @@
                                                 <td>
                                                     <span class="block-email">{{ $event->title }}</span>
                                                 </td>
-                                                <td class="desc"><a href="{{ route('admin.downloadFileEvent', [
+                                                <td class="desc"><a href="{{ route('downloadFileEvent', [
                                                     'id'=>$event->id,
                                                     'filename'=>$event->program_file
-                                                    ]) }}">{{ $event->program_file }}</a>
+                                                    ]) }}" target="_blank">{{ $event->program_file }}</a>
                                                         
                                                     </td>
                                                 <td>{{ $event->start_date ->toDayDateTimeString()}}</td>

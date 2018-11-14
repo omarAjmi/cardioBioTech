@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
   <head>
     <title>Remedic - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
@@ -13,8 +13,8 @@
 
     <link rel="stylesheet" href="/css/ionicons.min.css">
 
-    
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
 
     <link href="/css/owl.carousel.min.css" rel="stylesheet">
 
@@ -207,7 +207,7 @@
 
                                 </div>
 
-                                <h2><i class="fas fa-envelope" ></i> Adresse mail</h2>
+                                <h2><i class="fa fa-envelope" ></i> Adresse mail</h2>
                                 <h6>cardiobiotec@yahoo.fr</h6>
                             </a>
                             <a href="#" class="services-wrap ftco-animate">
@@ -215,7 +215,7 @@
                                     <span class="ion-ios-arrow-back"></span>
                                     <span class="ion-ios-arrow-forward"></span>
                                 </div>
-                                <h2><i class="fas fa-phone-volume"></i> Telephone</h2>
+                                <h2><i class="fa fa-phone"></i> Telephone</h2>
                                 <h6>(+216)73.10.60.69</h6>
                                 <h6>(+216)92.00.44.66</h6>
                             </a>
@@ -224,7 +224,7 @@
                                     <span class="ion-ios-arrow-back"></span>
                                     <span class="ion-ios-arrow-forward"></span>
                                 </div>
-                                <h2><i class="fab fa-facebook"></i> Page Facebook </h2>
+                                <h2><i class="fa fa-facebook"></i> Page Facebook </h2>
                                 <h6>Cardiobiotec</h6>
                             </a>
                             <a href="https://m.me/Cardiobiotech" class="services-wrap ftco-animate">
@@ -232,7 +232,7 @@
                                     <span class="ion-ios-arrow-back"></span>
                                     <span class="ion-ios-arrow-forward"></span>
                                 </div>
-                                <h2><i class="fab fa-facebook-messenger"></i> Messanger</h2>
+                                <h2><i class="fa fa-facebook-messenger"></i> Messanger</h2>
                                 <h6>contacter nous on messanger</h6>
                             </a>
                         </div>
@@ -355,7 +355,7 @@
     
         
         <section class="ftco-section-parallax">
-      <section class="bg-img pt70 pb70" style="background-image: url('/img/bg/bg-img.png');">
+      <section class="bg-img pt70 pb70" style="background-image: url('/img/bg/img.png');">
     <div class="overlay_dark"></div>
     <div class="container">
         <div class="row justify-content-center">
@@ -430,55 +430,7 @@
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-  <!-- Modal -->
-    <div class="modal fade" id="modalAppointment" tabindex="-1" role="dialog" aria-labelledby="modalAppointmentLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalAppointmentLabel">Appointment</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form action="#">
-              <div class="form-group">
-                <label for="appointment_name" class="text-black">Full Name</label>
-                <input type="text" class="form-control" id="appointment_name">
-              </div>
-              <div class="form-group">
-                <label for="appointment_email" class="text-black">Email</label>
-                <input type="text" class="form-control" id="appointment_email">
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="appointment_date" class="text-black">Date</label>
-                    <input type="text" class="form-control" id="appointment_date">
-                  </div>    
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="appointment_time" class="text-black">Time</label>
-                    <input type="text" class="form-control" id="appointment_time">
-                  </div>
-                </div>
-              </div>
-              
-
-              <div class="form-group">
-                <label for="appointment_message" class="text-black">Message</label>
-                <textarea name="" id="appointment_message" class="form-control" cols="30" rows="10"></textarea>
-              </div>
-              <div class="form-group">
-                <input type="submit" value="Send Message" class="btn btn-primary">
-              </div>
-            </form>
-          </div>
-          
-        </div>
-      </div>
-    </div>
+  
  <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -495,13 +447,19 @@
                                     <img src="/img/img-01.png" alt="IMG">
                                 </div>
 
-                                <form class="login100-form validate-form" id="login_form" action="{{ route('login') }}" method="POST">
+                                <form class="login100-form validate-login-form" id="login_form" action="{{ route('login') }}" method="POST">
                                     @csrf
                                     <span class="login100-form-title">
                                         Se Connecter
                                     </span>
 
-                                    <div class="wrap-input100 " data-validate="Valid email is required: ex@abc.xyz">
+                                    <div class="wrap-input100 validate-input lg-val"
+                                        @if ($errors->has('email'))
+                                            data-validate="Informations d'identification non trouvées"
+                                        @else 
+                                            data-validate="Un email valide est requis: ex@abc.xyz"
+                                        @endif
+                                    >
                                         <input class="input100 {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" placeholder="Email" value="{{ old('email') }}">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
@@ -509,7 +467,13 @@
                                         </span>
                                     </div>
 
-                                    <div class="wrap-input100 " data-validate="Password is required">
+                                    <div class="wrap-input100 validate-input lg-val"
+                                        @if ($errors->has('email'))
+                                            data-validate="Informations d'identification non trouvées"
+                                        @else 
+                                            data-validate="Mot de passe est requis"
+                                        @endif
+                                    >
                                         <input class="input100" type="password" name="password" placeholder="Password">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
@@ -518,38 +482,43 @@
                                     </div>
 
                                     <div class="container-login100-form-btn">
-                                        <button class="login100-form-btn" type="submit">
-                                            Login
+                                        <button class="login100-form-btn lg-btn" type="submit">
+                                            Se connecter
                                         </button>
                                     </div>
 
                                     <div class="text-center p-t-12">
                                         <span class="txt1">
-                                            Forgot
+                                            Oublié:
                                         </span>
                                         <a class="txt2" href="#">
-                                            Username / Password?
+                                            login / Mot de passe?
                                         </a>
                                     </div>
 
                                     <div class="text-center p-t-136">
                                         <a class="txt2" id="create" href="#">
-                                            Create your Account
+                                            S'inscrire
                                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                 </form>
 
                                 <div class="login100-pic js-tilt" id="register-pic" data-tilt style="display:none;margin-left: 5%">
-                                    <img src="/img/signup.png" width="100%" height="80%" id="signup_img" alt="IMG" style=";">
+                                    <img src="/img/img-01.png" alt="IMG">
                                 </div>
-                                <form class="login100-form validate-form" id="register_form" style="display:none" action="{{ route('register') }}" method="POST">
+                                <form class="login100-form validate-register-form" id="register_form" style="display:none" action="{{ route('register') }}" method="POST">
                                     @csrf
                                     <span class="login100-form-title">
-                                        Member register
+                                        S'inscrire
                                     </span>
-
-                                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                    <div class="wrap-input100 validate-input rg-val" 
+                                        @if (Session::has('registerfail') and $errors->has('email'))
+                                            data-validate="{{ $errors->first('email') }}"
+                                        @else 
+                                            data-validate="Un email valide est requis: ex@abc.xyz"
+                                        @endif
+                                    >
                                         <input class="input100" type="email" name="email" placeholder="Email"  value="{{ old('email') }}" >
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
@@ -557,34 +526,58 @@
                                         </span>
                                     </div>
 
-
-
-                                    <div class="wrap-input100 validate-input" data-validate="First name is required">
-                                        <input class="input100" type="text" name="first_name" placeholder="first name" value="{{ old('first_name') }}">
+                                    <div class="wrap-input100 validate-input rg-val"
+                                        @if (Session::has('registerfail') and $errors->has('last_name'))
+                                            data-validate="{{ $errors->first('last_name') }}"
+                                        @else 
+                                            data-validate="Nom est requis"
+                                        @endif
+                                    >
+                                        <input class="input100" type="text" name="last_name" placeholder="Nom" value="{{ old('last_name') }}">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-user" aria-hidden="true"></i>
                                         </span>
                                     </div>
 
-                                    <div class="wrap-input100 validate-input" data-validate="Last name is required">
-                                        <input class="input100" type="text" name="last_name" placeholder="first name" value="{{ old('last_name') }}">
+
+
+                                    <div class="wrap-input100 validate-input rg-val"
+                                        @if (Session::has('registerfail') and $errors->has('first_name'))
+                                            data-validate="{{ $errors->first('first_name') }}"
+                                        @else 
+                                            data-validate="Prénom est requis"
+                                        @endif
+                                    >
+                                        <input class="input100" type="text" name="first_name" placeholder="Prénom" value="{{ old('first_name') }}">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-user" aria-hidden="true"></i>
                                         </span>
                                     </div>
 
-                                    <div class="wrap-input100 validate-input" data-validate="Password is required">
-                                        <input class="input100" type="password" name="password" placeholder="Password">
+                                    <div class="wrap-input100 validate-input rg-val"
+                                        @if (Session::has('registerfail') and $errors->has('password'))
+                                            data-validate="{{ $errors->first('password') }}"
+                                        @else 
+                                            data-validate="Mot de passe est requis"
+                                        @endif
+                                    >
+                                        <input class="input100" type="password" name="password" placeholder="Mot de passe">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-lock" aria-hidden="true"></i>
                                         </span>
                                     </div>
 
-                                    <div class="wrap-input100 validate-input" data-validate="Password is required">
-                                        <input class="input100" type="password" name="password_confirmation" placeholder="Password">
+                                    <div class="wrap-input100 validate-input rg-val"
+                                        @if (Session::has('registerfail') and $errors->has('password_confirmation'))
+                                            data-validate="{{ $errors->first('password_confirmation') }}"
+                                        @else 
+                                            data-validate="Confirmer mot de passe"
+                                        @endif
+                                    >
+                                        <input class="input100" type="password" name="password_confirmation" placeholder="Confirmer">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-lock" aria-hidden="true"></i>
@@ -592,23 +585,14 @@
                                     </div>
 
                                     <div class="container-login100-form-btn">
-                                        <button class="login100-form-btn" type="submit">
-                                            Register
+                                        <button class="login100-form-btn rg-btn" type="submit">
+                                            S'inscrire
                                         </button>
-                                    </div>
-
-                                    <div class="text-center p-t-12">
-                                        <span class="txt1">
-                                            Forgot
-                                        </span>
-                                        <a class="txt2" href="#">
-                                            Username / Password?
-                                        </a>
                                     </div>
 
                                     <div class="text-center p-t-136">
                                         <a class="txt2" id="create2" href="#">
-                                            back to login
+                                            Se connecter
                                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                                         </a>
                                     </div>
@@ -618,7 +602,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                 </div>
             </div>
         </div>
@@ -648,6 +632,7 @@
 
   <script src="/js/main.js"></script>
     <script src="/js/main2.js"></script>
+    <script src="/js/login_signup.js"></script>
 
 <!--===============================================================================================-->
     <script src="/js/tilt.jquery.min.js"></script>
@@ -675,24 +660,13 @@
             $('#outDatedModal').modal('show');
         })
     @endif
-    @if(Session::has('registerfail'))
-        $('document').ready(function () {
-            $('#myModal').modal('show');
-            $("#register_form").show();
-            $("#login_form").hide();
-            $("#log-pic").hide();
-            $("#register-pic").show();
-        })
-    @elseif($errors->count() > 0)
-        $('document').ready(function () {
-            $('#myModal').modal('show');
-            $("#register_form").hide();
-            $("#login_form").show();
-            $("#log-pic").show();
-            $("#register-pic").hide();
-        })
-    @endif
+    
 </script>
+@if(Session::has('registerfail'))
+        @include('public.partials.scripts.registerValidation')
+@elseif($errors->count() > 0)
+    @include('public.partials.scripts.loginValidation')
+@endif
 
 <script src="/admin_site/vendor/animsition/animsition.min.js"></script>
 

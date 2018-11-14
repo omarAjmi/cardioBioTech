@@ -40,10 +40,10 @@
                             L’Association Médicale CARDIOBIOTEC du Tunisie , a été créée en 7 avril 2013 à l’initiative d’un groupe de médecins de différentes disciplines.
                             <br> <span><b>Contacter nous:</b> </span> 
                         </p><br>
-                       <ul style="list-style: none;">
-                           <li><i class="fa fa-phone-square" style="color: #005792"></i> (+216)73.10.60.69 / (+216)92.00.44.66</li>
-                           <li><i class="fa fa-envelope" style="color: #005792"></i> cardiobiotec@yahoo.fr</li>
-                           <li><i class="fa fa-facebook" style="color: #005792"></i> <a href="https://www.facebook.com/pg/Cardiobiotech"> page facebook cardiobiotec</a></li>
+                       <ul class="list-contact" style="list-style: none;">
+                           <li><i class="fa fa-phone-square" style="color: #005792"></i> &nbsp;(+216)73.10.60.69 / (+216)92.00.44.66</li>
+                           <li><i class="fa fa-envelope" style="color: #005792"></i> &nbsp;cardiobiotec@yahoo.fr</li>
+                           <li><i class="fa fa-facebook" style="color: #005792"></i> <a href="https://www.facebook.com/pg/Cardiobiotech"> &nbsp;page facebook cardiobiotec</a></li>
                        </ul>
     
                     </div>
