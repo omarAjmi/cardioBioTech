@@ -21,8 +21,8 @@ class CreateSlidersTable extends Migration
 
             $table->foreign('event_id')->references('id')
                                        ->on('events')
-                                       ->onDelet('CASCADE')
-                                       ->onupdate('CASCADE');
+                                       ->onDelete('CASCADE')
+                                       ->onUpdate('CASCADE');
         });
     }
 
