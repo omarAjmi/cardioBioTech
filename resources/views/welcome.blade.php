@@ -59,7 +59,7 @@
                       </div>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link " href="{{ route('contact') }}">Contact</a>
+                      <a class="nav-link " href="{{ route('contact') }}">Contactez nous</a>
                   </li>
                   @if (Auth::check())
                       <li class="nav-item">
