@@ -59,7 +59,7 @@ class EventsController extends Controller
         $event->start_date = $request->start_date;
         $event->dead_line = $request->dead_line;
         $event->end_date = $request->end_date;
-        $event->storage = env('EVENT_STORAGE_PATH').$request->abbreviation.'/';
+        $event->storage = env('EVENT_STORAGE_PATH', '/events/').$request->abbreviation.'/';
         $event->program_file = $event->uploadProgramFile($request->file('program'), $event->abbreviation);
         $event->address = json_encode([
             'state' => $request->state,
@@ -104,7 +104,7 @@ class EventsController extends Controller
             'about' => $request->about,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            'storage' => env('EVENT_STORAGE_PATH').$request->abbreviation,
+            'storage' => env('EVENT_STORAGE_PATH', '/events/').$request->abbreviation,
             'address' => json_encode([
                 'state' => $request->state,
                 'city' => $request->city,
@@ -137,7 +137,7 @@ class EventsController extends Controller
     public function delete(int $id)
     {
         $event = Event::findOrFail($id);
-        Storage::disk('public')->deleteDirectory(env('EVENT_STORAGE_PATH').'/'.$event->abbreviation);
+        Storage::disk('public')->deleteDirectory(env('EVENT_STORAGE_PATH', '/events/').'/'.$event->abbreviation);
         $event->delete($id);
         Session::flash('success', 'évènnement est suprimé');
         return redirect(route('admin.events'));

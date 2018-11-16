@@ -45,7 +45,7 @@ class ParticipationsController extends Controller
         $user = Auth::user();
         $fileName = $event->abbreviation.'_'.$user->first_name.'_'.$user->last_name;
         $participation = new Participation();
-        $path = env('EVENT_STORAGE_PATH').$event->abbreviation.'/participations/';  
+        $path = env('EVENT_STORAGE_PATH', '/events/').$event->abbreviation.'/participations/';  
         $participation = Participation::create([
             'event_id' => $event->id,
             'participant_id' => Auth::id(),
@@ -81,7 +81,7 @@ class ParticipationsController extends Controller
     {
         $participation = Participation::findOrFail($id);
         #or use php's unlink($filename)
-        Storage::disk('public')->delete(env('EVENT_STORAGE_PATH').$participation->event->abbreviation.'/participations/'.$participation->file);
+        Storage::disk('public')->delete(env('EVENT_STORAGE_PATH', '/events/').$participation->event->abbreviation.'/participations/'.$participation->file);
         $participation->delete();
         return back();
     }

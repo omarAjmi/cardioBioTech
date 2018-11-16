@@ -37,7 +37,7 @@ class User extends Authenticatable
 
     public function uploadAvatar(UploadedFile $file)
     {
-        $path = env('USER_STORAGE_PATH').'avatars/';
+        $path = env('USER_STORAGE_PATH', '/users/').'avatars/';
         return $this->uploadFile($file, $path, $this->id);
     }
 

@@ -35,7 +35,7 @@ class GalleriesController extends Controller
         foreach ($request->file('files') as $file) {
             Image::create([
                 'gallery_id' => $gallery->id,
-                'path' => $gallery->uploadImage($file, env('EVENT_STORAGE_PATH').$gallery->event->abbreviation.'/gallery/', now())
+                'path' => $gallery->uploadImage($file, env('EVENT_STORAGE_PATH', '/events/').$gallery->event->abbreviation.'/gallery/', now())
             ]);
         }
         return redirect(route('galleries'));
