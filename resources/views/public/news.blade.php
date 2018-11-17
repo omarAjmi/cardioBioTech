@@ -121,7 +121,7 @@
                                 Organisateur
                             </h5>
                             <p>
-                                {{ $events->first()->organizer }}
+                                {{ $events->first()->organiser }}
                             </p>
                         </div>
                     </div>
