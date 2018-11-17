@@ -118,11 +118,10 @@
                         <i class="ion-ios-person-outline"></i>
                         <div class="content">
                             <h5 class="box_title">
-                                organisateur
+                                Organisateur
                             </h5>
                             <p>
-                                Natalie James
-                                + guests
+                                {{ $events->first()->organizer }}
                             </p>
                         </div>
                     </div>

@@ -34,29 +34,34 @@ class ParticipationsController extends Controller
 
     public function participate(Request $request, int $id)
     {
-        $validation = new ParticipationRequest();
-        $validator = Validator::make($request->toArray(), $validation->rules());
-        if ($validator->fails()) {
-            Session::flash('partFail');
-            $validator->errors()->add('participation', 'Champs requis');
+        $event = Event::findOrFail($id);
+        if($event->dead_line > now()) {
+            $validation = new ParticipationRequest();
+            $validator = Validator::make($request->toArray(), $validation->rules());
+            if ($validator->fails()) {
+                Session::flash('partFail', '*');
+                $validator->errors()->add('participation', 'Champs requis');
+                return back();
+            }
+            $user = Auth::user();
+            $fileName = $event->abbreviation.'_'.$user->first_name.'_'.$user->last_name;
+            $participation = new Participation();
+            $path = env('EVENT_STORAGE_PATH', '/events/').$event->abbreviation.'/participations/';  
+            $participation = Participation::create([
+                'event_id' => $event->id,
+                'participant_id' => Auth::id(),
+                'file' => $participation->uploadParticipationFile($request->file('participation'), $fileName, $path)
+            ]);
+            Notif::create([
+                'participation_id' => $participation->id,
+                'context' => $user->first_name.' '.$user->last_name.' a demandé une participation à l\'évènement à venir'
+            ]);
+            Session::flash('partSuccess', 'Votre demande a été déposer');
+            return back();
+        } else {
+            Session::flash('partFail', 'Date de participation finale est depasé');
             return back();
         }
-        $event = Event::findOrFail($id);
-        $user = Auth::user();
-        $fileName = $event->abbreviation.'_'.$user->first_name.'_'.$user->last_name;
-        $participation = new Participation();
-        $path = env('EVENT_STORAGE_PATH', '/events/').$event->abbreviation.'/participations/';  
-        $participation = Participation::create([
-            'event_id' => $event->id,
-            'participant_id' => Auth::id(),
-            'file' => $participation->uploadParticipationFile($request->file('participation'), $fileName, $path)
-        ]);
-        Notif::create([
-            'participation_id' => $participation->id,
-            'context' => $user->first_name.' '.$user->last_name.' a demandé une participation à l\'événement à venir'
-        ]);
-        Session::flash('partSuccess', 'Votre demande a été déposer');
-        return back();
     }
 
     public function downloadParticipationFile(int $id)

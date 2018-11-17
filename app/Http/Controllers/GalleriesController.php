@@ -7,6 +7,7 @@ use App\Image;
 use App\Gallery;
 use Illuminate\Http\Request;
 use App\Http\Requests\GalleriesRequest;
+use Illuminate\Support\Facades\Storage;
 
 class GalleriesController extends Controller
 {
@@ -31,11 +32,11 @@ class GalleriesController extends Controller
     public function create(GalleriesRequest $request)
     {
         $event = Event::find($request->event);
-        $gallery = Gallery::where(['event_id'=> $event->id]);
-        foreach ($request->file('files') as $file) {
+        $gallery = Gallery::where(['event_id'=> $event->id])->first();
+        foreach ($request->file('files') as $key=>$file) {
             Image::create([
                 'gallery_id' => $gallery->id,
-                'path' => $gallery->uploadImage($file, env('EVENT_STORAGE_PATH', '/events/').$gallery->event->abbreviation.'/gallery/', now())
+                'path' => $gallery->uploadImage($file, env('EVENT_STORAGE_PATH', '/events/').$gallery->event->abbreviation.'/gallery/', $key)
             ]);
         }
         return redirect(route('galleries'));
@@ -47,5 +48,15 @@ class GalleriesController extends Controller
         return view('admin.galleries.files', [
             'gallery' => $gallery
         ]);
+    }
+
+    public function deleteImage(int $gallery_id, int $image_id)
+    {
+        $image = Image::findOrFail($image_id);
+        if(Storage::disk('public')->exists($image->path)) {
+            Storage::disk('public')->delete($image->path);
+        }
+        $image->delete();
+        return back();
     }
 }

@@ -54,6 +54,19 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                           <label for="organizer" class=" form-control-label"> Organisateur</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input id="organizer" name="organizer" placeholder="organizer" class="form-control" type="text" value="{{ old('organizer') }}">
+                                            @if ($errors->has('organizer'))
+                                                <small class="form-text  status--denied">{{ $errors->first('organizer') }}</small>
+                                            @endif
+                                        </div>
+                                    </div>
+
                                     <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="about   " class=" form-control-label">A propos</label>
@@ -69,11 +82,11 @@
                                     </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="sliders" class=" form-control-label">Sélectionnez les curseurs d'événement(images)</label>
+                                            <label for="sliders" class=" form-control-label">Sélectionnez les slides d'événement</label>
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input id="sliders" name="sliders[]" multiple="" class="form-control-file"
-                                                type="file" value="{{ old('sliders[]') }}">
+                                                type="file" value="{{ old('sliders[]') }}" accept="png, jpg, jpeg">
                                             @if ($errors->has('sliders'))
                                                 <small class="form-text status--denied">{{ $errors->first('sliders') }}</small>
                                             @endif                                           

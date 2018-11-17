@@ -10,7 +10,7 @@
                                 <strong>modifier L' Évènement</strong>
                             </div>
                             <div class="card-body card-block">
-                                <form action="{{ route('admin.createEvent') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                <form action="{{ route('admin.updateEvent', $event->id) }}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                     @csrf
                                     <input type="hidden" name="_method" value="PUT">
                                     <div class="row form-group">
@@ -67,6 +67,18 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                           <label for="organizer" class=" form-control-label"> Organisateur</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input id="organizer" name="organizer" placeholder="organizer" class="form-control" type="text" value="{{ old('organizer') }}">
+                                            @if ($errors->has('organizer'))
+                                                <small class="form-text  status--denied">{{ $errors->first('organizer') }}</small>
+                                            @endif
+                                        </div>
+                                    </div>
                                     <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="about   " class=" form-control-label">A propos</label>
@@ -117,7 +129,10 @@
                                         </div>
                                         <div class="col-12 col-md-9">
                                               <input name="city" placeholder="Ville" class="form-control" type="text" @if(old('city'))
-                                                                                                                 @endif>
+                                                                                                                        value="{{ old('city') }}"
+                                                                                                                    @else
+                                                                                                                        value="{{ $event->address->city }}"
+                                                                                                                    @endif>
                                             @if ($errors->has('city'))
                                                 <small class="form-text status--denied">{{ $errors->first('city') }}</small>
                                             @endif
@@ -145,17 +160,17 @@
                                         <div class=" col-12 col-md-9 
                                          " >
                                            <div class="input-group " id="datetimepicker1">
-                                            <input name="final_date" type='text' id="date" class="form-control" @if(old('final_date'))
-                                                                                                        value="{{ old('final_date') }}"
+                                            <input name="dead_line" type='text' id="date" class="form-control" @if(old('dead_line'))
+                                                                                                        value="{{ old('dead_line') }}"
                                                                                                     @else
-                                                                                                        value="{{ $event->final_date }}"
+                                                                                                        value="{{ $event->dead_line }}"
                                                                                                     @endif/>
                                             <span class="input-group-addon">
                                                 <span class="fas fa-calendar-alt"></span>
                                             </span>
                                             </div>
-                                             @if ($errors->has('final_date'))
-                                            <small class="form-text status--denied">{{ $errors->first('final_date') }}</small>
+                                             @if ($errors->has('dead_line'))
+                                            <small class="form-text status--denied">{{ $errors->first('dead_line') }}</small>
                                         @endif
                                         </div>
                                        

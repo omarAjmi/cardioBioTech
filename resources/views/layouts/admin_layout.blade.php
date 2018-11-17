@@ -19,7 +19,7 @@
         @include('admin.partials.sidebar')
         <!-- PAGE CONTAINER-->
         <div class="page-container">
-            @include('admin.partials.header_desk')            
+            @include('admin.partials.header_desk')
             @yield('content')
         </div>
         <!-- END PAGE CONTAINER-->

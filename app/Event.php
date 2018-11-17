@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class Event extends Model
 {
     protected $fillable = [
-        'title', 'abbreviation', 'about', 'start_date', 'end_date', 'address', 'storage', 'program_file', 'dead_line'
+        'title', 'abbreviation', 'about', 'start_date', 'end_date', 'address', 'storage', 'program_file', 'dead_line', 'organiser'
     ];
 
     public function participations()

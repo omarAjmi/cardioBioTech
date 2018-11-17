@@ -101,10 +101,10 @@
                         <i class="ion-ios-person-outline"></i>
                         <div class="content">
                             <h5 class="box_title">
-                                speekers
+                                Organisateur
                             </h5>
                             <p>
-                             
+                                {{ $events->first()->organizer }}
                             </p>
                         </div>
                     </div>
@@ -197,7 +197,11 @@
                     </div>
                     <div class="modal-body">
                         <p>
-                            Fichier requis doit être de type pdf ou docx
+                            @if(Session::get('partFail')==='*')
+                                Fichier requis doit être de type pdf ou docx
+                            @else
+                                {{ Session::get('partFail') }}
+                            @endif
                         </p>
                     </div>
                 </div>

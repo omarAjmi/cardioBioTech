@@ -3,18 +3,17 @@
     <div class="main-content">
         <div class="section__content section__content--p30">
             <div class="container-fluid">
-                @if (Session::has('success'))
-                    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
-                        <span class="badge badge-pill badge-success">Success</span>
-                        {{ Session::get('success') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                @endif
-                
                     <div class="col-md-12 ">
                         <!-- DATA TABLE -->
+                        @if(Session::has('success'))
+                            <div class="alert alert-success" role="alert">
+                                <span class="badge badge-pill badge-primary">Succès</span>
+                                {{ Session::get('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Fermer">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        @endif
                          <a class="btn btn-primary pull-right" href="{{ route('admin.newEvent') }}">Creer un nouvel évènement</a>
                         <h3 class="title-5 m-b-35">Évènements</h3>
                        

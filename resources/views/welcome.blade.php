@@ -232,7 +232,7 @@
                                     <span class="ion-ios-arrow-back"></span>
                                     <span class="ion-ios-arrow-forward"></span>
                                 </div>
-                                <h2><i class="fa fa-facebook-messenger"></i> Messanger</h2>
+                                <h2><img src="/img/messenger.png"> Messanger</h2>
                                 <h6>contacter nous on messanger</h6>
                             </a>
                         </div>

@@ -44,6 +44,8 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
 
     Route::post('/events/create', ['as' => 'admin.createEvent','uses' => 'EventsController@create']);
 
+    Route::put('/events/event/{id}/update', ['as' => 'admin.updateEvent','uses' => 'EventsController@update']);
+
     Route::put('/notifications/{id}', ['as' => 'notif.makeSeen','uses' => 'NotificationsController@markSeenNotif']);
 
     Route::get('/notifications', ['as' => 'notifs','uses' => 'NotificationsController@notifications']);
@@ -60,14 +62,16 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
 
     Route::delete('/events/{id}', ['as' => 'admin.deleteEvent','uses' => 'EventsController@delete']);
 
-    Route::get('/events/{id}', ['as' => 'admin.previewEvent','uses' => 'EventsController@preview']);
+    Route::get('/events/event/{id}', ['as' => 'admin.previewEvent','uses' => 'EventsController@preview']);
     Route::get('/galleries', ['as' => 'galleries', 'uses' => 'GalleriesController@galleries']);
 
     Route::get('/galleries/new', ['as' => 'galleries.new', 'uses' => 'GalleriesController@new']);
 
     Route::post('/galleries/create', ['as' => 'galleries.create', 'uses' => 'GalleriesController@create']);
 
-    Route::get('/galleries/{id}', ['as' => 'galleries.files', 'uses' => 'GalleriesController@preview']);
+    Route::get('/galleries/{id}/images', ['as' => 'galleries.files', 'uses' => 'GalleriesController@preview']);
+
+    Route::delete('/galleries/{gallery_id}/remove_image/{image_id}', ['as' => 'gallerys.removeImage', 'uses' => 'GalleriesController@deleteImage']);
 
     Route::get('/commitees', ['as' => 'commitees', 'uses' => 'CommiteesController@commitees']);
 
