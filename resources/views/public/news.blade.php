@@ -122,7 +122,7 @@
                                 Organisateur
                             </h5>
                             <p>
-                                {{ $events->first()->organiser }}
+                                @if (!is_null($events->first())){{ $events->first()->organiser }}@endif
                             </p>
                         </div>
                     </div>
