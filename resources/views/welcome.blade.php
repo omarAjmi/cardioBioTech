@@ -673,9 +673,8 @@
 <!-- Main JS-->
 <script src="/admin_site/js/main.js"></script>
 <script>
-@if($events->isNotEmpty())
-    var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!}-{!! $events->first()->start_date->toTimeString() !!}@else{!! now() !!}@endif"
-@endif
+    var startDate = "@if($events->isNotEmpty()){!! $events->first()->start_date->toDateString() !!}-{!! $events->first()->start_date->toTimeString() !!}@else{!! now() !!}@endif"
+
 </script>
 <script src="/js/main2.js"></script>
   </body>
