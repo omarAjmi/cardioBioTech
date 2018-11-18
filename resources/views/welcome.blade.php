@@ -675,8 +675,8 @@
 <script src="/admin_site/js/main.js"></script>
 <script>
 @if($events->isNotEmpty())
-    var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!} {!! $events->first()->start_date->toTimeString() !!}@endif"
-@endif	
+    var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!}-{!! $events->first()->start_date->toTimeString() !!}@else{!! now() !!}@endif"
+@endif
  $('.counter').counterUp({
         delay: 5,
         time: 3000
