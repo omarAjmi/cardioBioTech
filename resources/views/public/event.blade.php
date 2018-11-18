@@ -71,7 +71,7 @@
                             </h5>
                             <p>
                                 {{ $event->start_date->format('l j F Y H:i:s') }} <br>
-                                    @if ($event->start_date->diffInDays($event)->end_date) > 0)
+                                    @if ($event->start_date->diffInDays($event->end_date) > 0)
                                         ({{ $event->start_date->diffInDays($event->end_date) }}) jours
                                     @endif
                             </p>
