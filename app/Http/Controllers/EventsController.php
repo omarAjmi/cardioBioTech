@@ -84,8 +84,8 @@ class EventsController extends Controller
     public function preview(int $id)
     {
         $event = Event::findOrFail($id);
-        $event->start_date = new Carbon($event->start_date);
-        $event->end_date = new Carbon($event->end_date);
+        $event->start_date = new Date($event->start_date);
+        $event->end_date = new Date($event->end_date);
         $event->address = json_decode($event->address);
         return view('admin.events.preview', ['event' => $event]);
     }

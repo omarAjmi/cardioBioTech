@@ -13,7 +13,7 @@
                                     <img style="max-height: 140px;max-width: 300px;" class="card-img-top" src="/storage{{ $image->path }}" alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title mb-3">{{ $image->created_at }}</h5>
-                                        <form action="{{ route('gallerys.removeImage',['gallery_id'=>$image->gallery->id, 'member_id'=>$image->id]) }}" method="post">
+                                        <form action="{{ route('gallerys.removeImage',['gallery_id'=>$image->gallery_id, 'image_id'=>$image->id]) }}" method="post">
                                             @csrf
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="item pull-right"  style="border-radius: 50%;background: #E5E5E5;width: 30px;height: 30px;margin-top: -13%" >
