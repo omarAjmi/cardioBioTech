@@ -184,7 +184,7 @@ class EventsController extends Controller
     public function downloadProgram(int $id, string $fileName)
     {
         $event = Event::findOrFail($id);
-        return Storage::disk('public')->download("events/$event->abbreviation/".$event->program_file);
+        return Storage::disk('public')->download($event->storage.$event->program_file);
     }
 
     /**
