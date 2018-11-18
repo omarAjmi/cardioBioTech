@@ -631,7 +631,6 @@
   <script src="/js/scrollax.min.js"></script>
 
   <script src="/js/main.js"></script>
-    <script src="/js/main2.js"></script>
     <script src="/js/login_signup.js"></script>
 
 <!--===============================================================================================-->
@@ -677,16 +676,7 @@
 @if($events->isNotEmpty())
     var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!}-{!! $events->first()->start_date->toTimeString() !!}@else{!! now() !!}@endif"
 @endif
- $('.counter').counterUp({
-        delay: 5,
-        time: 3000
-    });
-$(".countdown")
-        .countdown(startDate, function(event) {
-            $(this).html(
-                event.strftime('<div>%w <span>Semaines</span></div>  <div>%D <span>Jours</span></div>  <div>%H<span>Heures</span></div> <div>%M<span>Minutes</span></div> <div>%S<span>Secondes</span></div>')
-            );
-        });
 </script>
+<script src="/js/main2.js"></script>
   </body>
 </html>
