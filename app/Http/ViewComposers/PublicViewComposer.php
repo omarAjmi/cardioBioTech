@@ -5,14 +5,13 @@ namespace App\Http\ViewComposers;
 use App\Event;
 use Carbon\Carbon;
 use Illuminate\View\View;
-use Jenssegers\Date\Date;
+use Date;
 
 
 class PublicViewComposer
 {
     public function compose(View $view)
     {
-        Date::setLocale('FR');
         $events = Event::latest()->get();
         if (!is_null($events->first())) {
             $events->first()->start_date = new Date($events->first()->start_date);

@@ -70,7 +70,7 @@
                                 DATE
                             </h5>
                             <p>
-                                @if (!is_null($events->first())){{ $events->first()->start_date->formatLocalized('%A %d %B %Y') }} <br>
+                                @if (!is_null($events->first())){{ $events->first()->start_date->format('l j F Y H:i:s') }} <br>
                                     @if ($events->first()->start_date->diffInDays($events->first()->end_date) > 0)
                                         ({{ $events->first()->start_date->diffInDays($events->first()->end_date) }}) jours
                                     @endif

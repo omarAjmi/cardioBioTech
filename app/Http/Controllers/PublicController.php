@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
-use Carbon\Carbon;
+use Date;
 use Illuminate\Http\Request;
 
 class PublicController extends Controller
@@ -15,8 +15,8 @@ class PublicController extends Controller
      */
     public function welcome()
     {
-        $events = Event::all();
-        return view('welcome', ['events'=> $events]);
+        // $events = Event::all();
+        return view('welcome');
     }
 
     /**
@@ -26,14 +26,7 @@ class PublicController extends Controller
      */
     public function currentEvent()
     {
-        $events = Event::all();
-        if($events->isNotEmpty()) {
-            $events->first()->start_date = new Carbon($events->first()->start_date);
-            $events->first()->end_date = new Carbon($events->first()->end_date);
-            $events->first()->address = json_decode($events->first()->address);
-            return view('public.news', ['events'=> $events]);
-        }
-        return view('public.news', ['events'=> $events]);
+        return view('public.news');
         
     }
 
@@ -47,8 +40,8 @@ class PublicController extends Controller
             }
         }
         if (!is_null($event)) {
-            $event->start_date = new Carbon($event->start_date);
-            $event->end_date = new Carbon($event->end_date);
+            $event->start_date = new Date($event->start_date);
+            $event->end_date = new Date($event->end_date);
             $event->address = json_decode($event->address);
         }
         return view('public.event',['event'=>$event]);

@@ -15,9 +15,7 @@
                                         </h2>
                                         <strong class="cover-xl-text">{{ $events->first()->abbreviation }}</strong>
                                         <p class="cover-date">
-                                            @if($date = new Carbon\Carbon($events->first()->created_at))
-                                                {{ $date->toDayDateTimeString() }}
-                                            @endif 
+                                                {{ $events->first()->start_date->format('l j F Y H:i:s') }}
                                         </p>
                                         <a href="{{ route('event',[$events->first()->id]) }}" class=" btn btn-primary btn-rounded">
                                             prendre part
@@ -88,8 +86,7 @@
                                 </h5>
                                 <p>
                                     @if (!is_null($events->first()))
-                                        {{-- {{ $events->first()->start_date->formatLocalized('%A %d %B %Y') }} --}}
-                                        {{ $events->first()->start_date->toDateTimeString("Y-m-d H:m") }}<br>
+                                        {{ $events->first()->start_date->format('l j F Y H:i:s') }}<br>
                                         @if ($events->first()->start_date->diffInDays($events->first()->end_date) > 0)
                                             ({{ $events->first()->start_date->diffInDays($events->first()->end_date) }}) jours
                                         @endif
