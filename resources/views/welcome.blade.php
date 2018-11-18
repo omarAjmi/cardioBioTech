@@ -103,9 +103,9 @@
                 <div class="slider-content-inner">
                     <div class="container">
                         <div class="slider-content-center">
-                            <h2 class="cover-title">
+                            <h3 class="cover-title">
                              L’Association Médicale CARDIOBIOTEC du Tunisie
-                            </h2>
+                            </h3>
                            
                         </div>
                     </div>
@@ -117,9 +117,9 @@
                 <div class="slider-content-inner">
                     <div class="container">
                         <div class="slider-content-center">
-                            <h2 class="cover-title">
+                            <h3 class="cover-title">
                              L’Association Médicale CARDIOBIOTEC du Tunisie
-                            </h2>
+                            </h3>
                            
                         </div>
                     </div>
@@ -131,9 +131,9 @@
                 <div class="slider-content-inner">
                     <div class="container">
                         <div class="slider-content-center">
-                            <h2 class="cover-title">
+                            <h3 class="cover-title">
                              L’Association Médicale CARDIOBIOTEC du Tunisie
-                            </h2>
+                            </h3>
                            
                         </div>
                     </div>
@@ -200,7 +200,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="#" class="services-wrap ftco-animate">
+                            <a href="mailto:cardiobiotec@yahoo.fr" class="services-wrap ftco-animate">
                                 <div class="icon d-flex justify-content-center align-items-center">
                                     <span class="ion-ios-arrow-back"></span>
                                     <span class="ion-ios-arrow-forward"></span>
@@ -383,7 +383,7 @@
                         <a href="{{ route('welcome') }}">Accueil</a>
                     </li>
                     <li>
-                        <a href="{{ route('welcome') }}#speakers">Comité</a>
+                        <a href="{{ route('current') }}#speakers">Comité</a>
                     </li>
                     <li>
                         @if ($events->isNotEmpty())

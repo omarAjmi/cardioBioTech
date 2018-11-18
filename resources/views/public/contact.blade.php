@@ -42,8 +42,8 @@
                         </p><br>
                        <ul class="list-contact" style="list-style: none;">
                            <li><i class="fa fa-phone-square" style="color: #005792"></i> &nbsp;(+216)73.10.60.69 / (+216)92.00.44.66</li>
-                           <li><i class="fa fa-envelope" style="color: #005792"></i> &nbsp;cardiobiotec@yahoo.fr</li>
-                           <li><i class="fa fa-facebook" style="color: #005792"></i> <a href="https://www.facebook.com/pg/Cardiobiotech"> &nbsp;page facebook cardiobiotec</a></li>
+                           <li><a style="color:#005792;" href="mailto:cardiobiotec@yahoo.fr"><i class="fa fa-envelope" style="color: #005792"></i> &nbsp;cardiobiotec@yahoo.fr</a></li>
+                           <li><i class="fa fa-facebook" style="color: #005792"></i> <a style="color:#005792;" href="https://www.facebook.com/pg/Cardiobiotech"> &nbsp;page facebook cardiobiotec</a></li>
                        </ul>
     
                     </div>
