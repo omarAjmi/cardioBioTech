@@ -40,7 +40,7 @@
 <script src="/js/main2.js"></script>
 <script>
 @if($events->isNotEmpty())
-    var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!}-{!! $events->first()->start_date->toTimeString() !!}@endif"
+    var startDate = "@if (!is_null($events)){!! $events->first()->start_date->toDateString() !!}-{!! $events->first()->start_date->toTimeString() !!}@else{!! now() !!}@endif"
 @endif
 </script>
 <script>

@@ -27,10 +27,14 @@ class PublicController extends Controller
     public function currentEvent()
     {
         $events = Event::all();
-        $events->first()->start_date = new Carbon($events->first()->start_date);
-        $events->first()->end_date = new Carbon($events->first()->end_date);
-        $events->first()->address = json_decode($events->first()->address);
+        if($events->isNotEmpty()) {
+            $events->first()->start_date = new Carbon($events->first()->start_date);
+            $events->first()->end_date = new Carbon($events->first()->end_date);
+            $events->first()->address = json_decode($events->first()->address);
+            return view('public.news', ['events'=> $events]);
+        }
         return view('public.news', ['events'=> $events]);
+        
     }
 
 
