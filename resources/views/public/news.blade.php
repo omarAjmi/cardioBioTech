@@ -86,11 +86,12 @@
                             <p>
                                 @if (!is_null($events->first()))
                                     {{-- {{ $events->first()->start_date->formatLocalized('%A %d %B %Y') }} --}}
-                                    {{ $events->first()->start_date->toDateTimeString("Y-m-d H:m") }}
-                                @endif <br>
-                                @if ($events->first()->start_date->diffInDays($events->first()->end_date) > 0)
-                                    ({{ $events->first()->start_date->diffInDays($events->first()->end_date) }}) jours
+                                    {{ $events->first()->start_date->toDateTimeString("Y-m-d H:m") }}<br>
+                                    @if ($events->first()->start_date->diffInDays($events->first()->end_date) > 0)
+                                        ({{ $events->first()->start_date->diffInDays($events->first()->end_date) }}) jours
+                                    @endif
                                 @endif
+                                
                             </p>
                                 
                         </div>
