@@ -491,7 +491,7 @@
                                         <span class="txt1">
                                             Oublié:
                                         </span>
-                                        <a class="txt2" href="#">
+                                        <a class="txt2" href="{{ route('password.request') }}">
                                             login / Mot de passe?
                                         </a>
                                     </div>

@@ -19,6 +19,8 @@ class PublicViewsComposerServiceProvider extends ServiceProvider
                             'public.contact',
                             'public.profile',
                             'public.participate',
+                            'auth.passwords.email',
+                            'auth.passwords.reset'
                         ], 'App\Http\ViewComposers\PublicViewComposer');
     }
 

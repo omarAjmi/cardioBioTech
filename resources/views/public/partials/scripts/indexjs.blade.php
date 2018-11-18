@@ -65,11 +65,7 @@
             $('#outDatedModal').modal('show');
         })
     @endif
-    @if(Session::has('partSuccess'))
-        $('document').ready(function () {
-            $('#staticModal').modal('show');
-        })
-    @elseif(Session::has('partFail'))
+    @if(Session::has('partSuccess') or Session::has('partFail'))
         $('document').ready(function () {
             $('#staticModal').modal('show');
         })
