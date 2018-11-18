@@ -15,7 +15,7 @@
                                         </h2>
                                         <strong class="cover-xl-text">{{ $events->first()->abbreviation }}</strong>
                                         <p class="cover-date">
-                                                {{ $events->first()->start_date->format('l j F Y H:i:s') }}
+                                            {{ $events->first()->start_date->format('l j F Y H:i:s') }}
                                         </p>
                                         <a href="{{ route('event',[$events->first()->id]) }}" class=" btn btn-primary btn-rounded">
                                             prendre part

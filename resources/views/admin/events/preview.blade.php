@@ -70,12 +70,17 @@
 
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                           <label for="organizer" class=" form-control-label"> Organisateur</label>
+                                           <label for="organiser" class=" form-control-label"> Organisateur</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input id="organizer" name="organizer" placeholder="organizer" class="form-control" type="text" value="{{ old('organizer') }}">
-                                            @if ($errors->has('organizer'))
-                                                <small class="form-text  status--denied">{{ $errors->first('organizer') }}</small>
+                                            <input id="organiser" name="organiser" placeholder="Organisateur" class="form-control" type="text"
+                                                            @if(old('organiser'))
+                                                                value="{{ old('organiser') }}"
+                                                            @else
+                                                                value="{{ $event->organiser }}"
+                                                            @endif>
+                                            @if ($errors->has('organiser'))
+                                                <small class="form-text  status--denied">{{ $errors->first('organiser') }}</small>
                                             @endif
                                         </div>
                                     </div>

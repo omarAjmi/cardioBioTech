@@ -3221,7 +3221,7 @@ textarea.form-control {
 }
 }
 #galery-owl .owl-item .galery-item {
-  opacity: 0.5;
+  opacity: 0.3;
   -webkit-transform: scale(0.9);
   -ms-transform: scale(0.9);
   transform: scale(0.9);
@@ -3258,7 +3258,7 @@ textarea.form-control {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   background: transparent;
-  color: #dd0a37;
+  color: #007bff;
   width: 90px;
   height: 90px;
   line-height: 90px;
