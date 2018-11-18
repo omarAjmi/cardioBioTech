@@ -3,7 +3,6 @@
 namespace App\Http\ViewComposers;
 
 use App\Event;
-use Carbon\Carbon;
 use Illuminate\View\View;
 use Date;
 

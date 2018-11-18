@@ -42,6 +42,7 @@ class PublicController extends Controller
         if (!is_null($event)) {
             $event->start_date = new Date($event->start_date);
             $event->end_date = new Date($event->end_date);
+            $event->dead_line = new Date($event->dead_line);
             $event->address = json_decode($event->address);
         }
         return view('public.event',['event'=>$event]);

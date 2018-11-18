@@ -26,13 +26,6 @@
                                 <table class="table table-data2">
                                     <div class="card">
                                     <thead class="card-header">
-                                       
-                                           {{--  <th>
-                                                <label class="au-checkbox">
-                                                    <input type="checkbox">
-                                                    <span class="au-checkmark"></span>
-                                                </label>
-                                            </th> --}}
                                            
                                             <th>abbreviation</th>
                                             <th>titre</th>
@@ -57,9 +50,10 @@
                                                     ]) }}" target="_blank">{{ $event->program_file }}</a>
                                                         
                                                     </td>
-                                                <td>{{ $event->start_date ->toDayDateTimeString()}}</td>
-                                                <td>{{ $event->end_date->toDayDateTimeString() }}</td>
-                                                @if ($event->start_date<now())
+                                                <td>{{ $event->start_date ->format('l j F Y H:i:s')}}</td>
+                                                <td>{{ $event->end_date->format('l j F Y H:i:s') }}</td>
+                                                
+                                                @if ($event->start_date < now())
                                                     <td>
                                                         <span class="status--denied">dépasser</span>
                                                     </td>

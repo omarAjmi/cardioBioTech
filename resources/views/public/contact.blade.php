@@ -51,19 +51,19 @@
                 <div class="col-md-6 col-12">
                     <div class="contact_form">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="name">
+                            <input type="text" class="form-control" placeholder="Nom et prénom">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="email">
+                            <input type="email" class="form-control" placeholder="Adresse email">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="subject">
+                            <input type="text" class="form-control" placeholder="Sujet">
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" cols="4" rows="4" placeholder="massage"></textarea>
+                            <textarea class="form-control" cols="4" rows="4" placeholder="Massage"></textarea>
                         </div>
                         <div class="form-group text-right">
-                            <button class="btn btn-rounded btn-primary">send massage</button>
+                            <button class="btn btn-rounded btn-primary">Envoyer</button>
                         </div>
                     </div>
                 </div>

@@ -60,7 +60,7 @@
     <!--event info -->
     <section class="pt100 ">
         <div class="container">
-            <h1 style="text-align: center;color: #005792">@if (!is_null($events->first())){{ $events->first()->title }}@endif</h1>
+            <h1 style="text-align: center;color: #005792">{{ $event->title }}</h1>
             <div class="row justify-content-center">
                 <div class="col-6 col-md-3  ">
                     <div class="icon_box_two">
@@ -70,11 +70,10 @@
                                 DATE
                             </h5>
                             <p>
-                                @if (!is_null($events->first())){{ $events->first()->start_date->format('l j F Y H:i:s') }} <br>
-                                    @if ($events->first()->start_date->diffInDays($events->first()->end_date) > 0)
-                                        ({{ $events->first()->start_date->diffInDays($events->first()->end_date) }}) jours
+                                {{ $event->start_date->format('l j F Y H:i:s') }} <br>
+                                    @if ($event->start_date->diffInDays($event)->end_date) > 0)
+                                        ({{ $event->start_date->diffInDays($event->end_date) }}) jours
                                     @endif
-                                @endif
                             </p>
                         </div>
                     </div>
@@ -88,9 +87,9 @@
                                 locale
                             </h5>
                             <p>
-                                @if (!is_null($events->first())){{ $events->first()->address->state }}@endif, 
-                                @if (!is_null($events->first())){{ $events->first()->address->city }}@endif <br>
-                                @if (!is_null($events->first())){{ $events->first()->address->street }}@endif
+                                {{ $events->first()->address->state }}, 
+                                {{ $events->first()->address->city }} <br>
+                                {{ $events->first()->address->street }}
                             </p>
                         </div>
                     </div>
@@ -134,26 +133,25 @@
             </div>
         </div>
     </section>
-            @if ($event->start_date > now())
-             <div class="container">
-            <div class="section_title">
-                <h3 class="title">
-                   Participation
-                </h3>
-            </div>      
-             <div >
-                <div class="row justify-content-center" id="participation">      
+            @if ($event->dead_line > now())
+                <div class="container">
+                    <div class="section_title">
+                        <h3 class="title">
+                        Participation
+                        </h3>
+                    </div>      
+                    <div >
+                        <div class="row justify-content-center" id="participation">      
                             <div class="col-md-6 col-12">
-                            <p>
-                                pour la participation, merci de télécharger <a href="{{ route('downloadFileEvent', ['id'=>$event->id,'filename'=>$event->program_file]) }}"><b><u>cette fichier</u></b></a> formelle, de lui fournir les données nécessaires puis de le renvoyer à l’aide de ce formulaire.
-                            </p>
+                                <p>
+                                    pour la participation, merci de télécharger <a href="{{ route('downloadFileEvent', ['id'=>$event->id,'filename'=>$event->program_file]) }}"><b><u>cette fichier</u></b></a> formelle, de lui fournir les données nécessaires puis de le renvoyer à l’aide de ce formulaire.
+                                </p>
                             </div>
                             <div class="col-md-6 col-12">
                                 <form class="contact_form" method="POST" action="{{ route('events.participate', [$event->id]) }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
-                                        <input class="btn btn-rounded btn-success" name="participation" type="file" class="form-control" placeholder="Format De Participation">
-                                   
+                                        <input class="btn btn-rounded btn-success" name="participation" type="file" class="form-control" placeholder="Format De Participation">                                   
                                     
                                         <button class="btn btn-rounded btn-primary " type="submit"><i class="fa fa-plus-circle"></i> Déposer</button>
                                     </div>

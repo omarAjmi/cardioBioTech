@@ -6,7 +6,7 @@ use App\Event;
 use App\Slider;
 use App\Gallery;
 use App\Commitee;
-use Carbon\Carbon;
+use Date;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -25,8 +25,8 @@ class EventsController extends Controller
     {
         $events = Event::all()->sortByDesc('created_at');
         foreach ($events as $event) {
-            $event->start_date = new Carbon($event->start_date);
-            $event->end_date = new Carbon($event->end_date);
+            $event->start_date = new Date($event->start_date);
+            $event->end_date = new Date($event->end_date);
             $event->address = json_decode($event->address);
         }
         
