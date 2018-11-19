@@ -53,7 +53,7 @@
                                             @if ($errors->has('program'))
                                                 <small class="form-text status--denied">{{ $errors->first('program') }}</small>
                                             @else
-                                                <small class="form-text text-muted"> fichier doit être de type (pdf, docx, text)</small>
+                                                <small class="form-text text-muted"> fichier doit être de type (pdf, docx)</small>
                                             @endif
                                         </div>
                                     </div>

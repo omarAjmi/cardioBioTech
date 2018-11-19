@@ -32,11 +32,11 @@ class GalleriesController extends Controller
     public function create(GalleriesRequest $request)
     {
         $event = Event::find($request->event);
-        $gallery = Gallery::where(['event_id'=> $event->id])->first();
+        $gallery = $event->gallery;
         foreach ($request->file('files') as $key=>$file) {
             Image::create([
                 'gallery_id' => $gallery->id,
-                'path' => $gallery->uploadImage($file, env('EVENT_STORAGE_PATH', '/events/').$gallery->event->abbreviation.'/gallery/', $key)
+                'path' => $gallery->uploadImage($file, $event->storage.'/gallery/', $gallery->album->count()+$key+1)
             ]);
         }
         return redirect(route('galleries'));
