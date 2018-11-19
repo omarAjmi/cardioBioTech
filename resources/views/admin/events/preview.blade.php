@@ -58,12 +58,12 @@
                                                                 value="{{ old('program') }}"
                                                             @else
                                                                 value="{{ $event->program }}"
-                                                            @endif>
+                                                            @endif accept="application/pdf, application/docx">
                                             <small class="form-text text-muted"></small>
                                             @if ($errors->has('program'))
                                                 <small class="form-text status--denied">{{ $errors->first('program') }}</small>
                                             @else
-                                                <small class="form-text text-muted"> fichier doit être de type (pdf, docx, text)</small>
+                                                <small class="form-text text-muted"> fichier doit être de type (pdf, docx)</small>
                                             @endif
                                         </div>
                                     </div>
@@ -105,7 +105,7 @@
                                             <input id="sliders" name="sliders[]" multiple="" class="form-control-file"
                                                 type="file" @if(old('sliders[]'))
                                                                 value="{{ old('sliders[]') }}"
-                                                            @endif>
+                                                            @endif accept="image/jpeg,image/png,image/jpg">
                                             @if ($errors->has('sliders'))
                                                 <small class="form-text status--denied">{{ $errors->first('sliders') }}</small>
                                             @else                                                

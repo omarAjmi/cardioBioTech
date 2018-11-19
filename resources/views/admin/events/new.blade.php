@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input id="program" name="program" class="form-control-file"
-                                                type="file" value="{{ old('program') }}">
+                                                type="file" value="{{ old('program') }}" accept="application/pdf">
                                             <small class="form-text text-muted"></small>
                                             @if ($errors->has('program'))
                                                 <small class="form-text status--denied">{{ $errors->first('program') }}</small>
@@ -89,7 +89,7 @@
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input id="sliders" name="sliders[]" multiple="" class="form-control-file"
-                                                type="file" value="{{ old('sliders[]') }}" accept="png, jpg, jpeg">
+                                                type="file" value="{{ old('sliders[]') }}" accept="image/jpeg,image/png,image/jpg">
                                             @if ($errors->has('sliders'))
                                                 <small class="form-text status--denied">{{ $errors->first('sliders') }}</small>
                                             @endif                                           
