@@ -196,7 +196,7 @@ class EventsController extends Controller
     public function delete(int $id)
     {
         $event = Event::findOrFail($id);
-        Storage::disk('public')->deleteDirectory(env('EVENT_STORAGE_PATH', '/events/').'/'.$event->abbreviation);
+        Storage::disk('public')->deleteDirectory($event->storage);
         $event->delete($id);
         Session::flash('success', 'évènnement est suprimé');
         return redirect(route('admin.events'));

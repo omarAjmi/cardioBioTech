@@ -31,13 +31,14 @@ class GalleriesController extends Controller
 
     public function create(GalleriesRequest $request)
     {
-        $event = Event::find($request->event);
+        $event = Event::findOrFail($request->event);
         $gallery = $event->gallery;
         foreach ($request->file('files') as $key=>$file) {
             Image::create([
                 'gallery_id' => $gallery->id,
-                'path' => $gallery->uploadImage($file, $event->storage.'/gallery/', $gallery->album->count()+$key+1)
+                'path' => $gallery->uploadImage($file, $event->storage.'/gallery/', (string)rand())
             ]);
+            
         }
         return redirect(route('galleries'));
     }
