@@ -106,9 +106,16 @@
                                                 type="file" @if(old('sliders[]'))
                                                                 value="{{ old('sliders[]') }}"
                                                             @endif accept="image/jpeg,image/png,image/jpg">
-                                            @if ($errors->has('sliders'))
+                                            
+                                            @for ($i = 0; $i < 5; $i++)
+                                                @if ($errors->any('sliders.'.$i))
+                                                    <small class="form-text status--denied">{{ $errors->first('sliders.'.$i) }}</small>
+                                                    @break
+                                                @endif
+                                            @endfor
+                                            @if ($errors->any('sliders'))
                                                 <small class="form-text status--denied">{{ $errors->first('sliders') }}</small>
-                                            @else                                                
+                                            @else
                                                  <small class="form-text text-muted"> 4 images aux plus</small>
                                             @endif                                           
                                         </div>

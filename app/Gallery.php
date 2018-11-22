@@ -23,12 +23,12 @@ class Gallery extends Model
     }
 
 
-    public function uploadImage(UploadedFile $file, string $path, $filename)
+    public function uploadImage(UploadedFile $file, string $path)
     {
         if(!is_dir($path)) {
             Storage::disk('public')->makeDirectory($path);
         }
-        $filename = $filename.'.'.$file->getClientOriginalExtension();
+        $filename = rand().'.'.$file->getClientOriginalExtension();
         Storage::disk('public')->putFileAs($path, $file, $filename);
         return $path.$filename;
     }

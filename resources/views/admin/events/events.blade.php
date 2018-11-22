@@ -23,7 +23,7 @@
 
                             <div class="table-responsive table-responsive-data2 ">
                                 
-                                <table class="table table-data2">
+                                <table class="table table-data2" id="table_id">
                                     <div class="card">
                                     <thead class="card-header">
                                            
@@ -50,7 +50,7 @@
                                                     ]) }}" target="_blank">{{ $event->program_file }}</a>
                                                         
                                                     </td>
-                                                <td>{{ $event->start_date ->format('l j F Y H:i:s')}}</td>
+                                                <td>{{ $event->start_date->format('l j F Y H:i:s')}}</td>
                                                 <td>{{ $event->end_date->format('l j F Y H:i:s') }}</td>
                                                 
                                                 @if ($event->start_date < now())

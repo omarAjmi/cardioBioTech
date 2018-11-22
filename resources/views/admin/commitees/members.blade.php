@@ -1,25 +1,23 @@
 @extends('layouts.admin_layout')
 @section('content')
-@if (Session::has('success'))
-    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
-        <span class="badge badge-pill badge-success">Succés</span>
-        {{ Session::get('success') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>
-@endif
     <div class="main-content">
         <div class="section__content section__content--p30">
             <div class="container-fluid">
+                <a class="btn btn-primary pull-right" href="{{ route('commitees.addMember', $commitee->event_id) }}">Ajouter un membre</a>
                 <div class="row">
-                    @foreach ($commitee->members as $member)
+                    @if($commitee->members->isEmpty())
+                        <div class="alert alert-info"> <strong>Info!</strong> Pas de membres pour le moment</div>
+                    @else
+                        @foreach ($commitee->members as $member)
                         <div class="col-md-3" style="display: inline-block;">
                             <div class="card">
                                 <img style="max-height: 140px;max-width: 300px;" class="card-img-top" src="/storage{{ $member->data->photo }}" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title mb-3">{{ $member->data->getFullName() }}</h5>
-                                    <form action="{{ route('commitees.removeMember',['commitee_id'=>$member->commitee->id, 'member_id'=>$member->data->id]) }}" method="post">
+                                    <form action="{{ route('commitees.removeMember',[
+                                        'id'=> $member->commitee_id,
+                                        'commitee_id'=>$member->commitee->id,
+                                        'member_id'=>$member->data->id]) }}" method="post">
                                         @csrf
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="item pull-right"  style="border-radius: 50%;background: #E5E5E5;width: 30px;height: 30px;margin-top: -13%" >
@@ -30,6 +28,7 @@
                             </div>
                         </div>
                     @endforeach
+                    @endif
                 </div>
             </div>
         </div>

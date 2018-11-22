@@ -21,7 +21,7 @@ class AdminSeeder extends Seeder
                 'photo' => '/users/avatars/default.png',
                 'phone' => '11111111',
                 'admin' => '1',
-                'address' => $faker->address,
+                'address' => 'rue des rue en face du rue',
                 'created_at' => now(),
                 'updated_at' => now()
             ]);

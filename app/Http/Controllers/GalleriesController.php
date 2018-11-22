@@ -15,44 +15,39 @@ class GalleriesController extends Controller
     {
         $this->middleware(['auth', 'admin']);
     }
-    public function galleries()
+
+    public function addImagesForm(int $event_id)
     {
-        $galleries = Gallery::latest()->get();
-        return view('admin.galleries.galleries', ['galleries'=>$galleries]);
+        $event = Event::findOrFail($event_id);
+        return view('admin.galleries.new',['event'=>$event]);
     }
 
-    public function new()
+    public function addImages(int $event_id, GalleriesRequest $request)
     {
-        $events = Event::all();
-        return view('admin.galleries.new', [
-            'events' => $events
-        ]);
-    }
-
-    public function create(GalleriesRequest $request)
-    {
-        $event = Event::findOrFail($request->event);
+        $event = Event::findOrFail($event_id);
         $gallery = $event->gallery;
-        foreach ($request->file('files') as $key=>$file) {
+        foreach ($request->file('files') as $file) {
             Image::create([
                 'gallery_id' => $gallery->id,
-                'path' => $gallery->uploadImage($file, $event->storage.'/gallery/', (string)rand())
+                'path' => $gallery->uploadImage($file, $event->storage.'gallery/')
             ]);
             
         }
-        return redirect(route('galleries'));
+        return redirect(route('galleries.preview', $event_id));
     }
 
-    public function preview(int $id)
+    public function preview(int $event_id)
     {
-        $gallery = Gallery::with('album')->findOrFail($id);
+        $event = Event::findOrFail($event_id);
+        $gallery = Gallery::with('album')->where('id', $event->id)->first();
         return view('admin.galleries.files', [
             'gallery' => $gallery
         ]);
     }
 
-    public function deleteImage(int $gallery_id, int $image_id)
+    public function deleteImage(int $event_id, int $image_id)
     {
+        Event::findOrFail($event_id);
         $image = Image::findOrFail($image_id);
         if(Storage::disk('public')->exists($image->path)) {
             Storage::disk('public')->delete($image->path);

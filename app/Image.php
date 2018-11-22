@@ -12,6 +12,6 @@ class Image extends Model
 
     public function gallery()
     {
-        return $this->belongsTo(Event::class, 'gallery_id', 'id');
+        return $this->belongsTo(Gallery::class, 'gallery_id', 'id');
     }
 }

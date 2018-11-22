@@ -29,12 +29,15 @@
                                             <a href="{{ route('notifs') }}">
                                                 <div class="content">
                                                     <p>{{ $notif->context }}</p>
-                                                    <span class="date">{{ $notif->created_at->toDayDateTimeString() }}</span>
+                                                    <span class="date">{{ $notif->created_at->diffForHumans() }}</span>
                                                 </div>
                                             </a>
                                         </div>
                                     @endforeach
                                 @endif
+                                <div class="notifi__footer">
+                                    <a href="{{ route('notifs') }}">voir tout</a>
+                                </div>
                             </div>
                         </div>
                     </div>

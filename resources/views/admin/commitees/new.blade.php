@@ -7,24 +7,11 @@
                     <div class="col-lg-10">
                         <div class="card">
                             <div class="card-header">
-                                <strong>Créer nouvel</strong> Commitée
+                                Évènnement <strong>{{ $event->abbreviation }}</strong> / Ajouter Membres Aux Commitée
                             </div>
                             <div class="card-body card-block">
-                                <form action="{{ route('commitees.addMember') }}" method="post" class="form-horizontal">
-                                    @csrf                                    
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label for="event" class=" form-control-label"> Événnement</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <select name="event" id="event" class="form-control" style="height: 100%" >
-                                                <option disabled>choisissez un évènement</option>
-                                                @foreach ($events as $event)
-                                                    <option value="{{ $event->id }}">{{ $event->abbreviation }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+                                <form action="{{ route('commitees.addMember', [$events->first()->id]) }}" method="post" class="form-horizontal">
+                                    @csrf
                                     
                                     <div class="row form-group">
                                         <div class="col col-md-3">
@@ -32,10 +19,14 @@
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <select name="member" id="member" class="form-control" style="height: 100%" >
-                                                <option disabled>choisissez un membre</option>
-                                                @foreach ($members as $member)
-                                                    <option value="{{ $member->id }}">{{ $member->getFullName() }}</option>
-                                                @endforeach
+                                                @if ($members->isNotEmpty())
+                                                    <option selected disabled>choisissez un membre</option>
+                                                    @foreach ($members as $member)
+                                                        <option value="{{ $member->id }}">{{ $member->getFullName() }}</option>
+                                                    @endforeach
+                                                @else
+                                                    <option selected disabled>Aucun member pour le moment</option>
+                                                @endif                                                
                                             </select>
                                         </div>
                                     </div>

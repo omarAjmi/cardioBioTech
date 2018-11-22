@@ -6,7 +6,7 @@
                 @if (Session::has('success'))
                     <div class="sufee-alert alert with-close alert-primary alert-dismissible fade show">
                         <span class="badge badge-pill badge-primary">Success</span>
-                        You successfully read this important alert.
+                            {{ Session::get('success') }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -16,18 +16,16 @@
                     <div class="col-md-12">
                         <!-- DATA TABLE -->
                         @if ($participations->isnotEmpty())
-                          
-                      
                             <div class="table-responsive table-responsive-data2 ">
-                                
-                                <table class="table table-data2" style="width: 90%">
+                                <table class="table table-data2" id="table_id">
                                     <div class="card">
                                     <thead class="card-header">
                                         <tr>
                                             <th>Date</th>
                                             <th>Participant</th>
                                             <th>Fichier</th>
-                                            
+                                            <th>status</th>
+                                            <th></th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -35,13 +33,24 @@
                                         @foreach ($participations as $part)
                                             <tr>
                                                 <td>{{ $part->created_at->diffForHumans() }}</td>
-                                                <td><a href="{{ route('profile', [$part->participant->id]) }}">{{ $part->participant->getFullName() }}</a></td>
-                                                <td class="process"><a href="{{ route('participation.download', [$part->id]) }}" target="_blank">{{ $part->file }}</a></td>
-                                                
-                                               {{--  <td><a href="{{ route('participation.confirm', [$part->id]) }}" class="btn btn-success">confirmer</a>
-                                                <a href="{{ route('participation.refuse', [$part->id]) }}" class="btn btn-danger">refuser</a>
-                                                </td> --}}
-                                                
+                                                <td><a href="{{ route('profile', [$part->participant->id]) }}">{{ $part->participant->getFullName() }}</a>
+                                                </td>
+                                                <td class="process"><a href="{{ route('participation.download', [
+                                                                                                            $part->event_id,
+                                                                                                            $part->id
+                                                                                                            ]) }}" target="_blank">{{ $part->file }}</a>
+                                                </td>
+                                                <td>
+                                                    @if ($part->confirmation)
+                                                        <td>
+                                                            <span class="status--process">confirmée</span>
+                                                        </td>
+                                                    @else
+                                                        <td>
+                                                            <span class="status--denied">en attente</span>
+                                                        </td>
+                                                    @endif
+                                                </td>
                                                 <td >
                                                     <div  style="margin-left:  50%">
                                                         @if($part->confirmation)
@@ -50,11 +59,18 @@
                                                                 <i class="zmdi zmdi-delete" ></i>
                                                             </button>
                                                        @else
-                                                            <button type="submit" class="item" style="border-radius: 50%;background: #E5E5E5;width: 30px;height: 30px"  >
-                                                                <i class="zmdi zmdi-check-circle"></i>
-
-                                                            </button>
-                                                            <form action="{{route('participation.refuse', $part->id)}}" method="post">
+                                                            <form action="{{ route('participation.confirm',[ $part->event_id,
+                                                                                                             $part->id
+                                                                                                            ])}}" method="post">
+                                                                @csrf
+                                                                <input type="hidden" name="_method" value="PUT">
+                                                                <button type="submit" class="item" style="border-radius: 50%;background: #E5E5E5;width: 30px;height: 30px"  >
+                                                                    <i class="zmdi zmdi-check-circle"></i>
+                                                                </button>
+                                                            </form>
+                                                            <form action="{{ route('participation.refuse',[ $part->event_id,
+                                                                                                             $part->id
+                                                                                                            ])}}" method="post">
                                                                 @csrf
                                                                 <input type="hidden" name="_method" value="_DELETE">
                                                                 <input type="hidden" name="_method" value="DELETE">
@@ -73,8 +89,7 @@
                                 </table>
                             </div>
                             @else
-                            <div class="alert alert-info"> <strong>Info!</strong>  Pas des Participation confirmées</div>
-                            
+                            <div class="alert alert-info"> <strong>Info!</strong>Pas de Participations</div>
                             @endif
                     </div>
                 </div>

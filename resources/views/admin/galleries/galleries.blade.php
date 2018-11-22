@@ -36,7 +36,7 @@
                                             <td>{{ $gallery->created_at->diffForHumans() }}</td>
                                             <td>{{ $gallery->event->abbreviation }}</td>
                                             <td>{{ $gallery->album->count() }} images</td>
-                                            <td class="process"><a href="{{ route('galleries.files', [$gallery->id]) }}">fichiers</a></td>
+                                            <td class="process"><a href="{{ route('galleries.files', [$gallery->event_id, $gallery->id]) }}">fichiers</a></td>
                                              <td>
                                                     <div class="table-data-feature">
                                                     

@@ -24,7 +24,18 @@ class GalleriesRequest extends FormRequest
     public function rules()
     {
         return [
-            'files.*' => 'required|file|mimes:png,jpeg,jpg'
+            'files' => 'required',
+            'files.*' => 'file|mimes:png,jpeg,jpg|dimensions:min_width=700,min_height=500'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'files.required' => 'Champ requis',
+            'files.*.dimensions' => 'devrait être aux min 700/500 px',
+        ];
+    }
+
+
 }

@@ -24,7 +24,6 @@ class CommiteesRequest extends FormRequest
     public function rules()
     {
         return [
-            'event' => 'required',
             'member' => 'required'
         ];
     }
@@ -37,7 +36,6 @@ class CommiteesRequest extends FormRequest
     public function messages()
     {
         return [
-            'event.required' => 'Champ requis',
             'member.required' => 'Champ requis'
         ];
     }

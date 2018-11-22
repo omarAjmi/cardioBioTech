@@ -5,30 +5,13 @@
             <div class="container-fluid">
                 <div class="row">                    
                     <div class="col-lg-10">
-                         <h3 class="title-5 m-b-35">Gallery</h3>
                         <div class="card">
                             <div class="card-header ">
-                                <strong>Créer nouvel</strong> Gallerie
+                                Évènnement <strong>{{ $event->abbreviation }}</strong> / Ajouter Des Images
                             </div>
-                             <form action="{{ route('galleries.create') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                             <form action="{{ route('galleries.addImages', [$event->id]) }}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                     @csrf
                             <div class="card-body card-block ">
-                               
-                                    
-                                    <div class="row form-group" >
-                                        <div class="col col-md-3">
-                                            
-                                             <label for="title" class=" form-control-label"> Événnement</label>
-                                        </div>
-                                        <div class="col-12 col-md-9" >
-                                            <select name="event" id="event" class="form-control" style="height: 100%" >
-                                                <option disabled>choisissez un évènement</option>
-                                                @foreach ($events as $event)
-                                                    <option value="{{ $event->id }}">{{ $event->abbreviation }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
                                     
                                     <div class="row form-group">
                                         <div class="col col-md-3">
@@ -37,10 +20,16 @@
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input id="files" name="files[]" multiple="" class="form-control-file"
-                                                type="file" value="{{ old('files[]') }}">
-                                            @if ($errors->has('sliders'))
+                                                type="file" value="{{ old('files[]') }}" accept="image/jpeg,image/png,image/jpg">
+                                            @for ($i = 0; $i < 5; $i++)
+                                                @if ($errors->any('files.'.$i))
+                                                    <small class="form-text status--denied">{{ $errors->first('files.'.$i) }}</small>
+                                                    @break
+                                                @endif
+                                            @endfor
+                                            @if ($errors->any('files'))
                                                 <small class="form-text status--denied">{{ $errors->first('files') }}</small>
-                                            @endif                                           
+                                            @endif
                                         </div>
                                     </div>
                                      </div>

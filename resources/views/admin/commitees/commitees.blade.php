@@ -35,7 +35,7 @@
                                             <td>{{ $com->created_at->diffForHumans() }}</td>
                                             <td>{{ $com->event->abbreviation }}</td>
                                             <td>{{ $com->members->count() }}</td>
-                                            <td><a href="{{ route('commitees.members', [$com->id]) }}">membres</a></td>
+                                            <td><a href="{{ route('commitees.members', [$com->email_id,$com->id]) }}">membres</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

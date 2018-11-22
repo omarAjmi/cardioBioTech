@@ -151,7 +151,7 @@
                                 <form class="contact_form" method="POST" action="{{ route('events.participate', [$event->id]) }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
-                                        <input class="btn btn-rounded btn-success" name="participation" type="file" class="form-control" placeholder="Format De Participation">                                   
+                                        <input class="btn btn-rounded btn-success" name="participation" type="file" accept="application/pdf" class="form-control" placeholder="Format De Participation">
                                     
                                         <button class="btn btn-rounded btn-primary " type="submit"><i class="fa fa-plus-circle"></i> Déposer</button>
                                     </div>

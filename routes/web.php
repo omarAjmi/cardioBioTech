@@ -37,6 +37,8 @@ Route::group([], function(){
 Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
     
     Route::get('/', ['as' => 'admin','uses' => 'AdminController@welcome']);
+    
+    //------------------EVENTS---------------------------------------------//
 
     Route::get('/events', ['as' => 'admin.events','uses' => 'EventsController@events']);
 
@@ -44,43 +46,50 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
 
     Route::post('/events/create', ['as' => 'admin.createEvent','uses' => 'EventsController@create']);
 
-    Route::put('/events/event/{id}/update', ['as' => 'admin.updateEvent','uses' => 'EventsController@update']);
+    Route::get('/events/{id}', ['as' => 'admin.previewEvent','uses' => 'EventsController@preview']);
+
+    Route::put('/events/{id}/update', ['as' => 'admin.updateEvent','uses' => 'EventsController@update']);
+
+    Route::delete('/events/{id}/delete', ['as' => 'admin.deleteEvent','uses' => 'EventsController@delete']);
+
+        //------------------EVENTS PARTICIPATION---------------------------//
+
+    Route::get('/events/{event_id}/participations', ['as'=>'participations', 'uses'=>'ParticipationsController@participations']);
+    
+    Route::get('/events/{event_id}/participations/{participation_id}/download', ['as' => 'participation.download','uses' => 'ParticipationsController@downloadParticipationFile']);
+
+    Route::get('/events/{event_id}/participations/confirmed', ['as' => 'participation.confirmed','uses' => 'ParticipationsController@confirmedParticipants']);
+
+    Route::get('/events/{event_id}/participations/postponed', ['as' => 'participation.postponed','uses' => 'ParticipationsController@postponedParticipants']);
+
+    Route::put('/events/{event_id}/participations/{part_id}/confirm', ['as' => 'participation.confirm','uses' => 'ParticipationsController@confirm']);
+
+    Route::delete('/events/{event_id}/participations/{id}/refuse', ['as' => 'participation.refuse','uses' => 'ParticipationsController@refuse']);
+
+    //------------------EVENTS GALLERIES---------------------------------//
+
+    Route::get('/events/{event_id}/gallerie/add_images', ['as' => 'galleries.addImagesForm', 'uses' => 'GalleriesController@addImagesForm']);
+
+    Route::post('/events/{event_id}/gallerie/add_images', ['as' => 'galleries.addImages', 'uses' => 'GalleriesController@addImages']);
+
+    Route::get('/events/{event_id}/gallerie/images', ['as' => 'galleries.preview', 'uses' => 'GalleriesController@preview']);
+
+    Route::delete('/events/{event_id}/gallerie/remove_image/{image_id}', ['as' => 'gallerys.removeImage', 'uses' => 'GalleriesController@deleteImage']);
+
+    //------------------EVENTS COMMITEES-----------------------------//
+
+    Route::get('/events/{event_id}/commitee/members', ['as' => 'commitees.preview', 'uses' => 'CommiteesController@members']);
+
+    Route::post('/events/{event_id}/commitee/add_member', ['as' => 'commitees.addMember', 'uses' => 'CommiteesController@createMember']);
+
+    Route::get('/events/{event_id}/commitee/add_member', ['as' => 'commitees.new', 'uses' => 'CommiteesController@addMember']);
+
+    Route::delete('/events/{event_id}/commitee/remove_member/{member_id}', ['as' => 'commitees.removeMember', 'uses' => 'CommiteesController@removeMember']);
+
+    //------------------NOTIFICATIONS---------------------------//
 
     Route::put('/notifications/{id}', ['as' => 'notif.makeSeen','uses' => 'NotificationsController@markSeenNotif']);
 
     Route::get('/notifications', ['as' => 'notifs','uses' => 'NotificationsController@notifications']);
-
-    Route::get('/participations/{id}/download', ['as' => 'participation.download','uses' => 'ParticipationsController@downloadParticipationFile']);
-
-    Route::get('/participations/confirmed', ['as' => 'participation.confirmed','uses' => 'ParticipationsController@confirmedParticipants']);
-
-    Route::get('/participations/postponed', ['as' => 'participation.postponed','uses' => 'ParticipationsController@postponedParticipants']);
-
-    Route::get('/participations/{id}/confirm', ['as' => 'participation.confirm','uses' => 'ParticipationsController@confirm']);
-
-    Route::delete('/participations/{id}/refuse', ['as' => 'participation.refuse','uses' => 'ParticipationsController@refuse']);
-
-    Route::delete('/events/{id}', ['as' => 'admin.deleteEvent','uses' => 'EventsController@delete']);
-
-    Route::get('/events/event/{id}', ['as' => 'admin.previewEvent','uses' => 'EventsController@preview']);
-    Route::get('/galleries', ['as' => 'galleries', 'uses' => 'GalleriesController@galleries']);
-
-    Route::get('/galleries/new', ['as' => 'galleries.new', 'uses' => 'GalleriesController@new']);
-
-    Route::post('/galleries/create', ['as' => 'galleries.create', 'uses' => 'GalleriesController@create']);
-
-    Route::get('/galleries/{id}/images', ['as' => 'galleries.files', 'uses' => 'GalleriesController@preview']);
-
-    Route::delete('/galleries/{gallery_id}/remove_image/{image_id}', ['as' => 'gallerys.removeImage', 'uses' => 'GalleriesController@deleteImage']);
-
-    Route::get('/commitees', ['as' => 'commitees', 'uses' => 'CommiteesController@commitees']);
-
-    Route::get('/commitees/{id}/members', ['as' => 'commitees.members', 'uses' => 'CommiteesController@members']);
-
-    Route::post('/commitees/create', ['as' => 'commitees.addMember', 'uses' => 'CommiteesController@create']);
-
-    Route::get('/commitees/add_member', ['as' => 'commitees.new', 'uses' => 'CommiteesController@addMember']);
-
-    Route::delete('/commitees/{commitee_id}/remove_member/{member_id}', ['as' => 'commitees.removeMember', 'uses' => 'CommiteesController@removeMember']);
 
 });

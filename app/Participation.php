@@ -44,4 +44,9 @@ class Participation extends Model
         Storage::disk('public')->putFileAs($path, $file, $fileName);
         return $fileName;
     }
+
+    public function fetchIfExist(int $user_id)
+    {
+        return $this->where('participant_id', $user_id)->first();
+    }
 }

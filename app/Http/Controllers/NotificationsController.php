@@ -23,7 +23,7 @@ class NotificationsController extends Controller
             $notif->created_at = new Carbon($notif->created_at);
         }
         return view('admin.notifications', [
-            'notifications' => $notifications->sortByDesc('created_at')
+            'notifications' => $notifications
         ]);
     }
 }

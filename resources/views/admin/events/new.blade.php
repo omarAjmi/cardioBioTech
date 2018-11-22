@@ -1,6 +1,3 @@
-{{-- @if ($errors->any())
-    {{ dd($errors) }}
-@endif --}}
 @extends('layouts.admin_layout')
 @section('content')
     <div class="main-content">
@@ -90,9 +87,17 @@
                                         <div class="col-12 col-md-9">
                                             <input id="sliders" name="sliders[]" multiple="" class="form-control-file"
                                                 type="file" value="{{ old('sliders[]') }}" accept="image/jpeg,image/png,image/jpg">
-                                            @if ($errors->has('sliders'))
+                                            @for ($i = 0; $i < 5; $i++)
+                                                @if ($errors->any('sliders.'.$i))
+                                                    <small class="form-text status--denied">{{ $errors->first('sliders.'.$i) }}</small>
+                                                    @break
+                                                @endif
+                                            @endfor
+                                            @if ($errors->any('sliders'))
                                                 <small class="form-text status--denied">{{ $errors->first('sliders') }}</small>
-                                            @endif                                           
+                                            @else
+                                                <small class="form-text text-muted"> 4 images aux plus</small>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="row form-group">

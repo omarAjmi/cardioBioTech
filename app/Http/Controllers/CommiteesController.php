@@ -2,29 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Event;
 use App\Member;
 use App\Commitee;
-use Illuminate\Http\Request;
 use App\Http\Requests\CommiteesRequest;
 use Illuminate\Support\Facades\Session;
 
 class CommiteesController extends Controller
 {
-    public function commitees()
+    public function addMember(int $event_id)
     {
-        $commitees = Commitee::all();
-        return view('admin.commitees.commitees', [
-            'commitees' => $commitees
-        ]);
-    }
-
-    public function addMember()
-    {
+        $event = Event::findOrFail($event_id);
+        $event->commitee;
+        $participants = collect();
+        foreach ($event->participations as $participation) {
+            $existingMember = Member::where('user_id', $participation->participant_id)->where('commitee_id', $event->commitee->id)->first();
+            if($participation->confirmation and is_null($existingMember)) {
+                $participants->push($participation->participant);
+            }
+        }
         return view('admin.commitees.new', [
-            'events' => Event::all(),
-            'members' => User::all()
+            'event' => $event,
+            'members' => $participants
         ]);
     }
 
@@ -35,24 +34,24 @@ class CommiteesController extends Controller
         $member->where('user_id', $member_id)->where('commitee_id', $commitee_id)->delete();
         Session::flash('success', 'Membre supprimé avec succès');
         return back();
-    }    
+    }
 
-    public function create(CommiteesRequest $request)
+    public function createMember(int $event_id, CommiteesRequest $request)
     {
-        $event = Event::find($request->event);
-        $commitee = Commitee::where('event_id', $event->id)->first();
+        $event = Event::find($event_id);
+        $commitee = $event->commitee;
         Member::create([
             'user_id' => $request->member,
             'commitee_id' => $commitee->id
         ]);
         Session::flash('success', 'Membre ajouté avec succées');
-        return back();
+        return redirect(route('commitees.preview', $commitee->event_id));
     }
 
-    public function members(int $id)
+    public function members(int $event_id)
     {
         return view('admin.commitees.members', [
-            'commitee' => Commitee::findOrFail($id)
+            'commitee' => Commitee::findOrFail($event_id)
         ]);
     }
 }

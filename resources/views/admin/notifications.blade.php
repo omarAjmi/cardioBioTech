@@ -19,24 +19,25 @@
                     <div class="col-md-12">
                         <!-- DATA TABLE -->
                         <div class="table-responsive table-responsive-data2 card">
-                            <table class="table table-data2">
+                            <table class="table table-data2" id="table_id">
                                 <thead class="card-header">
-                                    
                                         <th>Date</th>
                                         <th>Participant</th>
                                         <th>Notification</th>
                                         <th>Fichier</th>
                                         <th>Status</th>
                                         <th>Action</th>
-                                    
                                 </thead>
                                 <tbody>
-                                    @foreach ($notifications as $notif)
+                                    @foreach ($notifications->sortByDesc('created_at') as $notif)
                                         <tr>
                                             <td>{{ $notif->created_at->diffForHumans() }}</td>
                                             <td>{{ $notif->participation->participant->getFullName() }}</td>
                                             <td>{{ $notif->context }}</td>
-                                            <td class="process"><a href="{{ route('participation.download', [$notif->participation->id]) }}" target="_blank">{{ $notif->participation->file }}</a></td>
+                                            <td class="process"><a href="{{ route('participation.download', [
+                                                                                                $notif->participation->id,
+                                                                                                $notif->participation->event_id
+                                                                                                ]) }}" target="_blank">{{ $notif->participation->file }}</a></td>
                                             @if ($notif->seen)
                                                 <td><i class="fa fa-eye"></i>&nbsp;
 
@@ -70,11 +71,13 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        {{ $notifications->links() }}
                     </div>
                 </div>
                 @endif
                
             </div>
         </div>
-    </div> 
+    </div>
 @endsection

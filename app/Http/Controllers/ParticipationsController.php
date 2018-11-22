@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use App\Notif;
+use App\User;
 use Carbon\Carbon;
 use App\Participation;
+use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -20,80 +22,182 @@ class ParticipationsController extends Controller
         $this->middleware(['auth'])->except('participate');
     }
 
+    /**
+     * fetches all participations of a given event
+     * @param int $event_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function participations(int $event_id)
+    {
+        $event = Event::findOrFail($event_id);
+        return view('admin.participations', ['participations'=>$event->participations]);
+    }
+
+    /**
+     * fetches all confirmed participations of a given event
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function confirmedParticipants()
     {
         $participations = Participation::where('confirmation', true)->get();
         return view('admin.participations', ['participations' => $participations]);
     }
 
+    /**
+     * fetches all not confimed participations of a given event
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function postponedParticipants()
     {
         $participations = Participation::where('confirmation', false)->get();
         return view('admin.participations', ['participations' => $participations]);
     }
 
-    public function participate(Request $request, int $id)
+    /**
+     * participates the Auth user to a given event
+     * @param Request $request
+     * @param int $event_id
+     * @throws
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function participate(Request $request, int $event_id)
     {
+        #testing if user is check()
         if (Auth::guest()) {
                 Session::flash('registerfail');
                 return back();
-        } else {
-            $event = Event::findOrFail($id);
-            if($event->dead_line > now()) {
-                $validation = new ParticipationRequest();
-                $validator = Validator::make($request->toArray(), $validation->rules());
-                if ($validator->fails()) {
-                    Session::flash('partFail', '*');
-                    $validator->errors()->add('participation', 'Champs requis');
-                    return back();
-                }
-                $user = Auth::user();
-                $fileName = $event->abbreviation.'_'.$user->first_name.'_'.$user->last_name;
-                $participation = new Participation();
-                $path = env('EVENT_STORAGE_PATH', '/events/').$event->abbreviation.'/participations/';  
-                $participation = Participation::create([
-                    'event_id' => $event->id,
-                    'participant_id' => Auth::id(),
-                    'file' => $participation->uploadParticipationFile($request->file('participation'), $fileName, $path)
-                ]);
-                Notif::create([
-                    'participation_id' => $participation->id,
-                    'context' => $user->first_name.' '.$user->last_name.' a demandé une participation à l\'évènement à venir'
-                ]);
-                Session::flash('partSuccess', 'Votre demande a été déposer');
-                return back();
-            } else {
-                Session::flash('partFail', 'Date de participation finale est depasé');
-                return back();
-            }
         }
+        $event = Event::findOrFail($event_id);
+        #testing if event participation is expired
+        if(!$event->dead_line > now()) {
+            Session::flash('partFail', 'Date de participation finale est depasé');
+            return back();
+        }
+        #validating the request
+        if (!$this->valideRequest($request))
+        {
+            return back();
+        }
+        #validation passes
+        $this->createParticipation($event, $request);
+
+        Session::flash('partSuccess', 'Votre demande a été déposer');
+        return back();
         
     }
 
-    public function downloadParticipationFile(int $id)
+    /**
+     * responds to download participation file request
+     * @param int $event_id
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function downloadParticipationFile(int $event_id, int $id)
     {
+        $event = Event::findOrFail($event_id);
         $participation = Participation::findOrFail($id);
         $notif = $participation->notification;
         $notif->seen = true;
         $notif->save();
-        return Storage::disk('public')->download('events/'.$participation->event->abbreviation.'/participations/'.$participation->file);
+        return Storage::disk('public')->download($event->storage.'participations/'.$participation->file);
         return back();
     }
 
-    public function confirm(int $id)
+    /**
+     * confirm a participation of a given event
+     * @param int $event_id
+     * @param int $part_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function confirm(int $event_id, int $part_id)
     {
-        $participation = Participation::findOrFail($id);
+        $event = Event::findOrFail($event_id);
+        $participation = Participation::findOrFail($part_id);
         $participation->confirmation = true;
         $participation->save();
         return back();
     }
 
-    public function refuse(int $id)
+    /**
+     * refuse a participation of a given event
+     * @param int $event_id
+     * @param int $part_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function refuse(int $event_id, int $part_id)
     {
-        $participation = Participation::findOrFail($id);
+        $event = Event::findOrFail($event_id);
+        $participation = Participation::findOrFail($part_id);
         #or use php's unlink($filename)
-        Storage::disk('public')->delete(env('EVENT_STORAGE_PATH', '/events/').$participation->event->abbreviation.'/participations/'.$participation->file);
+        Storage::disk('public')->delete($event->storage.'participations/'.$participation->file);
         $participation->delete();
         return back();
+    }
+
+    /**
+     * validates a participation request
+     * @param Request $request
+     * @return bool
+     */
+    private function valideRequest(Request $request)
+    {
+        $participationRequest = new ParticipationRequest();
+        $validator = Validator::make($request->toArray(), $participationRequest->rules());
+        if ($validator->fails()) {
+            Session::flash('partFail', '*');
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * persists a participation to the database
+     * @param Event $event
+     * @param Request $request
+     * @throws \Exception
+     */
+    private function createParticipation(Event $event, Request $request)
+    {
+        $part = new Participation();
+        $existing = $part->fetchIfExist(Auth::id());
+        $user = Auth::user();
+        $fileName = str_replace(' ', '_', $event->abbreviation . '_' . $user->getFullName());
+        $path = $event->storage . 'participations/';
+        if (is_null($existing)) {
+            $existing = Participation::create([
+                'event_id' => $event->id,
+                'participant_id' => $user->id,
+                'file' => $part->uploadParticipationFile($request->file('participation'), $fileName, $path)
+            ]);
+            $this->notify('create', $existing, $user);
+        } else {
+            $existing->file = $existing->uploadParticipationFile($request->file('participation'), $fileName, $path);
+            $existing->save();
+            $this->notify('update', $existing, $user);
+        }
+    }
+
+    /**
+     * notify the admin about the new participation
+     * @param string $type
+     * @param Participation $existing
+     * @param User $user
+     * @throws \Exception
+     */
+    private function notify(string $type, Participation $existing, User $user)
+    {
+        if (str_is('create', $type)) {
+            Notif::create([
+                'participation_id' => $existing->id,
+                'context' => $user->getFullName() .Notif::NEW_PARTICIPATION
+            ]);
+        } else if (str_is('update', $type)){
+            Notif::create([
+                'participation_id' => $existing->id,
+                'context' => $user->getFullName() .Notif::UPDATE_PARTICIPATION
+            ]);
+        } else {
+            throw new \Exception('participation notification accepts update or create as parameters');
+        }
     }
 }
