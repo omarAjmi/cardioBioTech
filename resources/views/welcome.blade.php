@@ -42,7 +42,7 @@
                       <a class="nav-link active" href="{{ route('welcome') }}">Accueil</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link " href="{{ route('current') }}">Nouveautés</a>
+                      <a class="nav-link " href="{{ route('current') }}">actualités</a>
                   </li>
                   <li class="nav-item">
                       <div class="dropdown">
@@ -132,7 +132,7 @@
                     <div class="container">
                         <div class="slider-content-center">
                             <h3 class="cover-title">
-                                L’Association Médicale CARDIOBIOTEC du Tunisie
+                                L'association médicale tunisienne CARDIOBIOTEC
                             </h3>
                            
                         </div>
@@ -168,22 +168,22 @@
               <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
                 <span class="icon mb-3  flaticon-cardiogram row"><h2 class="mb-4" style="padding-top:5%;padding-left: 5%">CARDIOBIOTEC </h2></span>
                 
-                <p>L’Association Médicale CARDIOBIOTEC du Tunisie , a été créée en 7 avril 2013  à l’initiative d’un groupe de médecins de différentes disciplines.</p>
+                <p>L'association médicale tunisienne CARDIOBIOTEC , a été créée en 7 avril 2013  à l’initiative d’un groupe de médecins de différentes disciplines.</p>
                 <p>
                   <b>OBJECTIFS</b><br>
 
-                    Développer et avancer la recherche dans le domaine de l’éthique médicale.
-                   <br> Assurer la formation médicale continue (FMC).
-                     <br> Nouer des relations dans le milieu de la formation médicale.
-                     <br> Défendre l’honneur et les règles des métiers d’ordre médical ainsi que les droits de l’Homme.
+                    Développer et avancer la recherche dans le domaine de l’éthique médicale.<br>
+                    Assurer la formation médicale continue (FMC).<br>
+                    Nouer des relations dans le milieu de la formation médicale.<br>
+                    Défendre l’honneur et les règles des métiers d’ordre médical ainsi que les droits de l’Homme.<br>
                     
                 </p>
                <p>
                  <b>ACTIVITÉS ET RÉALISATIONS</b><br>
 
-                    Participation et organisation de Congrès Médicaux à l’échelle nationale et internationale.
-                     <br> 
-                    Organisation de séminaires et colloques régionaux et nationaux de Formation Médicale Continue (FMC).
+                   Participation et organisation de Congrès Médicaux à l’échelle nationale et internationale.<br>
+                   Organisation de séminaires et colloques régionaux et nationaux de Formation Médicale Continue
+                   (FMC).
                    
                </p>
               </div>
@@ -373,8 +373,8 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-12">
                 <p>
-                    Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> Tous droits reservés | L’Association Médicale CARDIOBIOTEC du Tunisie
+                    Tous droits reservés &copy;
+                    <script>document.write(new Date().getFullYear());</script>  | L'association médicale tunisienne CARDIOBIOTEC
                 </p>
             </div>
             <div class="col-12 col-md-6 ">
@@ -389,14 +389,14 @@
                         @if ($events->isNotEmpty())
                             <a href="{{ route('event', [$events->first()->id]) }}">Événements</a>
                         @else
-                            <a href="#">Événements</a>
+                            <a href="#">Évènements</a>
                         @endif
                     </li>
                     <li>
-                        <a href="{{ route('current') }}">Nouveatés</a>
+                        <a href="{{ route('current') }}">actualités</a>
                     </li>
                     <li>
-                        <a href="{{ route('contact') }}">Contact</a>
+                        <a href="{{ route('contact') }}">Contactez nous</a>
                     </li>
                 </ul>
             </div>

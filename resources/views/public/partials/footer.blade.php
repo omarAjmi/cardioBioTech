@@ -5,7 +5,7 @@
             <div class="col-md-6 col-12">
                 <p>
                     Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> Tous droits reservés | Cardio Bio Tech
+                    <script>document.write(new Date().getFullYear());</script> Tous droits reservés | L'association médicale tunisienne CARDIOBIOTEC
                 </p>
             </div>
             <div class="col-12 col-md-6 ">

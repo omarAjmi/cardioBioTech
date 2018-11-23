@@ -55,7 +55,7 @@ class EventsController extends Controller
     {
         $event = new Event();
         $event->title = $request->title;
-        $event->abbreviation = $request->abbreviation;
+        $event->abbreviation = strtoupper($request->abbreviation);
         $event->about = $request->about;
         $event->organiser = $request->organiser;
         $event->start_date = $request->start_date;
