@@ -159,7 +159,7 @@ class ParticipationsController extends Controller
     private function createParticipation(Event $event, Request $request)
     {
         $part = new Participation();
-        $existing = $part->fetchIfExist(Auth::id());
+        $existing = $part->fetchIfExist(Auth::id(), $event->id);
         $user = Auth::user();
         $fileName = str_replace(' ', '_', $event->abbreviation . '_' . $user->getFullName());
         $path = $event->storage . 'participations/';
@@ -172,6 +172,7 @@ class ParticipationsController extends Controller
             $this->notify('create', $existing, $user);
         } else {
             $existing->file = $existing->uploadParticipationFile($request->file('participation'), $fileName, $path);
+            $existing->confirmation = false;
             $existing->save();
             $this->notify('update', $existing, $user);
         }

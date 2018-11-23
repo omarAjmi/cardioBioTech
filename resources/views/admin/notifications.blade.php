@@ -29,7 +29,7 @@
                                         <th>Action</th>
                                 </thead>
                                 <tbody>
-                                    @foreach ($notifications->sortByDesc('created_at') as $notif)
+                                    @foreach ($notifications->sortBy('created_at') as $notif)
                                         <tr>
                                             <td>{{ $notif->created_at->diffForHumans() }}</td>
                                             <td>{{ $notif->participation->participant->getFullName() }}</td>

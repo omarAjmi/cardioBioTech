@@ -10,7 +10,7 @@
                                 Évènnement <strong>{{ $event->abbreviation }}</strong> / Ajouter Membres Aux Commitée
                             </div>
                             <div class="card-body card-block">
-                                <form action="{{ route('commitees.addMember', [$events->first()->id]) }}" method="post" class="form-horizontal">
+                                <form action="{{ route('commitees.addMember', [$event->id]) }}" method="post" class="form-horizontal">
                                     @csrf
                                     
                                     <div class="row form-group">

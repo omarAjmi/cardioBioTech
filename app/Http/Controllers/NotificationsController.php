@@ -18,7 +18,7 @@ class NotificationsController extends Controller
 
     public function notifications()
     {
-        $notifications = Notif::paginate(6);
+        $notifications = Notif::latest()->paginate(6);
         foreach ($notifications as $notif) {
             $notif->created_at = new Carbon($notif->created_at);
         }

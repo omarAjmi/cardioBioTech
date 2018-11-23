@@ -14,11 +14,11 @@ class CreateMembersTable extends Migration
     public function up()
     {
         Schema::create('members', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('commitee_id')->unsigned();
             $table->timestamps();
 
-            $table->primary('user_id');
             $table->foreign('commitee_id')->references('id')
                                        ->on('commitees')
                                        ->onDelete('CASCADE')

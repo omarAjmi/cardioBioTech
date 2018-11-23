@@ -50,8 +50,9 @@ class CommiteesController extends Controller
 
     public function members(int $event_id)
     {
+        $event = Event::findOrFail($event_id);
         return view('admin.commitees.members', [
-            'commitee' => Commitee::findOrFail($event_id)
+            'commitee' => $event->commitee
         ]);
     }
 }
