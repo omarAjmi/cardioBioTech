@@ -1598,6 +1598,13 @@
         that.find(".arrow").toggleClass("up");
         that.toggleClass("open");
         that.parent().find('.js-sub-list').slideToggle("250");
+        if(that.hasClass('open')) {
+            that.parent().find('.fa-folder').addClass("fa-folder-open");
+            that.parent().find('.fas').removeClass("fa-folder");
+        } else {
+            that.parent().find('.fa-folder-open').addClass("fa-folder");
+            that.parent().find('.fas').removeClass("fa-folder-open");
+        }
       });
     });
 
