@@ -104,7 +104,7 @@
                     <div class="container">
                         <div class="slider-content-center">
                             <h3 class="cover-title">
-                             L’Association Médicale CARDIOBIOTEC du Tunisie
+                                L'association médicale tunisienne CARDIOBIOTEC
                             </h3>
                            
                         </div>
@@ -118,7 +118,7 @@
                     <div class="container">
                         <div class="slider-content-center">
                             <h3 class="cover-title">
-                             L’Association Médicale CARDIOBIOTEC du Tunisie
+                             L'association médicale tunisienne CARDIOBIOTEC
                             </h3>
                            
                         </div>
@@ -132,7 +132,7 @@
                     <div class="container">
                         <div class="slider-content-center">
                             <h3 class="cover-title">
-                             L’Association Médicale CARDIOBIOTEC du Tunisie
+                                L’Association Médicale CARDIOBIOTEC du Tunisie
                             </h3>
                            
                         </div>
@@ -232,8 +232,8 @@
                                     <span class="ion-ios-arrow-back"></span>
                                     <span class="ion-ios-arrow-forward"></span>
                                 </div>
-                                <h2><img src="/img/messenger.png"> Messanger</h2>
-                                <h6>contacter nous on messanger</h6>
+                                <h2><img src="/img/messenger.png"> Messenger</h2>
+                                <h6>contacter nous on messenger</h6>
                             </a>
                         </div>
                     </div>
@@ -374,7 +374,7 @@
             <div class="col-md-6 col-12">
                 <p>
                     Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> Tous droits reservés | Cardio Bio Tech
+                    <script>document.write(new Date().getFullYear());</script> Tous droits reservés | L’Association Médicale CARDIOBIOTEC du Tunisie
                 </p>
             </div>
             <div class="col-12 col-md-6 ">
