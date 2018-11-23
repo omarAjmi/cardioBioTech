@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Notif;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator as paginator;
 
 class NotificationsController extends Controller
 {
@@ -18,12 +18,17 @@ class NotificationsController extends Controller
 
     public function notifications()
     {
-        $notifications = Notif::latest()->paginate(6);
+
+        $notifications = Notif::all()->sortByDesc('created_at');
+        $currentPage = Paginator::resolveCurrentPage();
+        $collection = collect($notifications);
+        $currentPageResults = $collection->slice(($currentPage - 1) * 6, 6)->all();
+        $paginatedNotifs = new Paginator($currentPageResults, count($collection), 6);
         foreach ($notifications as $notif) {
             $notif->created_at = new Carbon($notif->created_at);
         }
         return view('admin.notifications', [
-            'notifications' => $notifications
+            'notifications' => $paginatedNotifs
         ]);
     }
 }

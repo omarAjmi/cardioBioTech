@@ -29,9 +29,9 @@
                                         <th>Action</th>
                                 </thead>
                                 <tbody>
-                                    @foreach ($notifications->sortBy('created_at') as $notif)
+                                    @foreach ($notifications as $notif)
                                         <tr>
-                                            <td>{{ $notif->created_at->diffForHumans() }}</td>
+                                            <td>{{ $notif->created_at->toDateTimeString() }}</td>
                                             <td>{{ $notif->participation->participant->getFullName() }}</td>
                                             <td>{{ $notif->context }}</td>
                                             <td class="process"><a href="{{ route('participation.download', [
@@ -72,7 +72,7 @@
                             </table>
                         </div>
 
-                        {{ $notifications->links() }}
+                        {{ $notifications->setPath(url()->current())->render() }}
                     </div>
                 </div>
                 @endif
