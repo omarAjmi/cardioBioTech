@@ -2024,7 +2024,11 @@ Cover
   opacity: 0;
   font-weight: 500;
   color: #ffffff;
-  text-transform: uppercase;
+    white-space: normal;
+-webkit-hyphens: none;
+-moz-hyphens:    none;
+-ms-hyphens:     none;
+hyphens:         none;
   -webkit-transform: translateY(20px);
   transform: translateY(20px);
   -webkit-transition: all 0.4s 600ms ease-in-out;
@@ -2036,7 +2040,7 @@ Cover
   font-size: 90px;
   font-weight: 900;
   line-height: 1.1;
-  color: #fff;
+  color: #005792;
   -webkit-transform: translateY(20px);
   transform: translateY(20px);
   -webkit-transition: all 0.4s 600ms ease-in-out;

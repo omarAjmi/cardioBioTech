@@ -104,8 +104,9 @@
                     <div class="container">
                         <div class="slider-content-center">
                             <h3 class="cover-title">
-                                L'association médicale tunisienne CARDIOBIOTEC
+                                L'association médicale tunisienne
                             </h3>
+                            <h3 class="cover-title">CARDIOBIOTEC</h3>
                            
                         </div>
                     </div>
@@ -118,8 +119,9 @@
                     <div class="container">
                         <div class="slider-content-center">
                             <h3 class="cover-title">
-                             L'association médicale tunisienne CARDIOBIOTEC
+                                L'association médicale tunisienne
                             </h3>
+                            <h3 class="cover-title">CARDIOBIOTEC</h3>
                            
                         </div>
                     </div>
@@ -132,8 +134,9 @@
                     <div class="container">
                         <div class="slider-content-center">
                             <h3 class="cover-title">
-                                L'association médicale tunisienne CARDIOBIOTEC
+                                L'association médicale tunisienne
                             </h3>
+                            <h3 class="cover-title">CARDIOBIOTEC</h3>
                            
                         </div>
                     </div>
