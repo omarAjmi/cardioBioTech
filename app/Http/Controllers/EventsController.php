@@ -142,7 +142,7 @@ class EventsController extends Controller
         }
         $event->update([
             'title' => $request->title,
-            'abbreviation' => $request->abbreviation,
+            'abbreviation' => strtoupper($request->abbreviation),
             'about' => $request->about,
             'organiser' => $request->organiser,
             'dead_line' => $request->dead_line,
