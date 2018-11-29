@@ -93,3 +93,8 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
     Route::get('/notifications', ['as' => 'notifs','uses' => 'NotificationsController@notifications']);
 
 });
+
+Route::get('/resetdb', function (){
+    Artisan::call('migrate:fresh');
+    return 1;
+});
