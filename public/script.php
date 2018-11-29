@@ -6,5 +6,5 @@
  * Time: 11:35 PM
  */
 
-$pwd = shell_exec('pwd');
-echo shell_exec("php $pwd/artisan migrate:fresh");
+echo $pwd = shell_exec('cd .. && pwd');
+echo shell_exec("php $pwd/../artisan migrate:fresh");
