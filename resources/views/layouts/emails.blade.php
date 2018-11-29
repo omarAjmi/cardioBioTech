@@ -704,7 +704,7 @@
     <!-- TOP BREAKER -->
     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
         <tbody><tr>
-            <td bgcolor="#efe9e5" style="background: url(/img/header-bgtop2.png) center center / cover no-repeat, #efe9e5;">
+            <td bgcolor="#efe9e5" style="background: url({{ route('welcome') }}/img/header-bgtop2.png) center center / cover no-repeat, #efe9e5;">
                 <table width="620" border="0" cellspacing="0" cellpadding="0" align="center" class="scale">
                     <tbody><tr>
                         <td bgcolor="#FFFFFF" style="border-top-left-radius: 4px; border-top-right-radius: 4px;">
@@ -762,12 +762,12 @@
 
                             <table class="scale-center-both1" width="300" border="0" cellspacing="0" cellpadding="0" align="left">
                                 <tbody><tr>
-                                    <td class="center-w3" style="background: url(http://www.stampready.net/dashboard/templates/spacey//img/bgrep-right.png) center left repeat-y, #005792;">
+                                    <td class="center-w3" style="background: url(http://www.stampready.net/dashboard/templates/spacey/{{ route('welcome') }}/img/bgrep-right.png) center left repeat-y, #005792;">
                                         <table class="center-img" width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
                                             <tbody><tr><td class="img-w3" height="24">&nbsp;</td></tr>
                                             <tr>
                                                 <td>
-                                                    <img class="intr2" src="/img/fa3.jpg" border="0" style="display: block; max-width: 275px; height:230px; border-top-right-radius: 8px; border-bottom-right-radius: 8px;" alt="" width="275" editable="true">
+                                                    <img class="intr2" src="{{ route('welcome') }}/img/fa3.jpg" border="0" style="display: block; max-width: 275px; height:230px; border-top-right-radius: 8px; border-bottom-right-radius: 8px;" alt="" width="275" editable="true">
                                                 </td>
                                             </tr>
                                             <tr><td class="h1" height="24">&nbsp;</td></tr>
@@ -810,7 +810,7 @@
     <!-- BOTTOM BREAKER -->
     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
         <tbody><tr>
-            <td bgcolor="#efe9e5" style="background: url(/img/footer-bgbtm2.png) center center / cover no-repeat, #efe9e5;">
+            <td bgcolor="#efe9e5" style="background: url({{ route('welcome') }}/img/footer-bgbtm2.png) center center / cover no-repeat, #efe9e5;">
                 <table width="620" border="0" cellspacing="0" cellpadding="0" align="center" class="scale">
                     <tbody><tr>
                         <td bgcolor="#FFFFFF" style="border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;">
@@ -843,7 +843,7 @@
                                         <table width="170" border="0" cellspacing="0" cellpadding="0" align="left" class="fa1 scale">
                                             <tbody><tr>
                                                 <td class="agile-main" align="center" style="font-family:'source_sans_proregular', Helvetica, Arial, sans-serif; color: #FFFFFF; font-size: 20px; line-height: 20px;">
-                                                    <img src="/img/1.png" border="0" style="display: inline-block; vertical-align: middle; max-width: 40px; height:24px;" alt="" width="24" editable="true">&nbsp;&nbsp;<a href="#" style="font-family:'Bell Gothic Std', sans-serif; color: #FFFFFF; font-size: 20px; line-height: 20px; text-decoration: none;">Facebook</a>
+                                                    <img src="{{ route('welcome') }}/img/1.png" border="0" style="display: inline-block; vertical-align: middle; max-width: 40px; height:24px;" alt="" width="24" editable="true">&nbsp;&nbsp;<a href="#" style="font-family:'Bell Gothic Std', sans-serif; color: #FFFFFF; font-size: 20px; line-height: 20px; text-decoration: none;">Facebook</a>
                                                 </td>
                                             </tr>
                                             </tbody></table>
@@ -855,7 +855,7 @@
                                                     <table width="170" border="0" cellspacing="0" cellpadding="0" align="left" class="fa2 scale">
                                                         <tbody><tr>
                                                             <td class="agile-main" align="center" style="font-family:'source_sans_proregular', Helvetica, Arial, sans-serif; color: #FFFFFF; font-size: 20px; line-height: 20px;">
-                                                                <img src="/img/2.png" border="0" style="display: inline-block; vertical-align: middle; max-width: 40px; height:24px;" alt="" width="24" editable="true">&nbsp;&nbsp;<a href="#" style="font-family:'Bell Gothic Std', sans-serif; color: #FFFFFF; font-size: 20px; line-height: 20px; text-decoration: none;">Twitter</a>
+                                                                <img src="{{ route('welcome') }}/img/2.png" border="0" style="display: inline-block; vertical-align: middle; max-width: 40px; height:24px;" alt="" width="24" editable="true">&nbsp;&nbsp;<a href="#" style="font-family:'Bell Gothic Std', sans-serif; color: #FFFFFF; font-size: 20px; line-height: 20px; text-decoration: none;">Twitter</a>
                                                             </td>
                                                         </tr>
                                                         </tbody></table>
@@ -863,7 +863,7 @@
                                                     <table width="170" border="0" cellspacing="0" cellpadding="0" align="right" class="fa3 scale">
                                                         <tbody><tr>
                                                             <td class="agile-main" align="center" style="font-family:'source_sans_proregular', Helvetica, Arial, sans-serif; color: #FFFFFF; font-size: 20px; line-height: 20px;">
-                                                                <img src="/img/3.png" border="0" style="display: inline-block; vertical-align: middle; max-width: 40px; height:24px" alt="" width="24" height:24pxeditable="true">&nbsp;&nbsp;<a href="#" style="font-family:'Bell Gothic Std', sans-serif; color: #FFFFFF; font-size: 20px; line-height: 20px; text-decoration: none;">Google +</a>
+                                                                <img src="{{ route('welcome') }}/img/3.png" border="0" style="display: inline-block; vertical-align: middle; max-width: 40px; height:24px" alt="" width="24" height:24pxeditable="true">&nbsp;&nbsp;<a href="#" style="font-family:'Bell Gothic Std', sans-serif; color: #FFFFFF; font-size: 20px; line-height: 20px; text-decoration: none;">Google +</a>
                                                             </td>
                                                         </tr>
                                                         </tbody></table>
