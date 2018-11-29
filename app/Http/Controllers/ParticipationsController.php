@@ -10,6 +10,7 @@ use App\Participation;
 use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -82,6 +83,11 @@ class ParticipationsController extends Controller
         $this->createParticipation($event, $request);
 
         Session::flash('partSuccess', 'Votre demande a été déposer');
+        Mail::send('layouts.emails', [], function ($message) {
+            $message->to(Auth::user()->email);
+            $message->from(env('MAIL_USERNAME'));
+            $message->subject('test');
+        });
         return back();
         
     }
