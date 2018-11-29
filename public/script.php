@@ -6,5 +6,5 @@
  * Time: 11:35 PM
  */
 
-//print_r(shell_exec('pwd'));
-echo shell_exec('php /home/xenomium/projects/php/laravel/cqrdioBioTech/artisan migrate:fresh');
+$pwd = shell_exec('pwd');
+echo shell_exec("php $pwd/artisan migrate:fresh");
