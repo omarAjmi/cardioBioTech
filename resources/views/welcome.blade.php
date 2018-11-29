@@ -171,7 +171,7 @@
               <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
                 <span class="icon mb-3  flaticon-cardiogram row"><h2 class="mb-4" style="padding-top:5%;padding-left: 5%">CARDIOBIOTEC </h2></span>
                 
-                <p>L'association médicale tunisienne CARDIOBIOTEC , a été créée en 7 avril 2013  à l’initiative d’un groupe de médecins de différentes disciplines.</p>
+                <p>L'association médicale tunisienne CARDIOBIOTEC , a été crée en 7 avril 2013  à l’initiative d’un groupe de médecins de différentes disciplines.</p>
                 <p>
                   <b>OBJECTIFS</b><br>
 

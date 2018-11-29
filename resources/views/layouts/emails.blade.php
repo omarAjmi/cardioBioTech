@@ -672,7 +672,7 @@
                                 <tr><td class="logo-w3l-h" height="54">&nbsp;</td></tr>
                                 <tr>
                                     <td class="agile-main" align="center" style="font-family:'Bell Gothic Std', sans-serif; color: #fefefe; font-size: 20px; line-height: 35px;">
-                                        “L'association médicale tunisienne CARDIOBIOTEC , a été créée en 7 avril 2013  à l’initiative d’un groupe de médecins de différentes disciplines.”
+                                        “L'association médicale tunisienne CARDIOBIOTEC , a été crée en 7 avril 2013  à l’initiative d’un groupe de médecins de différentes disciplines.”
                                     </td>
                                 </tr>
                                 <tr><td class="w3l-2h" height="54">&nbsp;</td></tr>
