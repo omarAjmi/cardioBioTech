@@ -83,7 +83,7 @@ class ParticipationsController extends Controller
         $this->createParticipation($event, $request);
 
         Session::flash('partSuccess', 'Votre demande a été déposer');
-        Mail::send('layouts.emails', [], function ($message) {
+        Mail::send('emails.participation', [], function ($message) {
             $message->to(Auth::user()->email);
             $message->from(env('MAIL_USERNAME'));
             $message->subject('test');

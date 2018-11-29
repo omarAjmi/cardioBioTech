@@ -666,13 +666,13 @@
                             <table width="540" border="0" cellspacing="0" cellpadding="0" align="center" class="scale">
                                 <tbody><tr><td class="w3l-1h" height="54">&nbsp;</td></tr>
                                 <tr>
-                                    <td class="wthree-logo" align="center"><a href="#" style="font-family:'Bell Gothic Std', sans-serif; color: #fefefe; font-size: 40px; text-decoration: none; padding: 12px 26px 13px 26px; border-radius: 4px; text-transform:uppercase">Fashionable</a>
+                                    <td class="wthree-logo" align="center"><a href="#" style="font-family:'Bell Gothic Std', sans-serif; color: #fefefe; font-size: 40px; text-decoration: none; padding: 12px 26px 13px 26px; border-radius: 4px; text-transform:uppercase">{{ env('APP_NAME') }}</a>
                                     </td>
                                 </tr>
                                 <tr><td class="logo-w3l-h" height="54">&nbsp;</td></tr>
                                 <tr>
                                     <td class="agile-main" align="center" style="font-family:'Bell Gothic Std', sans-serif; color: #fefefe; font-size: 20px; line-height: 35px;">
-                                        “Fashion is what you’re offered four times a year by designers. And style is what you choose.”
+                                        “L'association médicale tunisienne CARDIOBIOTEC , a été créée en 7 avril 2013  à l’initiative d’un groupe de médecins de différentes disciplines.”
                                     </td>
                                 </tr>
                                 <tr><td class="w3l-2h" height="54">&nbsp;</td></tr>
@@ -680,12 +680,12 @@
                                     <td>
                                         <table width="250" border="0" cellspacing="0" cellpadding="0" align="left" class="scale">
                                             <tbody><tr>
-                                                <td class="w3ls-ba" align="right"><a href="#" style="font-family:'Candara', sans-serif; color: #fefefe; font-size: 16px; text-decoration: none; background-color: #17a2b8; padding: 12px 26px 13px 26px; border-radius: 4px;">New Trend</a></td>
+                                                <td class="w3ls-ba" align="right"><a href="{{ route('welcome') }}" style="font-family:'Candara', sans-serif; color: #fefefe; font-size: 16px; text-decoration: none; background-color: #17a2b8; padding: 12px 26px 13px 26px; border-radius: 4px;">Qui somme nous</a></td>
                                             </tr>
                                             </tbody></table>
                                         <table width="250" border="0" cellspacing="0" cellpadding="0" align="right" class="scale">
                                             <tbody><tr>
-                                                <td class="w3ls-ba2" align="left"><a href="#" style="font-family:'Candara', sans-serif; color: #fefefe; font-size: 16px; text-decoration: none; background-color: #000; padding: 12px 26px 13px 26px; border-radius: 4px;">Best Offers</a></td>
+                                                <td class="w3ls-ba2" align="left"><a href="{{ route('contact') }}" style="font-family:'Candara', sans-serif; color: #fefefe; font-size: 16px; text-decoration: none; background-color: #000; padding: 12px 26px 13px 26px; border-radius: 4px;">Contactez nous</a></td>
                                             </tr>
                                             </tbody></table>
                                     </td>
@@ -721,91 +721,7 @@
         </tr>
         </tbody></table>
 
-    <!-- INTRODUCTION -->
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-        <tbody><tr>
-            <td bgcolor="#efe9e5">
-                <table width="620" border="0" cellspacing="0" cellpadding="0" align="center" class="scale">
-                    <tbody><tr>
-                        <td bgcolor="#FFFFFF">
-
-                            <table width="540" border="0" cellspacing="0" cellpadding="0" align="center" class="agile1 scale">
-                                <tbody><tr>
-                                    <td class="agile-main" style="font-family:Bell Gothic Std; color: #005792; font-size: 22px;">
-
-                                        Special Deals Only For You</td>
-                                </tr>
-                                <tr><td height="12" style="font-size: 1px;">&nbsp;</td></tr>
-                                <tr>
-                                    <td class="w3l-p2" style="font-family: Candara, sans-serif; color: #7f8c8d; font-size: 18px; line-height: 28px;">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do tempor Gain insights into the travel experiences of your friends. Travel to fulfil personal missions and group missions.
-                                    </td>
-                                </tr>
-                                <tr><td class="wls-5h" height="60">&nbsp;</td></tr>
-                                </tbody></table>
-
-                        </td>
-                    </tr>
-                    </tbody></table>
-
-            </td>
-        </tr>
-        </tbody></table>
-
-    <!-- SPECIAL -->
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-        <tbody><tr>
-            <td bgcolor="#efe9e5">
-                <table width="620" border="0" cellspacing="0" cellpadding="0" align="center" class="scale">
-                    <tbody><tr>
-                        <td bgcolor="#005792">
-
-                            <table class="scale-center-both1" width="300" border="0" cellspacing="0" cellpadding="0" align="left">
-                                <tbody><tr>
-                                    <td class="center-w3" style="background: url(http://www.stampready.net/dashboard/templates/spacey/{{ route('welcome') }}/img/bgrep-right.png) center left repeat-y, #005792;">
-                                        <table class="center-img" width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
-                                            <tbody><tr><td class="img-w3" height="24">&nbsp;</td></tr>
-                                            <tr>
-                                                <td>
-                                                    <img class="intr2" src="{{ route('welcome') }}/img/fa3.jpg" border="0" style="display: block; max-width: 275px; height:230px; border-top-right-radius: 8px; border-bottom-right-radius: 8px;" alt="" width="275" editable="true">
-                                                </td>
-                                            </tr>
-                                            <tr><td class="h1" height="24">&nbsp;</td></tr>
-                                            </tbody></table>
-                                    </td>
-                                </tr>
-                                </tbody></table>
-                            <table class="scale-center-both2" width="300" border="0" cellspacing="0" cellpadding="0" align="right">
-                                <tbody><tr>
-                                    <td>
-                                        <table width="245" border="0" cellspacing="0" cellpadding="0" class="scale">
-                                            <tbody><tr><td class="agile-h" height="54">&nbsp;</td></tr>
-                                            <tr>
-                                                <td class="w3layouts-1" align="center" style="font-family:'Candara', sans-serif; color: #fefefe; font-size: 20px; line-height: 35px;">
-                                                    Bravery never goes out of fashion. <br>
-                                                </td>
-                                            </tr>
-                                            <tr><td class="bu-w3l3" height="36">&nbsp;</td></tr>
-                                            <tr>
-                                                <td align="center" class="go-agile">
-                                                    <a href="#" style="font-family:'Candara', sans-serif; color: #fefefe; font-size: 16px; text-decoration: none; background-color: #005792; padding: 12px 26px 13px 26px; border-radius: 4px; border: 2px solid #FFFFFF;">Let’s go More</a>
-                                                </td>
-                                            </tr>
-                                            </tbody></table>
-                                    </td>
-                                </tr>
-                                </tbody></table>
-
-                        </td>
-                    </tr>
-                    <tr><td class="wls-6h" height="60" bgcolor="#FFFFFF">&nbsp;</td></tr>
-                    </tbody></table>
-
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <!-- //SPECIAL -->
+    @yield('content')
 
     <!-- BOTTOM BREAKER -->
     <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">

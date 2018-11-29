@@ -32,10 +32,10 @@
                 <!-- galery owl -->
                 <div id="galery-owl" class="owl-carousel owl-theme">
                     @if ($event->gallery->album->isNotEmpty())
-                        @foreach ($event->gallery->album as $slider)
+                        @foreach ($event->gallery->album as $image)
                             <!-- galery item -->
                             <div class="galery-item">
-                                <img src="/storage{{ $slider->path }}" >
+                                <img src="{{ $image->path }}" >
                             </div>
                             <!-- /galery item -->
                         @endforeach
@@ -44,7 +44,7 @@
                         @foreach ($event->sliders as $slider)
                             <!-- galery item -->
                             <div class="galery-item" >
-                                <img src="/storage{{ $slider->name }}"  >
+                                <img src="{{ $slider->name }}"  >
                             </div>
                             <!-- /galery item -->
                         @endforeach
