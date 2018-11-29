@@ -61,7 +61,7 @@ class EventsController extends Controller
         $event->start_date = $request->start_date;
         $event->dead_line = $request->dead_line;
         $event->end_date = $request->end_date;
-        $event->storage = env('EVENT_STORAGE_PATH', '/events/').$request->abbreviation.'/';
+        $event->storage = env('EVENT_STORAGE_PATH', '/storage/events/').$request->abbreviation.'/';
         $event->program_file = $event->uploadProgramFile($request->file('program'), $event->abbreviation);
         $event->address = json_encode([
             'state' => $request->state,
