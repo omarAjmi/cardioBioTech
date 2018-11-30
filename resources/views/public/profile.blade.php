@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-sm-3"><!--left col-->
                 <div class="text-center" style="margin-top: -50%" >
-                    <img src="/storage{{ $user->photo }}"  alt="avatar" style="border: 2px dashed #c7c7c9;">
+                    <img src="{{ $user->photo }}"  alt="avatar" style="border: 2px dashed #c7c7c9;">
                     <h6> Ajouter une photo différente ...</h6>
                     <form action="{{ route('profile.updateAvatar') }}" method="POST" enctype="multipart/form-data">
                         @csrf

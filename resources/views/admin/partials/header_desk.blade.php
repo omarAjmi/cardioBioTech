@@ -44,7 +44,7 @@
                     <div class="account-wrap">
                         <div class="account-item clearfix js-item-menu">
                             <div class="image">
-                                <img src="/storage{{ Auth::user()->photo }}" />
+                                <img src="{{ Auth::user()->photo }}" />
                             </div>
                             <div class="content">
                                 <a class="js-acc-btn" href="#">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</a>
@@ -54,7 +54,7 @@
                                      <div class="image">
 
                                         <a href="#">
-                                            <img src="/storage{{ Auth::user()->photo }}" alt="avatar" />
+                                            <img src="{{ Auth::user()->photo }}" alt="avatar" />
                                         </a>
                                     </div>
                                     <div class="content">

@@ -5,7 +5,7 @@
         @if($events->isNotEmpty())
             <div class="cover_slider owl-carousel owl-theme">
                 @foreach ($events->first()->sliders as $slider)
-                    <div class="cover_item" style="background: url('/storage{{ $slider->name }}');">
+                    <div class="cover_item" style="background: url('{{ $slider->name }}');">
                         <div class="slider_content">
                             <div class="slider-content-inner">
                                 <div class="container">
@@ -191,7 +191,7 @@
                         <div class="col-md-3 col-sm-6">
                             <div class="speaker_box">
                                 <div class="speaker_img">
-                                    <img src="/storage{{ $member->data->photo }}" alt="speaker name">
+                                    <img src="{{ $member->data->photo }}" alt="speaker name">
                                     <div class="info_box">
                                         <h5 class="name">{{ $member->data->getFullName() }}</h5>
                                         {{-- <p class="position">CEO Company</p> --}}

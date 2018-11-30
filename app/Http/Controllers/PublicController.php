@@ -15,8 +15,8 @@ class PublicController extends Controller
      */
     public function welcome()
     {
-         $event = Event::latest()->first();
-        return view('emails.participation', ['event'=>$event]);
+//         $event = Event::latest()->first();
+        return view('welcome');
     }
 
     /**

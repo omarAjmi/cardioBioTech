@@ -11,7 +11,7 @@
                         @foreach ($gallery->album as $image)
                             <div class="col-md-3" style="display: inline-block;">
                                 <div class="card">
-                                    <img style="height: 150px;max-width: 250px;" class="card-img-top" src="/storage{{ $image->path }}" alt="Card image cap">
+                                    <img style="height: 150px;max-width: 250px;" class="card-img-top" src="{{ $image->path }}" alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title mb-3">{{ $image->created_at->toDateString() }}</h5>
                                         <form action="{{ route('gallerys.removeImage',[$image->gallery->event_id, $image->id]) }}" method="post">

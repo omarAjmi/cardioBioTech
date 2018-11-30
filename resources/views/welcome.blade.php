@@ -65,7 +65,7 @@
                       <li class="nav-item">
                           <div class="dropdown">
                               <a class="nav-link " href="#"><b>{{ Auth::user()->getFullName() }}</b>
-                                  <img src="/storage{{ Auth::user()->photo }}" alt=" logo" style="height: 30px;width: 30px;border-radius: 50%;">
+                                  <img src="{{ Auth::user()->photo }}" alt=" logo" style="height: 30px;width: 30px;border-radius: 50%;">
                               </a>
                               <div class="dropdown-content">
                                   <a href="{{ route('profile', Auth::id()) }}">profile</a>

@@ -32,6 +32,7 @@
                 <!-- galery owl -->
                 <div id="galery-owl" class="owl-carousel owl-theme">
                     @if ($event->gallery->album->isNotEmpty())
+
                         @foreach ($event->gallery->album as $image)
                             <!-- galery item -->
                             <div class="galery-item">

@@ -11,7 +11,7 @@
                         @foreach ($commitee->members as $member)
                         <div class="col-md-3" style="display: inline-block;">
                             <div class="card">
-                                <img style="max-height: 140px;max-width: 300px;" class="card-img-top" src="/storage{{ $member->data->photo }}" alt="Card image cap">
+                                <img style="max-height: 140px;max-width: 300px;" class="card-img-top" src="{{ $member->data->photo }}" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title mb-3">{{ $member->data->getFullName() }}</h5>
                                     <form action="{{ route('commitees.removeMember',[

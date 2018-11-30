@@ -50,6 +50,7 @@ class Event extends Model
 
     private function uploadFile(UploadedFile $file, string $fileName, string $path)
     {
+        $path = str_replace('/storage', '', $path);#remove '/storage' from the path or it will create it under storage/app/public
         if (!is_dir($path)) {
             Storage::disk('public')->makeDirectory($path);
         }

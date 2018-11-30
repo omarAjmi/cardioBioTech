@@ -25,11 +25,12 @@ class Gallery extends Model
 
     public function uploadImage(UploadedFile $file, string $path)
     {
+        $path = str_replace('/storage', '', $path);#remove '/storage' from the path or it will create it under storage/app/public
         if(!is_dir($path)) {
             Storage::disk('public')->makeDirectory($path);
         }
         $filename = rand().'.'.$file->getClientOriginalExtension();
         Storage::disk('public')->putFileAs($path, $file, $filename);
-        return $path.$filename;
+        return '/storage'.$path.$filename;
     }
 }
