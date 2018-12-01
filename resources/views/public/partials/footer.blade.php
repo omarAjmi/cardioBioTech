@@ -24,7 +24,7 @@
                         @endif
                     </li>
                     <li>
-                        <a href="{{ route('current') }}">Nouveatés</a>
+                        <a href="{{ route('welcome') }}">Nouveatés</a>
                     </li>
                     <li>
                         <a href="{{ route('contact') }}">Contact</a>

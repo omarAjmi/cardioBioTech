@@ -22,6 +22,8 @@ Route::group([], function(){
 
     Route::get('/contact', ['as'=>'contact', 'uses'=>'PublicController@contact']);
 
+});
+
     Route::get('/users/{id}', ['as'=> 'profile', 'uses'=>'UsersController@profile']);
 
     Route::put('/users/profile/update', ['as'=> 'profile.update', 'uses'=>'UsersController@update']);
@@ -32,7 +34,6 @@ Route::group([], function(){
     Route::put('/users/profile/update_avatar', ['as'=> 'profile.updateAvatar', 'uses'=>'UsersController@updateAvatar']);
 
     Route::post('/users/event/{id}/participation', ['as'=> 'events.participate', 'uses'=>'ParticipationsController@participate']);
-});
 
 Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
     

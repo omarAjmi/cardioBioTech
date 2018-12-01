@@ -15,7 +15,7 @@
                     <a class="nav-link active" href="{{ route('welcome') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ route('current') }}#speakers">Comité</a>
+                    <a class="nav-link " href="{{ route('welcome') }}#speakers">Comité</a>
                 </li>
                 <li class="nav-item">
                     <div class="dropdown">

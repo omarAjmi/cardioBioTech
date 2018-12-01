@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Participation;
 use Date;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PublicController extends Controller
 {
@@ -45,7 +47,10 @@ class PublicController extends Controller
             $event->dead_line = new Date($event->dead_line);
             $event->address = json_decode($event->address);
         }
-        return view('public.event',['event'=>$event]);
+        $participation = Participation::where('participant_id', Auth::id())->where('event_id', $event->id)->first();
+        return view('public.event',[
+            'event'=>$event,
+            'participation' => $participation]);
     }
 
     public function contact()

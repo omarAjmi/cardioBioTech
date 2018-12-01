@@ -73,7 +73,7 @@
 </script>
 @if(Session::has('registerfail'))
         @include('public.partials.scripts.registerValidation')
-@elseif($errors->count() > 0)
+@elseif(Session::has('authErr'))
     @include('public.partials.scripts.loginValidation')
 @endif
 <script type="text/javascript">

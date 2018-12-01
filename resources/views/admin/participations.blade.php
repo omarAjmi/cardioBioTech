@@ -22,10 +22,12 @@
                                     <thead class="card-header">
                                         <tr>
                                             <th>Date</th>
+                                            <th>titre</th>
                                             <th>Participant</th>
                                             <th>Fichier</th>
+                                            <th>affiliation</th>
+                                            <th>autheurs</th>
                                             <th>status</th>
-                                            <th></th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -33,6 +35,7 @@
                                         @foreach ($participations as $part)
                                             <tr>
                                                 <td>{{ $part->created_at->diffForHumans() }}</td>
+                                                <td>{{ $part->title }}</td>
                                                 <td><a href="{{ route('profile', [$part->participant->id]) }}">{{ $part->participant->getFullName() }}</a>
                                                 </td>
                                                 <td class="process"><a href="{{ route('participation.download', [
@@ -40,15 +43,13 @@
                                                                                                             $part->id
                                                                                                             ]) }}" target="_blank">{{ $part->file }}</a>
                                                 </td>
+                                                <td style="max-width: 50px"><span>{{ $part->affiliation }}</span></td>
+                                                <td style="max-width: 50px"><span>{{ $part->authors }}</span></td>
                                                 <td>
                                                     @if ($part->confirmation)
-                                                        <td>
                                                             <span class="status--process">confirmée</span>
-                                                        </td>
                                                     @else
-                                                        <td>
-                                                            <span class="status--denied">en attente</span>
-                                                        </td>
+                                                        <span class="status--denied">en attente</span>
                                                     @endif
                                                 </td>
                                                 <td >

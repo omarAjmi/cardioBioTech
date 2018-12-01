@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class Participation extends Model
 {
     protected $fillable = [
-        'participant_id', 'event_id', 'confirmation', 'file'
+        'participant_id', 'event_id', 'confirmation', 'file', 'title', 'authors', 'affiliation'
     ];
 
     public function participant()

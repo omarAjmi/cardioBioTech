@@ -24,6 +24,9 @@ class ParticipationRequest extends FormRequest
     public function rules()
     {
         return [
+            'title' => 'required',
+            'affiliation' => 'required',
+            'authors' => 'required',
             'participation' => 'required|file|mimes:pdf,docx'
         ];
     }
@@ -36,6 +39,8 @@ class ParticipationRequest extends FormRequest
     public function messages()
     {
         return [
+            'title.required' => 'Champ requis',
+            'affiliation.required' => 'Champ requis',
             'participation.required' => 'Champ requis',
             'participation.mimes' => 'Le fichier doit être au format: pdf, docx',
         ];

@@ -145,14 +145,58 @@
                         <div class="row justify-content-center" id="participation">      
                             <div class="col-md-6 col-12">
                                 <p>
-                                    pour la participation, merci de télécharger <a href="{{ route('downloadFileEvent', ['id'=>$event->id,'filename'=>$event->program_file]) }}"><b><u>cette fichier</u></b></a> formelle, de lui fournir les données nécessaires puis de le renvoyer à l’aide de ce formulaire.
+                                    pour la participation, merci de télécharger <i style="color: dodgerblue" class="fa fa-download"></i>
+                                    <a href="{{ route('downloadFileEvent', ['id'=>$event->id,'filename'=>$event->program_file]) }}">
+                                        <b><u>ce fichier</u></b>
+                                    </a> formel, de lui fournir avec les données nécessaires puis de le renvoyer à l’aide de ce formulaire.
                                 </p>
+                                    @if(!is_null($participation))
+                                    <p>
+                                        Vous avez déjà souscrits, si vous voulez vous pouvez mettre a jour votre demande de participaion
+                                    </p>
+                                @endif
                             </div>
                             <div class="col-md-6 col-12">
                                 <form class="contact_form" method="POST" action="{{ route('events.participate', [$event->id]) }}" enctype="multipart/form-data">
                                     @csrf
+                                    @if(!is_null($participation))
+                                        <div class="form-group">
+                                            <input type="text" class="form-control @if($errors->first('title'))
+                                                is-invalid
+@endif" name="title" placeholder="Titre De Participation" value="{{ $participation->title }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control
+                                                                                    @if($errors->first('title'))
+                                                is-invalid
+@endif" name="affiliation" placeholder="Affiliation" value="{{ $participation->affiliation }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control @if($errors->first('authors'))
+                                                is-invalid
+@endif" name="authors" placeholder="Autheurs" value="{{ $participation->authors }}">
+                                        </div>
+                                    @else
+                                        <div class="form-group">
+                                            <input type="text" class="form-control
+                                                                                @if($errors->first('title'))
+                                                                                    is-invalid
+                                                                                @endif" name="title" placeholder="Titre De Participation">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control
+                                                                                    @if($errors->first('affiliation'))
+                                                                                        is-invalid
+                                                                                    @endif" name="affiliation" placeholder="Affiliation">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control @if($errors->first('authors'))
+                                                                                        is-invalid
+                                                                                    @endif" name="authors" placeholder="Autheurs">
+                                        </div>
+                                    @endif
                                     <div class="form-group">
-                                        <input class="btn btn-rounded btn-success" name="participation" type="file" accept="application/pdf" class="form-control" placeholder="Format De Participation">
+                                        <input type="file" accept="application/pdf" class="form-control" name="participation" placeholder="Format De Participation">
                                     
                                         <button class="btn btn-rounded btn-primary " type="submit"><i class="fa fa-plus-circle"></i> Déposer</button>
                                     </div>

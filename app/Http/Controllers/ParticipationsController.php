@@ -75,9 +75,9 @@ class ParticipationsController extends Controller
             return back();
         }
         #validating the request
-        if (!$this->valideRequest($request))
-        {
-            return back();
+        $validator = $this->valideRequest($request);
+        if($validator->fails()) {
+            return back()->withErrors($validator->errors());
         }
         #validation passes
         $this->createParticipation($event, $request);
@@ -149,12 +149,11 @@ class ParticipationsController extends Controller
     private function valideRequest(Request $request)
     {
         $participationRequest = new ParticipationRequest();
-        $validator = Validator::make($request->toArray(), $participationRequest->rules());
-        if ($validator->fails()) {
-            Session::flash('partFail', '*');
-            return false;
-        }
-        return true;
+        return $validator = Validator::make($request->toArray(), $participationRequest->rules());
+//        if ($validator->fails()) {
+//            Session::flash('partFail', '*');
+//            return back()->withErrors($validator->errors());
+//        }
     }
 
     /**
@@ -174,12 +173,18 @@ class ParticipationsController extends Controller
             $existing = Participation::create([
                 'event_id' => $event->id,
                 'participant_id' => $user->id,
+                'title' => $request->title,
+                'affiliation' => $request->affiliation,
+                'authors' => $request->authors,
                 'file' => $part->uploadParticipationFile($request->file('participation'), $fileName, $path)
             ]);
             $this->notify('create', $existing, $user);
         } else {
             $existing->file = $existing->uploadParticipationFile($request->file('participation'), $fileName, $path);
             $existing->confirmation = false;
+            $existing->title = $request->title;
+            $existing->authors = $request->authors;
+            $existing->affiliation = $request->affiliation;
             $existing->save();
             $this->notify('update', $existing, $user);
         }
