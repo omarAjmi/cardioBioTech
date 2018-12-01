@@ -792,12 +792,12 @@
                                 <tr><td height="36">&nbsp;</td></tr>
                                 <tr align="center">
                                     <td class="mail-w3" style="color:#fff;font-size:15px;font-family:Candara;line-height:1.9em;tex-align:center;">
-                                        You are receiving this email because you subscribed to our mailing list.
+                                        Vous recevez cet email car vous vous êtes inscrit à notre liste de diffusion.
                                     </td>
                                 </tr>
                                 <tr align="center">
                                     <td class="mail-w3" style="color:#fff;font-size:15px;font-family:Candara;line-height:2em;">
-                                        <a href="#" style="color:#17a2b8;text-decoration:none; font-weight:bold">Click here </a> to <a href="#" style="color:#17a2b8; font-size: 1em;text-decoration:none;font-weight:bold"> unsubscribe </a> your email address from this list.
+                                        <a href="#" style="color:#17a2b8;text-decoration:none; font-weight:bold">Cliquez ici </a> to <a href="#" style="color:#17a2b8; font-size: 1em;text-decoration:none;font-weight:bold"> Se désabonner </a> votre adresse e-mail de cette liste.
                                     </td>
                                 </tr>
                                 <tr><td class="hg1" height="20"></td></tr>
@@ -807,7 +807,8 @@
                                     </td>
                                 </tr>
                                 <tr><td class="hg11" height="54">&nbsp;</td></tr>
-                                </tbody></table>
+                                </tbody>
+                            </table>
 
                         </td>
                     </tr>
@@ -815,7 +816,8 @@
 
             </td>
         </tr>
-        </tbody></table>
+        </tbody>
+    </table>
 
     <!-- //FOOTER -->
 

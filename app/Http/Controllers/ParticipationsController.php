@@ -84,10 +84,10 @@ class ParticipationsController extends Controller
 
         Session::flash('partSuccess', 'Votre demande a été déposer');
 
-        Mail::send('emails.participation', ['event'=>$event], function ($message) {
+        Mail::send('emails.participation_email', ['event'=>$event], function ($message) {
             $message->to(Auth::user()->email);
             $message->from(env('MAIL_USERNAME'));
-            $message->subject('test');
+            $message->subject('Soumission d\'une demande de participation');
         });
         return back();
         
@@ -106,7 +106,8 @@ class ParticipationsController extends Controller
         $notif = $participation->notification;
         $notif->seen = true;
         $notif->save();
-        return Storage::disk('public')->download($event->storage.'participations/'.$participation->file);
+
+        return Storage::disk('public')->download(str_replace('/storage', '',$event->storage.'participations/'.$participation->file));
         return back();
     }
 
@@ -120,6 +121,11 @@ class ParticipationsController extends Controller
     {
         $event = Event::findOrFail($event_id);
         $participation = Participation::findOrFail($part_id);
+        Mail::send('emails.confirmation_email', ['event'=>$event], function ($message) use ($participation) {
+            $message->to($participation->participant->email);
+            $message->from(env('MAIL_USERNAME'));
+            $message->subject('Acceptation d\'une demande de participation');
+        });
         $participation->confirmation = true;
         $participation->save();
         return back();
@@ -135,6 +141,11 @@ class ParticipationsController extends Controller
     {
         $event = Event::findOrFail($event_id);
         $participation = Participation::findOrFail($part_id);
+        Mail::send('emails.refuse_email', ['event'=>$event], function ($message) use ($participation) {
+            $message->to($participation->participant->email);
+            $message->from(env('MAIL_USERNAME'));
+            $message->subject('refus d\'une demande de participation');
+        });
         #or use php's unlink($filename)
         Storage::disk('public')->delete($event->storage.'participations/'.$participation->file);
         $participation->delete();
@@ -150,10 +161,6 @@ class ParticipationsController extends Controller
     {
         $participationRequest = new ParticipationRequest();
         return $validator = Validator::make($request->toArray(), $participationRequest->rules());
-//        if ($validator->fails()) {
-//            Session::flash('partFail', '*');
-//            return back()->withErrors($validator->errors());
-//        }
     }
 
     /**

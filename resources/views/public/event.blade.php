@@ -152,7 +152,12 @@
                                 </p>
                                     @if(!is_null($participation))
                                     <p>
-                                        Vous avez déjà souscrits, si vous voulez vous pouvez mettre a jour votre demande de participaion
+                                        Vous avez déjà souscrits,  et @if($participation->confirmation)
+                                                                            votre demande est confirmée
+                                                                      @else
+                                                                            votre demande est en cours d'être examiner par le comité organisateur
+                                                                      @endif
+                                        <br> si vous voulez vous pouvez mettre a jour votre demande de participaion
                                     </p>
                                 @endif
                             </div>

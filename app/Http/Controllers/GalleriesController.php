@@ -49,8 +49,9 @@ class GalleriesController extends Controller
     {
         Event::findOrFail($event_id);
         $image = Image::findOrFail($image_id);
-        if(Storage::disk('public')->exists($image->path)) {
-            Storage::disk('public')->delete($image->path);
+        $imagePath = str_replace('/storage', '',$image->path);
+        if(Storage::disk('public')->exists($imagePath)) {
+            Storage::disk('public')->delete($imagePath);
         }
         $image->delete();
         return back();

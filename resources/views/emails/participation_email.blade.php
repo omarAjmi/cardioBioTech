@@ -21,7 +21,8 @@
                                     </td>
                                 </tr>
                                 <tr><td class="wls-5h" height="60">&nbsp;</td></tr>
-                                </tbody></table>
+                                </tbody>
+                            </table>
 
                         </td>
                     </tr>

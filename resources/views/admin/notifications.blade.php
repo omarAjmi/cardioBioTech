@@ -35,8 +35,8 @@
                                             <td>{{ $notif->participation->participant->getFullName() }}</td>
                                             <td>{{ $notif->context }}</td>
                                             <td class="process"><a href="{{ route('participation.download', [
-                                                                                                $notif->participation->id,
-                                                                                                $notif->participation->event_id
+                                                                                                $notif->participation->event_id,
+                                                                                                $notif->participation->id
                                                                                                 ]) }}" target="_blank">{{ $notif->participation->file }}</a></td>
                                             @if ($notif->seen)
                                                 <td><i class="fa fa-eye"></i>&nbsp;

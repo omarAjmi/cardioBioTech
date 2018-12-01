@@ -2069,6 +2069,7 @@ hyphens:         none;
 }
 .cover_slider .active .slider_content .slider-content-inner * .cover-title {
   opacity: 1;
+  word-break: keep-all;
   -webkit-transform: translateY(0px);
   transform: translateY(0px);
   -webkit-transition: all 0.4s 300ms ease-in-out;

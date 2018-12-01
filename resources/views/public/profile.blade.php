@@ -57,8 +57,13 @@
                             <div class="form-group">
                                 <div class="col-xs-6">
                                     <br>
-                                    <button class="btn btn-lg btn-primary btn-rounded" type="submit">Save</button>
-                                    <button class="btn btn-lg btn-rounded" type="reset"> Reset</button>
+                                    <button class="btn btn-lg btn-primary btn-rounded" type="submit">Mettre à jours</button>
+                                    <button id="resetBtn" class="btn btn-lg btn-rounded" type="reset"> Annuler</button>
+                                    <script type="text/javascript">
+                                        document.getElementById("resetBtn").onclick = function () {
+                                            location.href = "{!! route('welcome') !!} ";
+                                        };
+                                    </script>
                                 </div>
                             </div>
                         </form>
