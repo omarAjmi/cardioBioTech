@@ -214,22 +214,13 @@
                     </h3>
                 </div>
                 <div class="brand_carousel owl-carousel">
-                    <div class="brand_item text-center">
-                        <img src="/img/brands/b1.png" alt="brand">
-                    </div>
-                    <div class="brand_item text-center">
-                        <img src="/img/brands/b2.png" alt="brand">
-                    </div>
-        
-                    <div class="brand_item text-center">
-                        <img src="/img/brands/b3.png" alt="brand">
-                    </div>
-                    <div class="brand_item text-center">
-                        <img src="/img/brands/b4.png" alt="brand">
-                    </div>
-                    <div class="brand_item text-center">
-                        <img src="/img/brands/b5.png" alt="brand">
-                    </div>
+                    @if($events->isNotEmpty() and !is_null($events->first()->commitee))
+                        @foreach($events->first()->sponsors as $sponsor)
+                            <div class="brand_item text-center">
+                                <img src="{{ $sponsor->path }}" alt="{{ $sponsor->name }}">
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </section>

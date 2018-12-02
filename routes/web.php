@@ -87,6 +87,17 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
 
     Route::delete('/events/{event_id}/commitee/remove_member/{member_id}', ['as' => 'commitees.removeMember', 'uses' => 'CommiteesController@removeMember']);
 
+
+    //------------------EVENTS COMMITEES-----------------------------//
+
+    Route::get('/events/{event_id}/sponsors/all', ['as' => 'sponsors.preview', 'uses' => 'SponsorsController@sponsors']);
+
+    Route::get('/events/{event_id}/sponsors/add', ['as' => 'sponsors.addSponsorForm', 'uses' => 'SponsorsController@addSponsorForm']);
+
+    Route::post('/events/{event_id}/sponsors/create', ['as' => 'sponsors.addSponsor', 'uses' => 'SponsorsController@addSponsor']);
+
+    Route::delete('/events/{event_id}/sponsors/{sponsor_id}/delete', ['as' => 'sponsors.removeSponsor', 'uses' => 'SponsorsController@removeSponsor']);
+
     //------------------NOTIFICATIONS---------------------------//
 
     Route::put('/notifications/{id}', ['as' => 'notif.makeSeen','uses' => 'NotificationsController@markSeenNotif']);

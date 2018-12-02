@@ -52,7 +52,4 @@
             </div>
         </div>
     </div>
-    {{-- @if ($errors->any())
-        {{ dd($errors) }}
-    @endif --}}
 @endsection

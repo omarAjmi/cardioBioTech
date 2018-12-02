@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 
 class Participation extends Model
 {
+    use CanUpload;
+
     protected $fillable = [
         'participant_id', 'event_id', 'confirmation', 'file', 'title', 'authors', 'affiliation'
     ];
@@ -25,26 +27,6 @@ class Participation extends Model
     public function notification()
     {
         return $this->hasOne(Notif::class, 'participation_id', 'id');
-    }
-
-    public function uploadParticipationFile(UploadedFile $file, string $fileName, string $path)
-    {
-        $path = str_replace('/storage', '', $path);#remove '/storage' from the path or it will create it under storage/app/public
-        if (!is_dir($path)) {
-            Storage::disk('public')->makeDirectory($path);
-        }
-        return $this->uploadFile($file, $fileName, $path);
-    }
-
-    private function uploadFile(UploadedFile $file, string $fileName, string $path)
-    {
-        $path = str_replace('/storage', '', $path);#remove '/storage' from the path or it will create it under storage/app/public
-        if (!is_dir($path)) {
-            Storage::disk('public')->makeDirectory($path);
-        }
-        $fileName = $fileName.'.'.$file->getClientOriginalExtension();
-        Storage::disk('public')->putFileAs($path, $file, $fileName);
-        return $fileName;
     }
 
     public function fetchIfExist(int $user_id, int $event_id)

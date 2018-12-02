@@ -27,6 +27,9 @@
                                 <li>
                                     <a href="{{ route('commitees.preview', $event->id) }}"><i class="fas fa-users"></i>Comité</a>
                                 </li>
+                                <li>
+                                    <a href="{{ route('sponsors.preview', $event->id) }}"><i class="fas fa-users"></i>Sponsors</a>
+                                </li>
                             </ul>
                         </li>
                     @endforeach

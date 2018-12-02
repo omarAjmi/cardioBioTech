@@ -2,22 +2,20 @@
 
 namespace App;
 
-use Illuminate\Http\UploadedFile;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-class Gallery extends Model
+class Sponsor extends Model
 {
     use CanUpload;
-
+    /**
+     * mass assignement fields
+     * @var array
+     */
     protected $fillable = [
-        'event_id'
+        'event_id', 'path', 'name'
     ];
-
-    public function album()
-    {
-        return $this->hasMany(Image::class, 'gallery_id', 'id');
-    }
 
     public function event()
     {

@@ -38,6 +38,11 @@ class Event extends Model
         return $this->hasOne(Commitee::class, 'event_id', 'id');
     }
 
+    public function sponsors()
+    {
+        return $this->hasMany(Sponsor::class, 'event_id', 'id');
+    }
+
     public function uploadProgramFile(UploadedFile $uploadedFile, string $fileName)
     {
         return $this->uploadFile($uploadedFile, $fileName, $this->storage);

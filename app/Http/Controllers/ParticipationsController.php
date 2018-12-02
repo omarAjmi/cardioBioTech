@@ -107,7 +107,7 @@ class ParticipationsController extends Controller
         $notif->seen = true;
         $notif->save();
 
-        return Storage::disk('public')->download(str_replace('/storage', '',$event->storage.'participations/'.$participation->file));
+        return Storage::disk('public')->download(str_replace('/storage', '',$participation->file));
         return back();
     }
 
@@ -183,11 +183,12 @@ class ParticipationsController extends Controller
                 'title' => $request->title,
                 'affiliation' => $request->affiliation,
                 'authors' => $request->authors,
-                'file' => $part->uploadParticipationFile($request->file('participation'), $fileName, $path)
+                'file_name' => $fileName,
+                'file' => $part->uploadFile($request->file('participation'), $fileName, $path)
             ]);
             $this->notify('create', $existing, $user);
         } else {
-            $existing->file = $existing->uploadParticipationFile($request->file('participation'), $fileName, $path);
+            $existing->file = $existing->uploadFile($request->file('participation'), $fileName, $path);
             $existing->confirmation = false;
             $existing->title = $request->title;
             $existing->authors = $request->authors;
