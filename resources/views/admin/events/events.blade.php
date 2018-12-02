@@ -46,8 +46,8 @@
                                                 </td>
                                                 <td class="desc"><a href="{{ route('downloadFileEvent', [
                                                     'id'=>$event->id,
-                                                    'filename'=>$event->program_file
-                                                    ]) }}" target="_blank">{{ $event->program_file }}</a>
+                                                    'filename'=>$event->getProgramFileName()
+                                                    ]) }}" target="_blank">{{ $event->getProgramFileName() }}</a>
                                                         
                                                     </td>
                                                 <td>{{ $event->start_date->format('l j F Y H:i:s')}}</td>

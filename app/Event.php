@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Storage;
 
 class Event extends Model
 {
+    use CanUpload;
+
     protected $fillable = [
         'title', 'abbreviation', 'about', 'start_date', 'end_date', 'address', 'storage', 'program_file', 'dead_line', 'organiser'
     ];
@@ -43,25 +45,11 @@ class Event extends Model
         return $this->hasMany(Sponsor::class, 'event_id', 'id');
     }
 
-    public function uploadProgramFile(UploadedFile $uploadedFile, string $fileName)
+    public function getProgramFileName()
     {
-        return $this->uploadFile($uploadedFile, $fileName, $this->storage);
-    }
+        $fileName = $fileName = explode('/', $this->program_file);
+        return $fileName[count($fileName)-1];
 
-    public function uploadSlider(UploadedFile $uploadedFile, string $fileName)
-    {
-        return $this->uploadFile($uploadedFile, $fileName, $this->storage.'sliders');
-    }
-
-    private function uploadFile(UploadedFile $file, string $fileName, string $path)
-    {
-        $path = str_replace('/storage', '', $path);#remove '/storage' from the path or it will create it under storage/app/public
-        if (!is_dir($path)) {
-            Storage::disk('public')->makeDirectory($path);
-        }
-        $fileName = $fileName.'.'.$file->getClientOriginalExtension();
-        Storage::disk('public')->putFileAs($path, $file, $fileName);
-        return $fileName;
     }
 
     public function breakLongAbout()

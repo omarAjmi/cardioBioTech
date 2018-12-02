@@ -17,32 +17,15 @@ use Illuminate\Support\Facades\Validator;
 class EventsController extends Controller
 {
     /**
-     * serves the Events view
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function events()
-    {
-        $events = Event::all()->sortByDesc('created_at');
-        foreach ($events as $event) {
-            $event->start_date = new Date($event->start_date);
-            $event->end_date = new Date($event->end_date);
-            $event->address = json_decode($event->address);
-        }
-        
-        return view('admin.events.events', [
-            'events' => $events
-        ]);
-    }
-
-    /**
      * serves the new Event view
      *
      * @return \Illuminate\Http\Response
      */
     public function new()
     {
-        return view('admin.events.new');
+        return view('admin.events.new', [
+            'title' => "Panel | Évènements | Tous"
+        ]);
     }
 
     /**
@@ -87,7 +70,10 @@ class EventsController extends Controller
         $event->start_date = new Date($event->start_date);
         $event->end_date = new Date($event->end_date);
         $event->address = json_decode($event->address);
-        return view('admin.events.preview', ['event' => $event]);
+        return view('admin.events.preview', [
+            'event' => $event,
+            'title' => "Panel | $event->abbreviation | $event->title"
+            ]);
     }
 
     /**
@@ -155,25 +141,22 @@ class EventsController extends Controller
                 ])
         ]);
         if ($request->hasFile('program')) {
-            $event->program_file = $event->uploadProgramFile($request->file('program'), $event->abbreviation);
+            $event->program_file = $event->uploadFile($request->file('program'), $event->abbreviation, $event->storage);
         }
         if ($request->hasFile('sliders')) {
-            if (is_dir(Storage::disk('public')->path($event->storage.'sliders'))) {
-                Storage::disk('public')->deleteDirectory($event->storage.'sliders');
-            }
             foreach ($event->sliders as $slider) {
                 $slider->delete();
             }
-            foreach ($request->file('sliders') as $key => $sliderFile) {
+            foreach ($request->file('sliders') as $sliderFile) {
                 Slider::create([
                     'event_id' => $event->id,
-                    'name'=> $event->storage.'/sliders/'.$event->uploadSlider($sliderFile, $key)
+                    'name'=> $event->uploadImage($sliderFile, $event->storage.'sliders/')
                 ]);
             }
         }
         $event->save();
         Session::flash('success', 'évènnement est mis à jour');
-        return redirect(route('admin.events'));
+        return redirect(route('admin'));
     }
 
     /**
@@ -186,7 +169,7 @@ class EventsController extends Controller
     public function downloadProgram(int $id, string $fileName)
     {
         $event = Event::findOrFail($id);
-        $path = str_replace('/storage', '', $event->storage.$event->program_file);
+        $path = str_replace('/storage', '', $event->program_file);
         return Storage::disk('public')->download($path);
     }
 

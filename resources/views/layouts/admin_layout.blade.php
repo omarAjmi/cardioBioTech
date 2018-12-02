@@ -7,7 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>
+        @if(empty($title))
+            Panel
+        @else
+            {{ $title }}
+        @endif
+    </title>
 
    @include('admin.partials.styles.indexst')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">

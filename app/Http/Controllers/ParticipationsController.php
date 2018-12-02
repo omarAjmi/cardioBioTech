@@ -31,27 +31,10 @@ class ParticipationsController extends Controller
     public function participations(int $event_id)
     {
         $event = Event::findOrFail($event_id);
-        return view('admin.participations', ['participations'=>$event->participations]);
-    }
-
-    /**
-     * fetches all confirmed participations of a given event
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function confirmedParticipants()
-    {
-        $participations = Participation::where('confirmation', true)->get();
-        return view('admin.participations', ['participations' => $participations]);
-    }
-
-    /**
-     * fetches all not confimed participations of a given event
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function postponedParticipants()
-    {
-        $participations = Participation::where('confirmation', false)->get();
-        return view('admin.participations', ['participations' => $participations]);
+        return view('admin.participations', [
+            'participations'=>$event->participations,
+            'title' => "Panel | $event->abbreviation | Participations"
+        ]);
     }
 
     /**

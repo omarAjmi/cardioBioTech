@@ -41,8 +41,6 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
     
     //------------------EVENTS---------------------------------------------//
 
-    Route::get('/events', ['as' => 'admin.events','uses' => 'EventsController@events']);
-
     Route::get('/events/new', ['as' => 'admin.newEvent','uses' => 'EventsController@new']);
 
     Route::post('/events/create', ['as' => 'admin.createEvent','uses' => 'EventsController@create']);

@@ -7,7 +7,13 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- ========== Title ========== -->
-    <title>Association de Médecine et de Biotechnologie. Siège Faculté de Médecine Monastir.</title>
+    <title>
+        @if(empty($title))
+            Association de Médecine et de Biotechnologie. Siège Faculté de Médecine Monastir.
+        @else
+            {{ $title }}
+        @endif
+    </title>
     @include('public.partials.styles.indexst')
 
 </head>

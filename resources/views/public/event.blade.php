@@ -146,7 +146,7 @@
                             <div class="col-md-6 col-12">
                                 <p>
                                     pour la participation, merci de télécharger <i style="color: dodgerblue" class="fa fa-download"></i>
-                                    <a href="{{ route('downloadFileEvent', ['id'=>$event->id,'filename'=>$event->program_file]) }}">
+                                    <a href="{{ route('downloadFileEvent', ['id'=>$event->id,'filename'=>$event->getProgramFileName()]) }}">
                                         <b><u>ce fichier</u></b>
                                     </a> formel, de lui fournir avec les données nécessaires puis de le renvoyer à l’aide de ce formulaire.
                                 </p>

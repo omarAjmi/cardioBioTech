@@ -17,7 +17,8 @@ class AdminController extends Controller
         }
 
         return view('admin.events.events', [
-            'events' => $events
+            'events' => $events,
+            'title' => 'Panel | Évènements'
         ]);
     }
 }

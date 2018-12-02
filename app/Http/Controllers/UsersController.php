@@ -15,7 +15,11 @@ class UsersController extends Controller
 
     public function profile( Request $request, int $id)
     {
-        return view('public.profile', ['user'=>User::findOrFail($id)]);
+        $user = User::findOrFail($id);
+        return view('public.profile', [
+            'user'=>$user,
+            'title' => $user->getFullName().' | Profile'
+            ]);
     }
 
     public function update(Request $request)

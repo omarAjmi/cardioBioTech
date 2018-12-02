@@ -21,18 +21,6 @@ class PublicController extends Controller
         return view('welcome');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function currentEvent()
-    {
-        return view('public.news');
-        
-    }
-
-
     public function event(int $id)
     {
         $event = Event::with('participations')->findOrFail($id);
@@ -50,11 +38,15 @@ class PublicController extends Controller
         $participation = Participation::where('participant_id', Auth::id())->where('event_id', $event->id)->first();
         return view('public.event',[
             'event'=>$event,
-            'participation' => $participation]);
+            'participation' => $participation,
+            'title' => $event->abbreviation .' | '. $event->title
+        ]);
     }
 
     public function contact()
     {
-        return view('public.contact');
+        return view('public.contact', [
+            'title' => env('APP_NAME').' | Contactez nous'
+        ]);
     }
 }
