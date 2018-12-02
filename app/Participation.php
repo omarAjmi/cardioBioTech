@@ -11,7 +11,7 @@ class Participation extends Model
     use CanUpload;
 
     protected $fillable = [
-        'participant_id', 'event_id', 'confirmation', 'file', 'title', 'authors', 'affiliation'
+        'participant_id', 'event_id', 'confirmation', 'file', 'title', 'authors', 'affiliation', 'file_name'
     ];
 
     public function participant()

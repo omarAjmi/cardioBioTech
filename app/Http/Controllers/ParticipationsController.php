@@ -65,7 +65,7 @@ class ParticipationsController extends Controller
     {
         #testing if user is check()
         if (Auth::guest()) {
-                Session::flash('registerfail');
+                Session::flash('authErr');
                 return back();
         }
         $event = Event::findOrFail($event_id);
@@ -193,6 +193,7 @@ class ParticipationsController extends Controller
             $existing->title = $request->title;
             $existing->authors = $request->authors;
             $existing->affiliation = $request->affiliation;
+            $existing->file_name = $fileName;
             $existing->save();
             $this->notify('update', $existing, $user);
         }

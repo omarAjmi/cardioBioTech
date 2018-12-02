@@ -5,7 +5,7 @@
             <div class="col-md-6 col-12">
                 <p>
                     Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> Tous droits reservés | L'association médicale tunisienne CARDIOBIOTEC
+                    <script>document.write(new Date().getFullYear());</script> Tous droits reservés | Association de Médecine et de Biotechnologie.
                 </p>
             </div>
             <div class="col-12 col-md-6 ">
@@ -27,7 +27,7 @@
                         <a href="{{ route('welcome') }}">Nouveatés</a>
                     </li>
                     <li>
-                        <a href="{{ route('contact') }}">Contact</a>
+                        <a href="{{ route('contact') }}">Contactez nous</a>
                     </li>
                 </ul>
             </div>

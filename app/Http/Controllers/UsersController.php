@@ -8,7 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    public function profile(int $id)
+    public function __construct()
+    {
+        $this->middleware(['auth', 'authAcc']);
+    }
+
+    public function profile( Request $request, int $id)
     {
         return view('public.profile', ['user'=>User::findOrFail($id)]);
     }

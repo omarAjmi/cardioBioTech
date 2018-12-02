@@ -41,7 +41,7 @@
                                                 <td class="process"><a href="{{ route('participation.download', [
                                                                                                             $part->event_id,
                                                                                                             $part->id
-                                                                                                            ]) }}" target="_blank">{{ $part->file }}</a>
+                                                                                                            ]) }}" target="_blank">{{ $part->file_name }}</a>
                                                 </td>
                                                 <td style="max-width: 50px"><span>{{ $part->affiliation }}</span></td>
                                                 <td style="max-width: 50px"><span>{{ $part->authors }}</span></td>

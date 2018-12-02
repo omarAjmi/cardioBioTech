@@ -37,7 +37,7 @@
                                             <td class="process"><a href="{{ route('participation.download', [
                                                                                                 $notif->participation->event_id,
                                                                                                 $notif->participation->id
-                                                                                                ]) }}" target="_blank">{{ $notif->participation->file }}</a></td>
+                                                                                                ]) }}" target="_blank">{{ $notif->participation->file_name }}</a></td>
                                             @if ($notif->seen)
                                                 <td><i class="fa fa-eye"></i>&nbsp;
 

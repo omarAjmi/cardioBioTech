@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- ========== Title ========== -->
-    <title>Cardio Bio Tech - Association Madicale Tunisienne</title>  
+    <title>Association de Médecine et de Biotechnologie. Siège Faculté de Médecine Monastir.</title>
     @include('public.partials.styles.indexst')
 
 </head>

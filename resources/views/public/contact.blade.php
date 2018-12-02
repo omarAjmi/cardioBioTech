@@ -33,11 +33,11 @@
                 <div class="col-md-6 col-12">
                     <div class="contact_info">
                         <h5>
-                            CardioBioTec is here for you
+                            Association de Médecine et de Biotechnologie
                         </h5>
                         <p>
-                           
-                            L’Association Médicale CARDIOBIOTEC du Tunisie , a été créée en 7 avril 2013 à l’initiative d’un groupe de médecins de différentes disciplines.
+
+                            Association de Médecine et de Biotechnologie. Siège Faculté de Médecine Monastir , a été créée en 7 avril 2013 à l’initiative d’un groupe de médecins de différentes disciplines.
                             <br> <span><b>Contacter nous:</b> </span> 
                         </p><br>
                        <ul class="list-contact" style="list-style: none;">
