@@ -11,13 +11,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\CreateEventRequest;
+use App\Http\Requests\EventsRequest;
 use Illuminate\Support\Facades\Validator;
 
 class EventsController extends Controller
 {
     /**
-     * serves the new Event view
+     * renders the new Event view
      *
      * @return \Illuminate\Http\Response
      */
@@ -31,10 +31,10 @@ class EventsController extends Controller
     /**
      * creates an Event
      *
-     * @param CreateEventRequest $request
+     * @param EventsRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function create(CreateEventRequest $request)
+    public function create(EventsRequest $request)
     {
         $event = new Event();
         $event->title = $request->title;
@@ -45,25 +45,31 @@ class EventsController extends Controller
         $event->dead_line = $request->dead_line;
         $event->end_date = $request->end_date;
         $event->storage = env('EVENT_STORAGE_PATH', '/storage/events/').$event->abbreviation.'/';
-        $event->program_file = $event->uploadProgramFile($request->file('program'), $event->abbreviation);
+        $event->program_file = $event->uploadFile($request->file('program'), $event->abbreviation, $event->storage);
+        $event->flyer = $event->uploadImage($request->file('flyer'), $event->storage.'flyer/');
         $event->address = json_encode([
             'state' => $request->state,
             'city' => $request->city,
             'street' => $request->street
             ]);
         $event->save();
-        foreach ($request->file('sliders') as $key => $sliderFile) {
+        foreach ($request->file('sliders') as $sliderFile) {
             Slider::create([
                 'event_id' => $event->id,
-                'name'=> $event->storage.'sliders/'.$event->uploadSlider($sliderFile, $key)
+                'name'=> $event->uploadImage($sliderFile, $event->storage.'sliders/')
             ]);
         }
         Commitee::create(['event_id'=>$event->id]);
         Gallery::create(['event_id'=>$event->id]);
         Session::flash('success', 'événement est créé avec succès');
-        return redirect(route('admin.events'));
+        return redirect(route('admin'));
     }
 
+    /**
+     * renders the event preview view
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function preview(int $id)
     {
         $event = Event::findOrFail($id);
@@ -85,46 +91,9 @@ class EventsController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $messeges = [
-            'title.required' => 'Champ requis',
-            'abbreviation.required' => 'Champ requis',
-            'about.required' => 'Champ requis',
-            'start_date.required' => 'Champ requis',
-            'start_date.date' => 'devrait être une date valide (A-M-J H: M: S)',
-            'start_date.after_or_equal' => 'Ne devrait pas être moins que demain',
-            'dead_line.required' => 'Champ requis',
-            'dead_line.date' => 'devrait être une date valide (A-M-J H: M: S)',
-            'dead_line.after_or_equal' => 'Ne devrait pas être moins que demain',
-            'end_date.required' => 'Champ requis',
-            'end_date.date' => 'devrait être une date valide (A-M-J H: M: S)',
-            'end_date.after_or_equal' => 'Ne devrait pas être moins que demain',
-            'program.mimes' => 'devrait être une fichier(pdf, docx, txt)',
-            'sliders.*.mimes' => 'devrait être une fichier(png, jpeg, jpg)',
-            'sliders.*.dimensions' => 'devrait être aux min 700/500 px',
-            'sliders' => 'max:5',
-            'state.required' => 'Champ requis',
-            'city.required' => 'Champ requis',
-            'street.required' => 'Champ requis',
-        ];
-        $rules = [
-            'title' => 'required|string',
-            'abbreviation' => 'required|string',
-            'about' => 'required|string',
-            'start_date' => 'required|date|after_or_equal:tomorrow',
-            'dead_line' => 'required|date|after_or_equal:tomorrow',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'storage' => 'string',
-            'program' => 'file|mimes:pdf,docx,txt',
-            'sliders.*' => 'file|mimes:png,jpeg,jpg|dimensions:min_width=700,min_height=500',            'sliders.max' => 'max 5 images',
-            'state' => 'required|string',
-            'city' => 'required|string',
-            'street' => 'required|string',
-        ];
-        $event = Event::findOrFail($id);
-        $validator = Validator::make($request->toArray(), $rules, $messeges);
-        $errros = $validator->errors();
-        if ($validator->fails()) {
-            return back()->with(['errors'=>$errros]);
+        $event = $this->validateUpdateRequest($request);
+        if(!($event instanceof Event)) {
+            return back()->with(['errors' => $event]);
         }
         $event->update([
             'title' => $request->title,
@@ -143,16 +112,11 @@ class EventsController extends Controller
         if ($request->hasFile('program')) {
             $event->program_file = $event->uploadFile($request->file('program'), $event->abbreviation, $event->storage);
         }
+        if ($request->hasFile('flyer')) {
+            $event = $this->deleteFlyerAndUpdate($event, $request);
+        }
         if ($request->hasFile('sliders')) {
-            foreach ($event->sliders as $slider) {
-                $slider->delete();
-            }
-            foreach ($request->file('sliders') as $sliderFile) {
-                Slider::create([
-                    'event_id' => $event->id,
-                    'name'=> $event->uploadImage($sliderFile, $event->storage.'sliders/')
-                ]);
-            }
+            $event = $this->deleteSlidersAndUpdate($event, $request);
         }
         $event->save();
         Session::flash('success', 'évènnement est mis à jour');
@@ -187,4 +151,93 @@ class EventsController extends Controller
         Session::flash('success', 'évènnement est suprimé');
         return redirect(route('admin.events'));
     }
+
+    /**
+     * deletes the event sliders then update 'em with new values
+     * @param Event $event
+     * @param Request $request
+     * @return Event
+     */
+    private function deleteSlidersAndUpdate(Event $event, Request $request)
+    {
+        foreach ($event->sliders as $slider) {
+            Storage::disk('public')->delete(str_replace('/storage', '', $slider->name));
+            $slider->delete();
+        }
+        foreach ($request->file('sliders') as $sliderFile) {
+            Slider::create([
+                'event_id' => $event->id,
+                'name'=> $event->uploadImage($sliderFile, $event->storage.'sliders/')
+            ]);
+        }
+        return $event;
+    }
+
+    /**
+     * deletes event flyer the updates it with new value
+     * @param Event $event
+     * @param Request $request
+     * @return Event
+     */
+    private function deleteFlyerAndUpdate(Event $event, Request $request)
+    {
+        Storage::disk('public')->delete(str_replace('/storage', '', $event->flyer));
+        $event->flyer = $event->uploadImage($request->file('flyer'), $event->storage.'flyer/');
+        return $event;
+    }
+
+    /**
+     * validates update Request
+     * @param Request $request
+     * @return \Illuminate\Support\MessageBag
+     */
+    private function validateUpdateRequest(Request $request)
+    {
+        $messeges = [
+            'title.required' => 'Champ requis',
+            'abbreviation.required' => 'Champ requis',
+            'about.required' => 'Champ requis',
+            'start_date.required' => 'Champ requis',
+            'start_date.date' => 'devrait être une date valide (A-M-J H: M: S)',
+            'start_date.after_or_equal' => 'Ne devrait pas être moins que demain',
+            'dead_line.required' => 'Champ requis',
+            'dead_line.date' => 'devrait être une date valide (A-M-J H: M: S)',
+            'dead_line.after_or_equal' => 'Ne devrait pas être moins que demain',
+            'end_date.required' => 'Champ requis',
+            'end_date.date' => 'devrait être une date valide (A-M-J H: M: S)',
+            'end_date.after_or_equal' => 'Ne devrait pas être moins que demain',
+            'program.mimes' => 'devrait être une fichier(pdf, docx, txt)',
+            'sliders.*.mimes' => 'devrait être une fichier(png, jpeg, jpg)',
+            'flyer.mimes' => 'devrait être une fichier(png, jpeg, jpg)',
+            'sliders.*.dimensions' => 'devrait être aux min 700/500 px',
+            'sliders.max' => 'max 5 images',
+            'state.required' => 'Champ requis',
+            'city.required' => 'Champ requis',
+            'street.required' => 'Champ requis',
+        ];
+        $rules = [
+            'title' => 'required|string',
+            'abbreviation' => 'required|string',
+            'about' => 'required|string',
+            'start_date' => 'required|date|after_or_equal:tomorrow',
+            'dead_line' => 'required|date|after_or_equal:tomorrow',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'storage' => 'string',
+            'program' => 'file|mimes:pdf,docx,txt',
+            'flyer' => 'file|mimes:png,jpg,jpeg',
+            'sliders.*' => 'file|mimes:png,jpeg,jpg|dimensions:min_width=700,min_height=500',
+            'sliders' => 'max:5',
+            'state' => 'required|string',
+            'city' => 'required|string',
+            'street' => 'required|string',
+        ];
+        $event = Event::findOrFail($id);
+        $validator = Validator::make($request->toArray(), $rules, $messeges);
+        $errros = $validator->errors();
+        if ($validator->fails()) {
+            return $errros;
+        }
+        return $event;
+    }
+
 }

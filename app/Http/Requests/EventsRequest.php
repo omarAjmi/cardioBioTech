@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateEventRequest extends FormRequest
+class EventsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,7 +32,8 @@ class CreateEventRequest extends FormRequest
             'dead_line' => 'required|date|after_or_equal:tomorrow',
             'end_date' => 'required|date|after_or_equal:start_date',
             'storage' => 'string',
-            'program' => 'required|file|mimes:pdf,docx,txt',
+            'program' => 'required|file|mimes:pdf,docx',
+            'flyer' => 'required|file|mimes:png,jpg,jpeg',
             'sliders' => 'required|max:5',
             'sliders.*' => 'required|file|mimes:png,jpeg,jpg|dimensions:min_width=700,min_height=500',
             'state' => 'required|string',
@@ -58,7 +59,9 @@ class CreateEventRequest extends FormRequest
             'end_date.date' => 'devrait être une date valide (A-M-J H: M: S)',
             'end_date.after_or_equal' => 'Ne devrait pas être moins que demain',
             'program.required' => 'Champ requis',
+            'flyer.required' => 'Champ requis',
             'program.mimes' => 'devrait être une fichier(pdf, docx, txt)',
+            'flyer.mimes' => 'devrait être une fichier(png, jpeg, jpg)',
             'sliders.required' => 'Champ requis',
             'sliders.max' => 'max 5 images',
             'sliders.*.mimes' => 'devrait être une fichier(png, jpeg, jpg)',

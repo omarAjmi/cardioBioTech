@@ -12,7 +12,7 @@ class Event extends Model
     use CanUpload;
 
     protected $fillable = [
-        'title', 'abbreviation', 'about', 'start_date', 'end_date', 'address', 'storage', 'program_file', 'dead_line', 'organiser'
+        'title', 'abbreviation', 'about', 'start_date', 'end_date', 'address', 'storage', 'program_file', 'flyer', 'dead_line', 'organiser'
     ];
 
     public function participations()

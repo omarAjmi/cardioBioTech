@@ -109,6 +109,9 @@ class ParticipationsController extends Controller
             $message->from(env('MAIL_USERNAME'));
             $message->subject('Acceptation d\'une demande de participation');
         });
+        $notification = $participation->notification;
+        $notification->seen = true;
+        $notification->save();
         $participation->confirmation = true;
         $participation->save();
         return back();

@@ -204,7 +204,17 @@
             </div>
         </section>
         <!--speaker section end -->
-        
+
+        <!--flyer image section -->
+        @if($events->isNotEmpty())
+            <section class="pb100">
+                <div class="container">
+                    <div class="container" style="background-color: #53cde2; color: #ffffff;border: 0;padding: 1%;width: 100%">Programme</div>
+                    <img src="{{ $events->first()->flyer }}"/>
+                </div>
+            </section>
+        @endif
+        <!--flyer section end -->
         <!--brands section -->
         <section class="bg-gray pt100 pb100">
             <div class="container">

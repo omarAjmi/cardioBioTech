@@ -25,6 +25,7 @@ class CreateEventsTable extends Migration
             $table->string('address');
             $table->string('storage');
             $table->string('program_file');
+            $table->string('flyer');
             $table->timestamps();
         });
     }

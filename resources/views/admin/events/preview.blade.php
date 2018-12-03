@@ -70,6 +70,22 @@
 
                                     <div class="row form-group">
                                         <div class="col col-md-3">
+                                            <label for="program" class=" form-control-label">Poster du programme</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input id="flyer" name="flyer" class="form-control-file"
+                                                   type="file" value="{{ old('flyer') }}" accept="image/jpeg,image/png,image/jpg">
+                                            <small class="form-text text-muted"></small>
+                                            @if ($errors->has('flyer'))
+                                                <small class="form-text status--denied">{{ $errors->first('flyer') }}</small>
+                                            @else
+                                                <small class="form-text text-muted"> fichier doit être de type (jpg, jpeg, png)</small>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
                                            <label for="organiser" class=" form-control-label"> Organisateur</label>
                                         </div>
                                         <div class="col-12 col-md-9">
