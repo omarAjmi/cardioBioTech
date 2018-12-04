@@ -4,20 +4,20 @@
     <section id="home" class="home-cover">
         @if($events->isNotEmpty())
             <div class="cover_slider owl-carousel owl-theme">
-                @foreach ($events->first()->sliders as $slider)
+                @foreach ($event->sliders as $slider)
                     <div class="cover_item" style="background: url('{{ $slider->name }}');">
                         <div class="slider_content">
                             <div class="slider-content-inner">
                                 <div class="container">
                                     <div class="slider-content-center">
                                         <h2 class="cover-title">
-                                            {{ $events->first()->title }}
+                                            {{ $event->title }}
                                         </h2>
-                                        <strong class="cover-xl-text">{{ $events->first()->abbreviation }}</strong>
+                                        <strong class="cover-xl-text">{{ $event->abbreviation }}</strong>
                                         <p class="cover-date">
-                                            {{ $events->first()->start_date->format('l j F Y H:i:s') }}
+                                            {{ $event->start_date->format('l j F Y H:i:s') }}
                                         </p>
-                                        <a href="{{ route('event',[$events->first()->id]) }}" class=" btn btn-primary btn-rounded">
+                                        <a href="{{ route('event',[$event->id]) }}" class=" btn btn-primary btn-rounded">
                                             prendre part
                                         </a>
                                     </div>
@@ -30,7 +30,7 @@
             <div class="cover_nav">
                 <ul class="cover_dots">
                     <li class="active" data="0"><span>1</span></li>
-                    @for ($i = 1; $i <= $events->first()->sliders->count(); $i++)
+                    @for ($i = 1; $i <= $event->sliders->count(); $i++)
                         <li data="{{ $i }}"><span>{{ $i+1 }}</span></li>
                     @endfor
                 </ul>
@@ -75,20 +75,20 @@
         <!--event info -->
         <section class="pt100 pb100">
             <div class="container">
-                <h1 style="text-align: center;color: #005792">@if (!is_null($events->first())){{ $events->first()->title }}@endif</h1>
+                <h1 style="text-align: center;color: #005792">@if (!is_null($event)){{ $event->title }}@endif</h1>
                 <div class="row justify-content-center">
-                    <div class="col-6 col-md-3  ">
+                    <div class="col-md-3  ">
                         <div class="icon_box_two">
                             <i class="ion-ios-calendar-outline"></i>
                             <div class="content">
-                                <h5 class="box_title">
+                                <h6 class="box_title">
                                     DATE
-                                </h5>
-                                <p>
-                                    @if (!is_null($events->first()))
-                                        {{ $events->first()->start_date->format('l j F Y H:i:s') }}<br>
-                                        @if ($events->first()->start_date->diffInDays($events->first()->end_date) > 0)
-                                            ({{ $events->first()->start_date->diffInDays($events->first()->end_date) }}) jours
+                                </h6>
+                                <p class="row justify-content-center">
+                                    @if (!is_null($event))
+                                        {{ $event->start_date->format('l j F Y H:i:s') }}
+                                        @if ($event->start_date->diffInDays($event->end_date) > 0)
+                                            ({{ $event->start_date->diffInDays($event->end_date) }}) jours
                                         @endif
                                     @endif
                                     
@@ -98,32 +98,50 @@
                         </div>
                     </div>
         
-                    <div class="col-6 col-md-3  ">
+                    <div class="col-md-3  ">
                         <div class="icon_box_two">
                             <i class="ion-ios-location-outline"></i>
                             <div class="content">
-                                <h5 class="box_title">
+                                <h6 class="box_title">
                                     locale
-                                </h5>
-                                <p>
-                                    @if (!is_null($events->first())){{ $events->first()->address->state }}@endif, 
-                                    @if (!is_null($events->first())){{ $events->first()->address->city }}@endif <br>
-                                    @if (!is_null($events->first())){{ $events->first()->address->street }}@endif
+                                </h6>
+                                <p class="row justify-content-center">
+                                    @if (!is_null($event)){{ $event->address->state }}@endif, 
+                                    @if (!is_null($event)){{ $event->address->city }}@endif <br>
+                                    @if (!is_null($event)){{ $event->address->street }}@endif
                                 </p>
                             </div>
                         </div>
                     </div>
         
-                    <div class="col-6 col-md-3  ">
+                    <div class="col-md-3  ">
                         <div class="icon_box_two">
                             <i class="ion-ios-person-outline"></i>
                             <div class="content">
-                                <h5 class="box_title">
+                                <h6 class="box_title">
                                     Organisateur
-                                </h5>
-                                <p>
-                                    @if (!is_null($events->first())){{ $events->first()->organiser }}@endif
+                                </h6>
+                                <p class="row justify-content-center">
+                                    @if (!is_null($event)){{ $event->organiser }}@endif
                                 </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3  ">
+                        <div class="icon_box_two">
+                            <i class="ion-ios-calendar-outline"></i>
+                            <div class="content">
+                                <h6 class="box_title">
+                                    dernière date des participations
+                                </h6>
+                                <p class="row justify-content-center">
+                                    @if (!is_null($event))
+                                        {{ $event->start_date->format('l j F Y H:i:s') }}<br>
+                                    @endif
+
+                                </p>
+
                             </div>
                         </div>
                     </div>
@@ -155,8 +173,8 @@
                     </h3>
                 </div>
                 <div class="row justify-content-center">
-                    @if($events->isNotEmpty())
-                        @foreach ($events->first()->breakLongAbout() as $p)
+                    @if(!is_null($event->about))
+                        @foreach ($event->breakLongAbout() as $p)
                             <div class="col-md-6 col-12">
                                 <p>{{ $p }}</p> <br>
                             </div>
@@ -167,7 +185,7 @@
                         </div>
                     @endif
                 </div>
-        
+
                 <!--event features-->
                 
                 <!--event features end-->
@@ -186,15 +204,15 @@
                 </div>
             </div>
             <div class="row justify-content-center no-gutters">
-                @if($events->isNotEmpty() and !is_null($events->first()->commitee))
-                    @foreach($events->first()->commitee->members as $member)
+                @if(!is_null($event->commitee))
+                    @foreach($event->commitee->members as $member)
                         <div class="col-md-3 col-sm-6">
                             <div class="speaker_box">
                                 <div class="speaker_img">
                                     <img src="{{ $member->data->photo }}" alt="speaker name">
                                     <div class="info_box">
                                         <h5 class="name">{{ $member->data->getFullName() }}</h5>
-                                        {{-- <p class="position">CEO Company</p> --}}
+                                         <p class="position">CEO Company</p>
                                     </div>
                                 </div>
                             </div>
@@ -206,11 +224,23 @@
         <!--speaker section end -->
 
         <!--flyer image section -->
-        @if($events->isNotEmpty())
+        @if(!is_null($event))
             <section class="pb100">
-                <div class="container">
-                    <div class="container" style="background-color: #53cde2; color: #ffffff;border: 0;padding: 1%;width: 100%">Programme</div>
-                    <img src="{{ $events->first()->flyer }}"/>
+                <div class="container" id="speakers">
+                    <div class="section_title mb50">
+                        <h3 class="title">
+                            Poster du programme
+                        </h3>
+                    </div>
+                </div>
+                <div class="row justify-content-center no-gutters">
+                    <div class="col-md-5 col-sm-6">
+                        <div class="speaker_box">
+                            <div class="speaker_img">
+                                <img src="{{ $event->flyer }}" alt="Poster">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         @endif
@@ -224,12 +254,16 @@
                     </h3>
                 </div>
                 <div class="brand_carousel owl-carousel">
-                    @if($events->isNotEmpty() and !is_null($events->first()->commitee))
-                        @foreach($events->first()->sponsors as $sponsor)
+                    @if(!is_null($event->commitee))
+                        @foreach($event->sponsors as $sponsor)
                             <div class="brand_item text-center">
                                 <img src="{{ $sponsor->path }}" alt="{{ $sponsor->name }}">
                             </div>
                         @endforeach
+                    @else
+                        <div class="col-md-6 col-12">
+                            <p>Non disponible</p>
+                        </div>
                     @endif
                 </div>
             </div>

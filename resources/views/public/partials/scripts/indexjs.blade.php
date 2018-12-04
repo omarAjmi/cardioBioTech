@@ -26,7 +26,7 @@
 
 <!--parallax -->
 
-<script src="/js/select2.min.js"></script> 
+<script src="/js/select2.min.js"></script>
 <script src="/js/login_signup.js"></script>
 <!--===============================================================================================-->
 <script src="/js/tilt.jquery.min.js"></script>

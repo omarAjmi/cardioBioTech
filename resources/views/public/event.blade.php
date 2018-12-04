@@ -71,7 +71,7 @@
                                 DATE
                             </h5>
                             <p>
-                                {{ $event->start_date->format('l j F Y H:i:s') }} <br>
+                                {{ $event->start_date->format('l j F Y H:i:s') }}
                                     @if ($event->start_date->diffInDays($event->end_date) > 0)
                                         ({{ $event->start_date->diffInDays($event->end_date) }}) jours
                                     @endif
@@ -87,7 +87,7 @@
                             <h5 class="box_title">
                                 locale
                             </h5>
-                            <p>
+                            <p class="row justify-content-center">
                                 {{ $events->first()->address->state }}, 
                                 {{ $events->first()->address->city }} <br>
                                 {{ $events->first()->address->street }}
@@ -103,7 +103,7 @@
                             <h5 class="box_title">
                                 Organisateur
                             </h5>
-                            <p>
+                            <p class="row justify-content-center">
                                 {{ $events->first()->organiser }}
                             </p>
                         </div>

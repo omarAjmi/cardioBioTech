@@ -6,6 +6,8 @@ use App\Event;
 use App\Http\Requests\SponsorsRequest;
 use App\Sponsor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class SponsorsController extends Controller
 {
@@ -25,7 +27,6 @@ class SponsorsController extends Controller
 
     public function addSponsor(int $event_id, SponsorsRequest $request)
     {
-//        dd($request);
         $event = Event::findOrFail($event_id);
         $sponsor = new Sponsor();
         foreach ($request->file('sponsors') as $file) {
@@ -37,5 +38,15 @@ class SponsorsController extends Controller
 
         }
         return redirect(route('sponsors.preview', $event_id));
+    }
+
+    public function removeSponsor(int $event_id, int $sponsor_id)
+    {
+        $event = Event::findOrFail($event_id);
+        $sponsor = Sponsor::findorFail($sponsor_id);
+        Storage::disk('public')->delete(str_replace('/storage/', '', $sponsor->path));
+        $sponsor->delete();
+        Session::flash('success', 'sponsor est supprimé avec succès');
+        return back();
     }
 }

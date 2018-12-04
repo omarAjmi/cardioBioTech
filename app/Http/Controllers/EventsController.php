@@ -91,7 +91,7 @@ class EventsController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $event = $this->validateUpdateRequest($request);
+        $event = $this->validateUpdateRequest($request, $id);
         if(!($event instanceof Event)) {
             return back()->with(['errors' => $event]);
         }
@@ -189,9 +189,9 @@ class EventsController extends Controller
     /**
      * validates update Request
      * @param Request $request
-     * @return \Illuminate\Support\MessageBag
+     * @return \Illuminate\Support\MessageBag | Event
      */
-    private function validateUpdateRequest(Request $request)
+    private function validateUpdateRequest(Request $request, int $id)
     {
         $messeges = [
             'title.required' => 'Champ requis',

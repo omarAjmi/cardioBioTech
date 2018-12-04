@@ -17,8 +17,16 @@ class PublicController extends Controller
      */
     public function welcome()
     {
-//         $event = Event::latest()->first();
-        return view('welcome');
+         $event = Event::latest()->first();
+        if (!is_null($event)) {
+            $event->start_date = new Date($event->start_date);
+            $event->end_date = new Date($event->end_date);
+            $event->dead_line = new Date($event->dead_line);
+            $event->address = json_decode($event->address);
+        }
+        return view('welcome', [
+            'event' => $event
+        ]);
     }
 
     public function event(int $id)

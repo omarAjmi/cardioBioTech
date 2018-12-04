@@ -1,36 +1,44 @@
--- commitees: table
-CREATE TABLE `commitees` (
-  `id`         int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `event_id`   int(10) unsigned NOT NULL,
-  `created_at` timestamp        NULL     DEFAULT NULL,
-  `updated_at` timestamp        NULL     DEFAULT NULL,
+-- No native definition for element: sliders_event_id_foreign (index)
+
+-- users: table
+CREATE TABLE `users` (
+  `id`                int(10) unsigned                        NOT NULL AUTO_INCREMENT,
+  `first_name`        varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name`         varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `photo`             varchar(191) COLLATE utf8mb4_unicode_ci          DEFAULT '/storage/users/avatars/default.png',
+  `phone`             varchar(12) COLLATE utf8mb4_unicode_ci           DEFAULT NULL,
+  `address`           varchar(191) COLLATE utf8mb4_unicode_ci          DEFAULT NULL,
+  `storage`           varchar(191) COLLATE utf8mb4_unicode_ci          DEFAULT NULL,
+  `email`             varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp                               NULL     DEFAULT NULL,
+  `password`          varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin`             varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `remember_token`    varchar(100) COLLATE utf8mb4_unicode_ci          DEFAULT NULL,
+  `created_at`        timestamp                               NULL     DEFAULT NULL,
+  `updated_at`        timestamp                               NULL     DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `commitees_event_id_foreign` (`event_id`),
-  CONSTRAINT `commitees_event_id_foreign` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
+  UNIQUE KEY `users_email_unique` (`email`)
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 2
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
--- No native definition for element: commitees_event_id_foreign (index)
 
 -- events: table
 CREATE TABLE `events` (
   `id`           int(10) unsigned                        NOT NULL AUTO_INCREMENT,
-  `title`        varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `organiser`    varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abbreviation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title`        varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `organiser`    varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abbreviation` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `about`        text COLLATE utf8mb4_unicode_ci         NOT NULL,
   `start_date`   timestamp                               NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `end_date`     timestamp                               NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dead_line`    timestamp                               NULL     DEFAULT NULL,
-  `address`      varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `storage`      varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `program_file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `flyer`        varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address`      varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `storage`      varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `program_file` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `flyer`        varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at`   timestamp                               NULL     DEFAULT NULL,
   `updated_at`   timestamp                               NULL     DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -63,7 +71,7 @@ CREATE TABLE `galleries` (
 CREATE TABLE `images` (
   `id`         int(10) unsigned                        NOT NULL AUTO_INCREMENT,
   `gallery_id` int(10) unsigned                        NOT NULL,
-  `path`       varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `path`       varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp                               NULL     DEFAULT NULL,
   `updated_at` timestamp                               NULL     DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -78,6 +86,25 @@ CREATE TABLE `images` (
   COLLATE = utf8mb4_unicode_ci;
 
 -- No native definition for element: images_gallery_id_foreign (index)
+
+-- commitees: table
+CREATE TABLE `commitees` (
+  `id`         int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `event_id`   int(10) unsigned NOT NULL,
+  `created_at` timestamp        NULL     DEFAULT NULL,
+  `updated_at` timestamp        NULL     DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `commitees_event_id_foreign` (`event_id`),
+  CONSTRAINT `commitees_event_id_foreign` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 2
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci;
+
+-- No native definition for element: commitees_event_id_foreign (index)
 
 -- members: table
 CREATE TABLE `members` (
@@ -107,31 +134,12 @@ CREATE TABLE `members` (
 -- migrations: table
 CREATE TABLE `migrations` (
   `id`        int(10) unsigned                        NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch`     int(11)                                 NOT NULL,
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
   AUTO_INCREMENT = 12
-  DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_unicode_ci;
-
--- notifications: table
-CREATE TABLE `notifications` (
-  `id`               int(10) unsigned                        NOT NULL AUTO_INCREMENT,
-  `participation_id` int(10) unsigned                        NOT NULL,
-  `context`          varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `seen`             tinyint(1)                              NOT NULL DEFAULT '0',
-  `created_at`       timestamp                               NULL     DEFAULT NULL,
-  `updated_at`       timestamp                               NULL     DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `notifications_participation_id_foreign` (`participation_id`),
-  CONSTRAINT `notifications_participation_id_foreign` FOREIGN KEY (`participation_id`) REFERENCES `participations` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-)
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 2
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
 
@@ -142,11 +150,11 @@ CREATE TABLE `participations` (
   `id`             int(10) unsigned                        NOT NULL AUTO_INCREMENT,
   `participant_id` int(10) unsigned                        NOT NULL,
   `event_id`       int(10) unsigned                        NOT NULL,
-  `file`           varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `file_name`      varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title`          varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `authors`        varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `affiliation`    varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file`           varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_name`      varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title`          varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `authors`        varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `affiliation`    varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `confirmation`   tinyint(1)                              NOT NULL DEFAULT '0',
   `created_at`     timestamp                               NULL     DEFAULT NULL,
   `updated_at`     timestamp                               NULL     DEFAULT NULL,
@@ -169,10 +177,29 @@ CREATE TABLE `participations` (
 
 -- No native definition for element: participations_event_id_foreign (index)
 
+-- notifications: table
+CREATE TABLE `notifications` (
+  `id`               int(10) unsigned                        NOT NULL AUTO_INCREMENT,
+  `participation_id` int(10) unsigned                        NOT NULL,
+  `context`          varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `seen`             tinyint(1)                              NOT NULL DEFAULT '0',
+  `created_at`       timestamp                               NULL     DEFAULT NULL,
+  `updated_at`       timestamp                               NULL     DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `notifications_participation_id_foreign` (`participation_id`),
+  CONSTRAINT `notifications_participation_id_foreign` FOREIGN KEY (`participation_id`) REFERENCES `participations` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 2
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci;
+
 -- password_resets: table
 CREATE TABLE `password_resets` (
-  `email`      varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token`      varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email`      varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token`      varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp                               NULL DEFAULT NULL,
   KEY `password_resets_email_index` (`email`)
 )
@@ -186,7 +213,7 @@ CREATE TABLE `password_resets` (
 CREATE TABLE `sliders` (
   `id`         int(10) unsigned                        NOT NULL AUTO_INCREMENT,
   `event_id`   int(10) unsigned                        NOT NULL,
-  `name`       varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name`       varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp                               NULL     DEFAULT NULL,
   `updated_at` timestamp                               NULL     DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -199,31 +226,4 @@ CREATE TABLE `sliders` (
   AUTO_INCREMENT = 16
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
-
--- No native definition for element: sliders_event_id_foreign (index)
-
--- users: table
-CREATE TABLE `users` (
-  `id`                int(10) unsigned                        NOT NULL AUTO_INCREMENT,
-  `first_name`        varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_name`         varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `photo`             varchar(255) COLLATE utf8mb4_unicode_ci          DEFAULT '/storage/users/avatars/default.png',
-  `phone`             varchar(12) COLLATE utf8mb4_unicode_ci           DEFAULT NULL,
-  `address`           varchar(255) COLLATE utf8mb4_unicode_ci          DEFAULT NULL,
-  `storage`           varchar(255) COLLATE utf8mb4_unicode_ci          DEFAULT NULL,
-  `email`             varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp                               NULL     DEFAULT NULL,
-  `password`          varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `admin`             varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `remember_token`    varchar(100) COLLATE utf8mb4_unicode_ci          DEFAULT NULL,
-  `created_at`        timestamp                               NULL     DEFAULT NULL,
-  `updated_at`        timestamp                               NULL     DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
-)
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 2
-  DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_unicode_ci;
-
 
