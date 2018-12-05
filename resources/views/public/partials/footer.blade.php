@@ -17,8 +17,8 @@
                         <a href="{{ route('welcome') }}#speakers">Comité</a>
                     </li>
                     <li>
-                        @if (!is_null($event))
-                            <a href="{{ route('event', [$event->id]) }}">Événements</a>
+                        @if (!is_null($events->first()))
+                            <a href="{{ route('event', [$events->first()->id]) }}">Événements</a>
                         @else
                             <a href="#">Événements</a>
                         @endif
