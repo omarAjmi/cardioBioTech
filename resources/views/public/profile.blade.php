@@ -25,7 +25,7 @@
 
                     <div class="" id="home">
                       
-                        <form class="form" action="{{ route('profile.update') }}" method="POST" id="registrationForm">
+                        <form class="form" action="{{ route('profile.update', Auth::id()) }}" method="POST" id="registrationForm">
                             @csrf
                             <input type="hidden" name="_method" value="PUT">
                             <div class="form-group">                          
