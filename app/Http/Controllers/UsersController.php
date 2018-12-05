@@ -34,11 +34,11 @@ class UsersController extends Controller
         return back();
     }
 
-    public function updateAvatar(Request $request)
+    public function updateAvatar(Request $request, int $id)
     {
-        $user = Auth::user();
+        $user = User::findorFail($id);
         if($request->file('avatar')) {
-            $user->photo = '/users/avatars/'.$user->uploadAvatar($request->file('avatar'));
+            $user->photo = $user->uploadImage($request->file('avatar'), '/storage/users/avatars/', $id);
             $user->save();
         }
         return back();

@@ -10,7 +10,7 @@
                 <div class="text-center" style="margin-top: -50%" >
                     <img src="{{ $user->photo }}"  alt="avatar" style="border: 2px dashed #c7c7c9;">
                     <h6> Ajouter une photo différente ...</h6>
-                    <form action="{{ route('profile.updateAvatar') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('profile.updateAvatar', Auth::id()) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="_method" value="PUT">
                         <input type="file" class="text-center center-block file-upload" name="avatar"><br><br>

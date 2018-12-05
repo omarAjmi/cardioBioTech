@@ -14,13 +14,17 @@ use Illuminate\Support\Facades\Storage;
 
 trait CanUpload
 {
-    public function uploadImage(UploadedFile $file, string $path)
+    public function uploadImage(UploadedFile $file, string $path, $id = null)
     {
         $path = str_replace('/storage', '', $path);#remove '/storage' from the path or it will create it under storage/app/public
         if(!is_dir($path)) {
             Storage::disk('public')->makeDirectory($path);
         }
-        $filename = rand().'.'.$file->getClientOriginalExtension();
+        if(is_null($id)) {
+            $filename = rand().'.'.$file->getClientOriginalExtension();
+        } else {
+            $filename = $id.'.'.$file->getClientOriginalExtension();
+        }
         Storage::disk('public')->putFileAs($path, $file, $filename);
         return '/storage'.$path.$filename;
     }

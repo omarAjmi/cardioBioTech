@@ -31,7 +31,7 @@ Route::group([], function(){
     Route::get('/events/download/event/{id}/{fileName}', ['as' => 'downloadFileEvent','uses' => 'EventsController@downloadProgram'
     ]);
 
-    Route::put('/users/profile/update_avatar', ['as'=> 'profile.updateAvatar', 'uses'=>'UsersController@updateAvatar']);
+    Route::put('/users/{id}/profile/update_avatar', ['as'=> 'profile.updateAvatar', 'uses'=>'UsersController@updateAvatar']);
 
     Route::post('/users/event/{id}/participation', ['as'=> 'events.participate', 'uses'=>'ParticipationsController@participate']);
 
