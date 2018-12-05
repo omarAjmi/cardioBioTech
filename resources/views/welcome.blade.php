@@ -69,7 +69,7 @@
     </section>
     <!--cover section slider end -->
     
-    @if($events->isEmpty())
+    @if(is_null($event))
         <h5>Pas des évènnements actuellèment</h5>
     @else
         <!--event info -->
@@ -93,7 +93,6 @@
                                     @endif
                                     
                                 </p>
-                                    
                             </div>
                         </div>
                     </div>
@@ -106,9 +105,11 @@
                                     locale
                                 </h6>
                                 <p class="row justify-content-center">
-                                    @if (!is_null($event)){{ $event->address->state }}@endif, 
-                                    @if (!is_null($event)){{ $event->address->city }}@endif <br>
-                                    @if (!is_null($event)){{ $event->address->street }}@endif
+                                    @if (!is_null($event))
+                                        {{ $event->address->state }},
+                                        {{ $event->address->city }} <br>
+                                        {{ $event->address->street }}
+                                    @endif
                                 </p>
                             </div>
                         </div>
@@ -141,7 +142,6 @@
                                     @endif
 
                                 </p>
-
                             </div>
                         </div>
                     </div>
@@ -152,123 +152,39 @@
         
         
         <!--event countdown -->
-        <section class="bg-img pt70 pb70" style="background-image: url('/img/bg/img.png');">
-            <div class="overlay_dark"></div>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-10">
-                        <h4 class="mb30 text-center color-light">Compteur jusqu'au grand événement</h4>
-                        <div class="countdown"></div>
-            </div>
-        </section>
-        <!--event count down end-->
-        
-        
-        <!--about the event -->
-        <section class="pt100 pb100">
-            <div class="container">
-                <div class="section_title">
-                    <h3 class="title">
-                        À propos
-                    </h3>
-                </div>
-                <div class="row justify-content-center">
-                    @if(!is_null($event->about))
-                        @foreach ($event->breakLongAbout() as $p)
-                            <div class="col-md-6 col-12">
-                                <p>{{ $p }}</p> <br>
-                            </div>
-                        @endforeach
-                    @else
-                        <div class="col-md-6 col-12">
-                            <p>Non disponible</p>
-                        </div>
-                    @endif
-                </div>
-
-                <!--event features-->
-                
-                <!--event features end-->
-            </div>
-        </section>
-        <!--about the event end -->
-        
-        
-        <!--speaker section-->
-        <section class="pb100">
-            <div class="container" id="speakers">
-                <div class="section_title mb50">
-                    <h3 class="title">
-                        Comité
-                    </h3>
-                </div>
-            </div>
-            <div class="row justify-content-center no-gutters">
-                @if(!is_null($event->commitee))
-                    @foreach($event->commitee->members as $member)
-                        <div class="col-md-3 col-sm-6">
-                            <div class="speaker_box">
-                                <div class="speaker_img">
-                                    <img src="{{ $member->data->photo }}" alt="speaker name">
-                                    <div class="info_box">
-                                        <h5 class="name">{{ $member->data->getFullName() }}</h5>
-                                         <p class="position">CEO Company</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-            </div>
-        </section>
-        <!--speaker section end -->
-
-        <!--flyer image section -->
         @if(!is_null($event))
-            <section class="pb100">
-                <div class="container" id="speakers">
-                    <div class="section_title mb50">
-                        <h3 class="title">
-                            Poster du programme
-                        </h3>
-                    </div>
-                </div>
-                <div class="row justify-content-center no-gutters">
-                    <div class="col-md-5 col-sm-6">
-                        <div class="speaker_box">
-                            <div class="speaker_img">
-                                <img src="{{ $event->flyer }}" alt="Poster">
-                            </div>
+            <section class="bg-img pt70 pb70" style="background-image: url('/img/bg/img.png');">
+                <div class="overlay_dark"></div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-10">
+                            <h4 class="mb30 text-center color-light">Compteur jusqu'au grand événement</h4>
+                            <div class="countdown"></div>
                         </div>
                     </div>
                 </div>
             </section>
         @endif
+        <!--event count down end-->
+        
+        <!--about the event -->
+        @if(!is_null($event))
+            @include('public.partials.about')
+        @endif
+        <!--about the event end -->
+        <!--speaker section-->
+        @if(!is_null($event) and $event->commitee->members->isNotEmpty())
+            @include('public.partials.commitee')
+        @endif
         <!--flyer section end -->
-        <!--brands section -->
-        <section class="bg-gray pt100 pb100">
-            <div class="container">
-                <div class="section_title mb50">
-                    <h3 class="title">
-                        Nos partenaires
-                    </h3>
-                </div>
-                <div class="brand_carousel owl-carousel">
-                    @if(!is_null($event->commitee))
-                        @foreach($event->sponsors as $sponsor)
-                            <div class="brand_item text-center">
-                                <img src="{{ $sponsor->path }}" alt="{{ $sponsor->name }}">
-                            </div>
-                        @endforeach
-                    @else
-                        <div class="col-md-6 col-12">
-                            <p>Non disponible</p>
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </section>
-        <!--brands section end-->
+        @if(!is_null($event))
+            @include('public.partials.flyer')
+        @endif
+        <!--flyer section end -->
+        @if(!is_null($event) and $event->sponsors->isNotEmpty())
+            @include('public.partials.sponsors')
+        @endif
+        <!--flyer section end-->
         @include('public.partials.subscribe')
     @endif
 @endsection

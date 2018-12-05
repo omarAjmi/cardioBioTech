@@ -67,14 +67,17 @@
                     <div class="icon_box_two">
                         <i class="ion-ios-calendar-outline"></i>
                         <div class="content">
-                            <h5 class="box_title">
+                            <h6 class="box_title">
                                 DATE
-                            </h5>
-                            <p>
-                                {{ $event->start_date->format('l j F Y H:i:s') }}
+                            </h6>
+                            <p class="row justify-content-center">
+                                @if (!is_null($event))
+                                    {{ $event->start_date->format('l j F Y H:i:s') }}
                                     @if ($event->start_date->diffInDays($event->end_date) > 0)
                                         ({{ $event->start_date->diffInDays($event->end_date) }}) jours
                                     @endif
+                                @endif
+
                             </p>
                         </div>
                     </div>
@@ -84,13 +87,15 @@
                     <div class="icon_box_two">
                         <i class="ion-ios-location-outline"></i>
                         <div class="content">
-                            <h5 class="box_title">
+                            <h6 class="box_title">
                                 locale
-                            </h5>
+                            </h6>
                             <p class="row justify-content-center">
-                                {{ $events->first()->address->state }}, 
-                                {{ $events->first()->address->city }} <br>
-                                {{ $events->first()->address->street }}
+                                @if (!is_null($event))
+                                    {{ $event->address->state }},
+                                    {{ $event->address->city }} <br>
+                                    {{ $event->address->street }}
+                                @endif
                             </p>
                         </div>
                     </div>
@@ -99,12 +104,32 @@
                 <div class="col-6 col-md-3  ">
                     <div class="icon_box_two">
                         <i class="ion-ios-person-outline"></i>
+                        <div class="icon_box_two">
+                            <i class="ion-ios-person-outline"></i>
+                            <div class="content">
+                                <h6 class="box_title">
+                                    Organisateur
+                                </h6>
+                                <p class="row justify-content-center">
+                                    @if (!is_null($event)){{ $event->organiser }}@endif
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3  ">
+                    <div class="icon_box_two">
+                        <i class="ion-ios-calendar-outline"></i>
                         <div class="content">
-                            <h5 class="box_title">
-                                Organisateur
-                            </h5>
+                            <h6 class="box_title">
+                                dernière date des participations
+                            </h6>
                             <p class="row justify-content-center">
-                                {{ $events->first()->organiser }}
+                                @if (!is_null($event))
+                                    {{ $event->start_date->format('l j F Y H:i:s') }}<br>
+                                @endif
+
                             </p>
                         </div>
                     </div>
@@ -114,27 +139,17 @@
     </section>
     <!--events section -->
 
-          
-    <section class="pt100 pb100">
-        <div class="container">
-            <div class="section_title">
-                <h3 class="title">
-                    À propos
-                </h3>
-            </div>
-            <div >
-                <div class="row justify-content-center">
-                    @foreach ($event->breakLongAbout() as $p)
-                        <div class="col-md-6 col-12">
-                            <p>{{ $p }}</p> <br>
-                        </div>
-                    @endforeach
-                    
-                </div>
-            </div>
-        </div>
-    </section>
-            @if ($event->dead_line > now())
+    <!--about the event -->
+    @include('public.partials.about')
+    <!--about the event end -->
+    <!--speaker section-->
+    @if($event->commitee->members->isNotEmpty())
+        @include('public.partials.commitee')
+    @endif
+    <!--flyer section end -->
+    @include('public.partials.flyer')
+    <!--flyer section end -->
+        @if ($event->dead_line > now())
                 <div class="container">
                     <div class="section_title">
                         <h3 class="title">
@@ -212,8 +227,13 @@
                     </div>
                 </div>
             @endif
-        </div>   
     <!--event section end -->
+
+    <!--sponsors section end -->
+    @if($event->sponsors->isNotEmpty())
+        @include('public.partials.sponsors')
+    @endif
+    <!--sponsors section end-->
 
     @if(Session::has('partSuccess'))
         <div class="modal fade show" id="staticModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" data-backdrop="static" style="display: block; padding-left: 15px;">

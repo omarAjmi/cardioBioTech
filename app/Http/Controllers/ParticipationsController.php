@@ -60,6 +60,7 @@ class ParticipationsController extends Controller
         #validating the request
         $validator = $this->valideRequest($request);
         if($validator->fails()) {
+            Session::flash('partFail', '*');
             return back()->withErrors($validator->errors());
         }
         #validation passes
