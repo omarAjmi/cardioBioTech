@@ -14,9 +14,21 @@ class Gallery extends Model
         'event_id'
     ];
 
-    public function album()
+    public function pictures()
     {
         return $this->hasMany(Image::class, 'gallery_id', 'id');
+    }
+
+    public function videos()
+    {
+        return $this->hasMany(Video::class, 'gallery_id', 'id');
+    }
+
+    public function album()
+    {
+        $pictures = $this->pictures()->get();
+        $videos = $this->videos()->get();
+        return collect([$pictures, $videos])->flatten();
     }
 
     public function event()

@@ -61,7 +61,7 @@ class EventsController extends Controller
         }
         Commitee::create(['event_id'=>$event->id]);
         Gallery::create(['event_id'=>$event->id]);
-        Session::flash('success', 'événement est créé avec succès');
+        Session::flash('success', 'évènement est creé avec succès');
         return redirect(route('admin'));
     }
 

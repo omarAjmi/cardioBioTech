@@ -174,6 +174,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\PublicViewsComposerServiceProvider::class,
         App\Providers\AdminViewsComposerServiceProvider::class,
+        Pawlox\VideoThumbnail\VideoThumbnailServiceProvider::class
 
     ],
 

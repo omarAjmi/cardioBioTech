@@ -69,11 +69,17 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
 
     Route::get('/events/{event_id}/gallerie/add_images', ['as' => 'galleries.addImagesForm', 'uses' => 'GalleriesController@addImagesForm']);
 
+    Route::get('/events/{event_id}/gallerie/add_videos', ['as' => 'galleries.addVideosForm', 'uses' => 'GalleriesController@addVideosForm']);
+
     Route::post('/events/{event_id}/gallerie/add_images', ['as' => 'galleries.addImages', 'uses' => 'GalleriesController@addImages']);
+
+    Route::post('/events/{event_id}/gallerie/add_videos', ['as' => 'galleries.addVideos', 'uses' => 'GalleriesController@addVideos']);
 
     Route::get('/events/{event_id}/gallerie/images', ['as' => 'galleries.preview', 'uses' => 'GalleriesController@preview']);
 
-    Route::delete('/events/{event_id}/gallerie/remove_image/{image_id}', ['as' => 'gallerys.removeImage', 'uses' => 'GalleriesController@deleteImage']);
+    Route::delete('/events/{event_id}/gallerie/remove_image/{image_id}', ['as' => 'galleries.removeImage', 'uses' => 'GalleriesController@deleteImage']);
+
+    Route::delete('/events/{event_id}/gallerie/remove_video/{video_id}', ['as' => 'galleries.removeVideo', 'uses' => 'GalleriesController@deleteVideo']);
 
     //------------------EVENTS COMMITEES-----------------------------//
 

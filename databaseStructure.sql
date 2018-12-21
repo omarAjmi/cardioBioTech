@@ -67,6 +67,20 @@ CREATE TABLE `galleries` (
 
 -- No native definition for element: galleries_event_id_foreign (index)
 
+create table sponsors
+(
+  id         int unsigned auto_increment
+    primary key,
+  event_id   int unsigned not null,
+  path       varchar(255) not null,
+  name       varchar(255) not null,
+  created_at timestamp    null,
+  updated_at timestamp    null
+)
+  collate = utf8mb4_unicode_ci;
+
+
+
 -- images: table
 CREATE TABLE `images` (
   `id`         int(10) unsigned                        NOT NULL AUTO_INCREMENT,
