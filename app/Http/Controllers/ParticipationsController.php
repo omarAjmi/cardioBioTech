@@ -7,6 +7,7 @@ use App\Notif;
 use App\User;
 use Carbon\Carbon;
 use App\Participation;
+use Chumper\Zipper\Facades\Zipper;
 use http\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ParticipationRequest;
+use Symfony\Component\HttpFoundation\FileBag;
 
 class ParticipationsController extends Controller
 {
@@ -50,6 +52,9 @@ class ParticipationsController extends Controller
         if (Auth::guest()) {
                 Session::flash('authErr');
                 return back();
+        } elseif (Auth::user()->phone == '') {
+            Session::flash('partFail', 'Veuillez vérifier votre numéro de téléphone pour continuer');
+            return back();
         }
         $event = Event::findOrFail($event_id);
         #testing if event participation is expired
@@ -133,8 +138,7 @@ class ParticipationsController extends Controller
             $message->from(env('MAIL_USERNAME'));
             $message->subject('refus d\'une demande de participation');
         });
-        #or use php's unlink($filename)
-        Storage::disk('public')->delete($event->storage.'participations/'.$participation->file);
+        unlink(public_path($participation->file));
         $participation->delete();
         return back();
     }
@@ -146,6 +150,7 @@ class ParticipationsController extends Controller
      */
     private function valideRequest(Request $request)
     {
+//        dd( );
         $participationRequest = new ParticipationRequest();
         return $validator = Validator::make($request->toArray(), $participationRequest->rules());
     }
@@ -158,28 +163,43 @@ class ParticipationsController extends Controller
      */
     private function createParticipation(Event $event, Request $request)
     {
-        $part = new Participation();
-        $existing = $part->fetchIfExist(Auth::id(), $event->id);
         $user = Auth::user();
-        $fileName = str_replace(' ', '_', $event->abbreviation . '_' . $user->getFullName());
-        $path = $event->storage . 'participations/';
+        $part = new Participation();
+        $existing = $part->fetchIfExist($user->id, $event->id, $request->all()['session']);
+        $fileName = str_replace(' ', '_', $user->getFullName());
+        $path = $event->storage . 'participations/'.$fileName;
         if (is_null($existing)) {
+            if($request->files->has('abstract')) {
+                $part->uploadFile($request->file('abstract'), 'abstract_'.$fileName, $path);
+            }
+            $part->uploadFile($request->file('participation'), 'participation_'.$fileName, $path);
+
+            $this->zipParticipationFiles($path);
+
             $existing = Participation::create([
                 'event_id' => $event->id,
                 'participant_id' => $user->id,
                 'title' => $request->title,
                 'affiliation' => $request->affiliation,
+                'session' => $request->all()['session'],
                 'authors' => $request->authors,
-                'file_name' => $fileName,
-                'file' => $part->uploadFile($request->file('participation'), $fileName, $path)
+                'file_name' => $user->getFullName(),
+                'file' => $path.'.zip'
             ]);
             $this->notify('create', $existing, $user);
         } else {
-            $existing->file = $existing->uploadFile($request->file('participation'), $fileName, $path);
+            if($request->files->has('abstract')) {
+                $part->uploadFile($request->file('abstract'), 'abstract_'.$fileName, $path);
+            }
+            $part->uploadFile($request->file('participation'), 'participation_'.$fileName, $path);
+
+            $this->zipParticipationFiles($path);
+            $existing->file = $path.'.zip';
             $existing->confirmation = false;
             $existing->title = $request->title;
             $existing->authors = $request->authors;
             $existing->affiliation = $request->affiliation;
+            $existing->session = $request->all()['session'];
             $existing->file_name = $fileName;
             $existing->save();
             $this->notify('update', $existing, $user);
@@ -208,5 +228,15 @@ class ParticipationsController extends Controller
         } else {
             throw new \Exception('participation notification accepts update or create as parameters');
         }
+    }
+
+    private function zipParticipationFiles(string $path)
+    {
+        $files = glob(public_path($path.'/*'));
+        Zipper::make(public_path($path).'.zip')->add($files)->close();
+        foreach($files as $file ){
+            unlink($file);
+        }
+        rmdir(public_path($path));
     }
 }

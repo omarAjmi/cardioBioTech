@@ -22,18 +22,21 @@ Route::group([], function(){
 
     Route::get('/contact', ['as'=>'contact', 'uses'=>'PublicController@contact']);
 
+    Route::get('/event/{id}/participation/{part_id}/edit', ['as'=> 'events.participation.edit', 'uses'=>'PublicController@participation']);
+
 });
 
-    Route::get('/users/{id}', ['as'=> 'profile', 'uses'=>'UsersController@profile']);
+Route::get('/users/{id}', ['as'=> 'profile', 'uses'=>'UsersController@profile']);
 
-    Route::put('/users/{id}/profile/update', ['as'=> 'profile.update', 'uses'=>'UsersController@update']);
+Route::put('/users/{id}/profile/update', ['as'=> 'profile.update', 'uses'=>'UsersController@update']);
 
-    Route::get('/events/download/event/{id}/{fileName}', ['as' => 'downloadFileEvent','uses' => 'EventsController@downloadProgram'
+Route::get('/events/download/event/{id}/{fileName}', ['as' => 'downloadFileEvent','uses' => 'EventsController@downloadProgram'
     ]);
 
-    Route::put('/users/{id}/profile/update_avatar', ['as'=> 'profile.updateAvatar', 'uses'=>'UsersController@updateAvatar']);
+Route::put('/users/{id}/profile/update_avatar', ['as'=> 'profile.updateAvatar', 'uses'=>'UsersController@updateAvatar']);
 
-    Route::post('/users/event/{id}/participation', ['as'=> 'events.participate', 'uses'=>'ParticipationsController@participate']);
+Route::post('/users/event/{id}/participation', ['as'=> 'events.participate', 'uses'=>'ParticipationsController@participate']);
+
 
 Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
     
@@ -75,7 +78,7 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){
 
     Route::post('/events/{event_id}/gallerie/add_videos', ['as' => 'galleries.addVideos', 'uses' => 'GalleriesController@addVideos']);
 
-    Route::get('/events/{event_id}/gallerie/images', ['as' => 'galleries.preview', 'uses' => 'GalleriesController@preview']);
+    Route::get('/events/{event_id}/gallerie', ['as' => 'galleries.preview', 'uses' => 'GalleriesController@preview']);
 
     Route::delete('/events/{event_id}/gallerie/remove_image/{image_id}', ['as' => 'galleries.removeImage', 'uses' => 'GalleriesController@deleteImage']);
 

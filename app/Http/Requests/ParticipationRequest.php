@@ -27,7 +27,9 @@ class ParticipationRequest extends FormRequest
             'title' => 'required',
             'affiliation' => 'required',
             'authors' => 'required',
-            'participation' => 'required|file|mimes:pdf,docx'
+            'session' => 'required',
+            'abstract' => 'file|mimes:doc,pdf,docx',
+            'participation' => 'required|file|mimes:doc,pdf,docx'
         ];
     }
 
@@ -41,8 +43,10 @@ class ParticipationRequest extends FormRequest
         return [
             'title.required' => 'Champ requis',
             'affiliation.required' => 'Champ requis',
+            'session.required' => 'Champ requis',
             'participation.required' => 'Champ requis',
-            'participation.mimes' => 'Le fichier doit être au format: pdf, docx',
+            'participation.mimes' => 'Le fichier doit être au format: pdf, docx, doc',
+            'abstract.mimes' => 'Le fichier doit être au format: pdf, docx, doc',
         ];
     }
 }

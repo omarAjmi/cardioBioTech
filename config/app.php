@@ -174,7 +174,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\PublicViewsComposerServiceProvider::class,
         App\Providers\AdminViewsComposerServiceProvider::class,
-        Pawlox\VideoThumbnail\VideoThumbnailServiceProvider::class
+        Pawlox\VideoThumbnail\VideoThumbnailServiceProvider::class,
+        Chumper\Zipper\ZipperServiceProvider::class,
 
     ],
 
@@ -225,6 +226,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Date' => Jenssegers\Date\Date::class,
+        'Zipper' => Chumper\Zipper\Zipper::class,
 
     ],
 

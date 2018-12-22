@@ -5,7 +5,7 @@
             <div class="container-fluid">
                 <div class="col-md-2 row pull-right">
                     <a class="btn btn-primary" href="{{ route('galleries.addImagesForm', $gallery->event_id) }}">Ajouter des images</a>
-                    <a class="btn btn-primary" href="{{ route('galleries.addVideosForm', $gallery->event_id) }}">Ajouter Un videos&nbsp&nbsp;&nbsp;&nbsp;</a>
+                    <a class="btn btn-primary" href="{{ route('galleries.addVideosForm', $gallery->event_id) }}">Ajouter Un video&nbsp&nbsp;&nbsp;&nbsp;</a>
                 </div>
                 <div class="row">
                     @if($gallery->album()->isEmpty())

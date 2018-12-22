@@ -19,6 +19,7 @@ class CreateParticipationsTable extends Migration
             $table->integer('event_id')->unsigned();
             $table->string('file');
             $table->string('file_name');
+            $table->string('session');
             $table->string('title');
             $table->string('authors');
             $table->string('affiliation');

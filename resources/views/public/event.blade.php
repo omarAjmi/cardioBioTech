@@ -29,17 +29,31 @@
         <div class="container">
             <!-- row -->
             <div class="row">
+                <link rel="stylesheet" href="/css/videojs/video.css">
                 <!-- galery owl -->
                 <div id="galery-owl" class="owl-carousel owl-theme">
-                    @if ($event->gallery->album->isNotEmpty())
+                    @if ($album->isNotEmpty())
 
-                        @foreach ($event->gallery->album as $image)
+                        @foreach ($album as $key => $media)
                             <!-- galery item -->
+                            @if($media instanceof App\Image)
                             <div class="galery-item">
-                                <img src="{{ $image->path }}" >
+                                <img src="{{ $media->path }}" >
                             </div>
                             <!-- /galery item -->
+                            @else
+                                <div class="galery-item">
+                                    <video id="video-player{!! $key !!}" width="900%" height="500px" class="video-js vjs-big-play-centered" controls poster="/img/video-placeholder.png">
+                                        <source src="{{ $media->path }}" type="video/mp4" />
+                                        <p class="vjs-no-js">
+                                            To view this video please enable JavaScript, and consider upgrading to a web browser that
+                                            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                                        </p>
+                                    </video>
+                                </div>
+                            @endif
                         @endforeach
+
                     @else
 
                         @foreach ($event->sliders as $slider)
@@ -50,9 +64,21 @@
                             <!-- /galery item -->
                         @endforeach
                     @endif
-    
                 </div>
                 <!-- /galery owl -->
+                <script src="/js/videojs/video.js"></script>
+                @foreach($album as $key => $media)
+                    @if($media instanceof App\Video)
+                        <script>
+                            let player{!! $key !!} = videojs('video-player{!! $key !!}');
+                            player{!! $key !!}.ready(function () {
+                                player{!! $key !!}.on('play', function(){
+                                    $('.owl-carousel').trigger('stop.owl.autoplay');
+                                });
+                            });
+                        </script>
+                    @endif
+                @endforeach
             </div>
             <!-- /row -->
         </div>
@@ -149,85 +175,150 @@
     <!--flyer section end -->
     @include('public.partials.flyer')
     <!--flyer section end -->
-        @if ($event->dead_line > now())
-                <div class="container">
-                    <div class="section_title">
-                        <h3 class="title">
-                        Participation
-                        </h3>
-                    </div>      
-                    <div >
-                        <div class="row justify-content-center" id="participation">      
-                            <div class="col-md-6 col-12">
-                                <p>
-                                    pour la participation, merci de télécharger <i style="color: dodgerblue" class="fa fa-download"></i>
-                                    <a href="{{ route('downloadFileEvent', ['id'=>$event->id,'filename'=>$event->getProgramFileName()]) }}">
-                                        <b><u>ce fichier</u></b>
-                                    </a> formel, de lui fournir avec les données nécessaires puis de le renvoyer à l’aide de ce formulaire.
-                                </p>
-                                    @if(!is_null($participation))
-                                    <p>
-                                        Vous avez déjà souscrits,  et @if($participation->confirmation)
-                                                                            votre demande est confirmée
-                                                                      @else
-                                                                            votre demande est en cours d'être examiner par le comité organisateur
-                                                                      @endif
-                                        <br> si vous voulez vous pouvez mettre a jour votre demande de participaion
-                                    </p>
-                                @endif
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <form class="contact_form" method="POST" action="{{ route('events.participate', [$event->id]) }}" enctype="multipart/form-data">
-                                    @csrf
-                                    @if(!is_null($participation))
-                                        <div class="form-group">
-                                            <input type="text" class="form-control @if($errors->first('title'))
-                                                is-invalid
-@endif" name="title" placeholder="Titre De Participation" value="{{ $participation->title }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control
-                                                                                    @if($errors->first('title'))
-                                                is-invalid
-@endif" name="affiliation" placeholder="Affiliation" value="{{ $participation->affiliation }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control @if($errors->first('authors'))
-                                                is-invalid
-@endif" name="authors" placeholder="Autheurs" value="{{ $participation->authors }}">
-                                        </div>
-                                    @else
-                                        <div class="form-group">
-                                            <input type="text" class="form-control
-                                                                                @if($errors->first('title'))
-                                                                                    is-invalid
-                                                                                @endif" name="title" placeholder="Titre De Participation">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control
-                                                                                    @if($errors->first('affiliation'))
-                                                                                        is-invalid
-                                                                                    @endif" name="affiliation" placeholder="Affiliation">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control @if($errors->first('authors'))
-                                                                                        is-invalid
-                                                                                    @endif" name="authors" placeholder="Autheurs">
-                                        </div>
-                                    @endif
-                                    <div class="form-group">
-                                        <input type="file" accept="application/pdf" class="form-control" name="participation" placeholder="Format De Participation">
-                                    
-                                        <button class="btn btn-rounded btn-primary " type="submit"><i class="fa fa-plus-circle"></i> Déposer</button>
-                                    </div>
+    @if ($event->dead_line > now())
+        <div class="container">
+            <div class="section_title">
+                <h3 class="title">
+                Participation
+                </h3>
+            </div>
+            <div >
+                <div class="row justify-content-center" id="participation">
+                    <div class="col-md-5 col-12">
+                        <p>
+                            pour la participation, merci  consulter <i style="color: dodgerblue" class="fa fa-download"></i>
+                            <a href="{{ route('downloadFileEvent', ['id'=>$event->id,'filename'=>$event->getProgramFileName()]) }}">
+                                <b><u>ce fichier</u></b>
+                            </a> de règlement , puis remplissez ce formulaire avec les données requises en conséquence.
+                        </p>
+                            @if($participations->isNotEmpty())
+                            <p>
+                                Vous avez déjà souscrits,
+                                <br> si vous voulez vous pouvez mettre a jour vos demandes de participaion <a style="color: dodgerblue"
+                                        href="#participations"><b><u>ci dessous</u></b> </a>
+                            </p>
+                        @endif
 
-                                </form> 
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                        <form class="contact_form" method="POST" action="{{ route('events.participate', [$event->id]) }}" enctype="multipart/form-data">
+                            @csrf
+
+                            <div class="form-group">
+                                <label for="title" class="form-check-label">Titre:</label>
+                                <input type="text" class="form-control
+                                                                    @if($errors->first('title'))
+                                                                        is-invalid
+                                                                    @endif" name="title" placeholder="Titre De Participation">
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label for="title" class="form-check-label">Affiliation:</label>
+                                <input type="text" class="form-control
+                                                                        @if($errors->first('affiliation'))
+                                                                            is-invalid
+                                                                        @endif" name="affiliation" placeholder="Affiliation">
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="form-check-label">Auteurs:</label>
+                                <input type="text" class="form-control @if($errors->first('authors'))
+                                                                            is-invalid
+                                                                        @endif" name="authors" placeholder="Auteurs">
+                            </div>
+
+                            <div class="form-group" id="session">
+                                <label for="session" class="form-check-label">Session:</label>
+
+                                <div class="form-group col-3 d-inline-block">
+                                    <label for="tisessiontle" class="form-check-label">medicale</label>
+                                    <input type="radio" value="medicale" class="form-check-label" name="session" placeholder="">
+                                </div>
+
+                                <div class="form-group col-3 d-inline-block">
+                                    <label for="session" class="form-check-label">technique </label>
+                                    <input type="radio" value="technique" class="form-check-label" name="session" placeholder="">
+                                </div>
+
+                                <div class="form-group col-3 d-inline-block">
+                                    <label for="session" class="form-check-label">autre </label>
+                                    <input type="radio" value="autre" class="form-check-label" name="session" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="title" class="form-check-label">Fichier D'abstract:*</label>
+                                <input type="file" accept="application/pdf,.doc, .docx" class="form-control" name="abstract" placeholder="Format De Participation">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="title" class="form-check-label">Fichier du participation:</label>
+                                <input type="file" accept="application/pdf,.doc, .docx" class="form-control" name="participation" placeholder="Format De Participation">
+
+                                <button class="btn btn-rounded btn-primary" type="submit"><i class="fa fa-plus-circle"></i> Déposer</button>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
-            @endif
+            </div>
+        </div>
+    @endif
     <!--event section end -->
+
+    @if($participations->isNotEmpty())
+        <section class="pb100" id="participations">
+            <div class="container">
+                <div class="section_title">
+                    <h3 class="title">
+                        vos demandes de participation
+                    </h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="event_calender table">
+                        <thead class="event_title">
+                        <tr>
+                            <th>titre</th>
+                            <th>date</th>
+                            <th>session</th>
+                            <th>auteurs</th>
+                            <th>affiliation</th>
+                            <th>action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($participations as $participation)
+                            <tr>
+                                <td>
+                                    <p>{{ $participation->title }}</p>
+                                </td>
+                                <td class="event_date">
+                                    {{ $participation->created_at->day}}
+                                    <span>{{ $participation->created_at->month}}</span>
+                                    <span>{{ $participation->created_at->year}}</span>
+                                </td>
+                                <td>
+                                    <div class="event_place">
+                                        <p>{{ $participation->session }}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p>{{ $participation->authors }}</p>
+                                </td>
+                                <td class="buy_link">
+                                    <p>{{ $participation->affiliation }}</p>
+                                </td>
+
+                                <td class="buy_link">
+                                    <a href="{{ route('events.participation.edit', [$event->id, $participation->id]) }}">mettre à jour</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    @endif
 
     <!--sponsors section end -->
     @if($event->sponsors->isNotEmpty())
@@ -276,5 +367,4 @@
             </div>
         </div>
     @endif
-    {{-- @include('public.partials.subscribe')    --}}
 @endsection

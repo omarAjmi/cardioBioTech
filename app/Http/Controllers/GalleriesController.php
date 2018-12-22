@@ -91,7 +91,7 @@ class GalleriesController extends Controller
     public function deleteVideo(int $event_id, int $video_id)
     {
         Event::findOrFail($event_id);
-        $video = Image::findOrFail($video_id);
+        $video = Video::findOrFail($video_id);
         $videoPath = str_replace('/storage', '',$video->path);
         $videoTumbnailPath = str_replace('/storage', '',$video->thumbnail);
         if(Storage::disk('public')->exists($videoPath)) {

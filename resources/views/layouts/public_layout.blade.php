@@ -3,9 +3,9 @@
 
 <head>
     <!-- ========== Meta Tags ========== -->
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <meta name="Description" CONTENT="Association de Médecine et de Biotechnologie. Siège Faculté de Médecine Monastir.">
+    <meta name="google-site-verification" content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="/>
     <!-- ========== Title ========== -->
     <title>
         @if(empty($title))
@@ -70,7 +70,10 @@
                                             <i class="fa fa-lock" aria-hidden="true"></i>
                                         </span>
                                     </div>
-
+                                    <div class="form-group">
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                                        <label for="remember">Se souvenir de moi</label>
+                                    </div>
                                     <div class="container-login100-form-btn">
                                         <button class="login100-form-btn lg-btn" type="submit">
                                             Se connecter

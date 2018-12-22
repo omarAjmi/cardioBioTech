@@ -6,9 +6,10 @@ use App\Event;
 use App\Slider;
 use App\Gallery;
 use App\Commitee;
+use App\Video;
 use Date;
+use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\EventsRequest;
@@ -95,6 +96,10 @@ class EventsController extends Controller
         if(!($event instanceof Event)) {
             return back()->with(['errors' => $event]);
         }
+        if(strtoupper($event->abbreviation) !== strtoupper($request->abbreviation)) {
+            $this->renameEventFolder($event, strtoupper($request->abbreviation));
+        }
+
         $event->update([
             'title' => $request->title,
             'abbreviation' => strtoupper($request->abbreviation),
@@ -146,7 +151,7 @@ class EventsController extends Controller
     public function delete(int $id)
     {
         $event = Event::findOrFail($id);
-        Storage::disk('public')->deleteDirectory($event->storage);
+        Storage::disk('public')->deleteDirectory(str_replace('/storage', '', $event->storage));
         $event->delete($id);
         Session::flash('success', 'évènnement est suprimé');
         return redirect(route('admin.events'));
@@ -219,9 +224,9 @@ class EventsController extends Controller
             'title' => 'required|string',
             'abbreviation' => 'required|string',
             'about' => 'required|string',
-            'start_date' => 'required|date|after_or_equal:tomorrow',
-            'dead_line' => 'required|date|after_or_equal:tomorrow',
-            'end_date' => 'required|date|after_or_equal:start_date',
+            'start_date' => 'required|date',
+            'dead_line' => 'required|date',
+            'end_date' => 'required|date',
             'storage' => 'string',
             'program' => 'file|mimes:pdf,docx,txt',
             'flyer' => 'file|mimes:png,jpg,jpeg',
@@ -238,6 +243,102 @@ class EventsController extends Controller
             return $errros;
         }
         return $event;
+    }
+
+    /**
+     * @param Event $event
+     * @param string $newName
+     */
+    private function renameEventFolder(Event $event, string $newName) {
+        $album = $event->gallery->album();
+        $sliders = $event->sliders;
+        $participations = $event->participations;
+        $sponsors = $event->sponsors;
+        //update album medias paths
+        $this->updateAlbumsMediasPaths($event, $album, $newName);
+        //update sliders paths
+        $this->updateSlidersMediasPaths($event, $sliders, $newName);
+        //update participations files paths
+        $this->updateParticipationsFilesPaths($event, $participations, $newName);
+        //update sponsors files paths
+        $this->updateSponsorsFilesPaths($event, $sponsors, $newName);
+
+        $oldStorage = $event->storage; #keep the old storage path
+        $event->flyer = str_replace($event->abbreviation, $newName, $event->flyer); #update flyer path
+        rename(public_path($event->program_file), public_path(str_replace_last($event->abbreviation, $newName, $event->program_file))); #rename program file on disk
+        rename(public_path($oldStorage), public_path($this->replaceOldWithNew($event->abbreviation, $newName, $event->storage))); # rename event folder on disk
+        $event->program_file = str_replace($event->abbreviation, $newName, $event->program_file); # update progrm file path
+        $event->storage = str_replace($event->abbreviation, $newName, $event->storage); # update storage path
+        $event->abbreviation = $newName; #update abbreviation
+        $event->save(); #save changes
+    }
+
+    /**
+     * search and replace events abbreviation on a giving string
+     * @param string $old
+     * @param string $new
+     * @param string $subject
+     * @return mixed
+     */
+    private function replaceOldWithNew(string $old, string $new, string $subject) {
+        return str_replace($old, $new, $subject);
+    }
+
+    /**
+     * updates albums medias files path
+     * @param Event $event
+     * @param Collection $collection
+     */
+    private function updateAlbumsMediasPaths(Event $event, Collection $collection, string $newName) {
+        foreach ($collection as $media) {
+            if($media instanceof Video) {
+                $media->path = $this->replaceOldWithNew($event->abbreviation, $newName, $media->path);
+                $media->thumbnail = $this->replaceOldWithNew($event->abbreviation, $newName, $media->thumbnail);
+            } else {
+                $media->path = $this->replaceOldWithNew($event->abbreviation, $newName, $media->path);
+            }
+            $media->save();
+        }
+    }
+
+    /**
+     * updates sliders files path
+     * @param Event $event
+     * @param Collection $collection
+     * @param string $newName
+     */
+    private function updateSlidersMediasPaths(Event $event, Collection $collection, string $newName) {
+        foreach ($collection as $slider) {
+            $slider->name = $this->replaceOldWithNew($event->abbreviation, $newName, $slider->name);
+            $slider->save();
+        }
+    }
+
+    /**
+     * updates participations files path
+     * @param Event $event
+     * @param Collection $collection
+     * @param string $newName
+     */
+    private function updateParticipationsFilesPaths(Event $event, Collection $collection, string $newName) {
+        foreach ($collection as $p) {
+            $fileStorage = str_replace_first($event->abbreviation, $newName, $p->file);
+            $p->file = $fileStorage;
+            $p->save();
+        }
+    }
+
+    /**
+     * updates sponsors files path
+     * @param Event $event
+     * @param Collection $collection
+     * @param string $newName
+     */
+    private function updateSponsorsFilesPaths(Event $event, Collection $collection, string $newName) {
+        foreach ($collection as $s) {
+            $s->path = $this->replaceOldWithNew($event->abbreviation, $newName, $s->path);
+            $s->save();
+        }
     }
 
 }

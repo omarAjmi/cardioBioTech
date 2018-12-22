@@ -11,7 +11,7 @@ class Participation extends Model
     use CanUpload;
 
     protected $fillable = [
-        'participant_id', 'event_id', 'confirmation', 'file', 'title', 'authors', 'affiliation', 'file_name'
+        'participant_id', 'event_id', 'confirmation', 'file', 'title', 'authors', 'affiliation', 'file_name', 'session'
     ];
 
     public function participant()
@@ -29,8 +29,8 @@ class Participation extends Model
         return $this->hasOne(Notif::class, 'participation_id', 'id');
     }
 
-    public function fetchIfExist(int $user_id, int $event_id)
+    public function fetchIfExist(int $user_id, int $event_id, string $session)
     {
-        return $this->where('participant_id', $user_id)->where('event_id', $event_id)->first();
+        return $this->where('participant_id', $user_id)->where('event_id', $event_id)->where('session', $session)->first();
     }
 }

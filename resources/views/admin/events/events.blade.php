@@ -70,7 +70,7 @@
                                                                 <i class="zmdi zmdi-edit"></i>
                                                             </button>
                                                         </a>&nbsp;
-                                                        <form action="{{ route('admin.deleteEvent', [$event->id]) }}" method="POST">
+                                                        <form onsubmit="return confirmation(this)" action="{{ route('admin.deleteEvent', [$event->id]) }}" method="POST">
                                                             @csrf
                                                             <input type="hidden" name="_method" value="DELETE">
                                                             <button type="submit" class="item"  data-original-title="Delete">
@@ -80,7 +80,15 @@
                                                     </div>
                                                 </td>
                                            </tr>
-                                            
+                                            <script !src="">
+                                                function confirmation(form) {
+                                                    if(confirm('voulez-vous vraiment supprimer l\'événement {!! $event->abbreviation !!}')) {
+                                                        form.submit();
+                                                    } else {
+                                                        return false;
+                                                    }
+                                                }
+                                            </script>
                                         @endforeach
                                     </tbody>
                                      </div>

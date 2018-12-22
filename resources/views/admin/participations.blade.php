@@ -27,6 +27,7 @@
                                             <th>Fichier</th>
                                             <th>affiliation</th>
                                             <th>autheurs</th>
+                                            <th>session</th>
                                             <th>status</th>
                                             <th></th>
                                         </tr>
@@ -35,16 +36,17 @@
                                         @foreach ($participations as $part)
                                             <tr>
                                                 <td>{{ $part->created_at->diffForHumans() }}</td>
-                                                <td> <span style="word-break: break-word;">{{ $part->title }}</span></td>
+                                                <td> <span style="word-break: break-word;white-space: pre-line;">{{ $part->title }}</span></td>
                                                 <td><a href="{{ route('profile', [$part->participant->id]) }}">{{ $part->participant->getFullName() }}</a>
                                                 </td>
                                                 <td class="process"><a href="{{ route('participation.download', [
                                                                                                             $part->event_id,
                                                                                                             $part->id
-                                                                                                            ]) }}" target="_blank">{{ $part->file_name }}</a>
+                                                                                                            ]) }}" target="_blank">{{ $part->file_name }}.zip</a>
                                                 </td>
-                                                <td style="max-width: 50px"><span style="word-break: break-word;">{{ $part->affiliation }}</span></td>
-                                                <td style="max-width: 50px"><span style="word-break: break-word;">{{ $part->authors }}</span></td>
+                                                <td style="max-width: 50px"><span style="word-break: break-word;white-space: pre-line;">{{ $part->affiliation }}</span></td>
+                                                <td style="max-width: 50px"><span style="word-break: break-word;white-space: pre-line;">{{ $part->authors }}</span></td>
+                                                <td style="max-width: 50px"><span style="">{{ $part->session }}</span></td>
                                                 <td>
                                                     @if ($part->confirmation)
                                                         <span class="status--process">confirmée</span>

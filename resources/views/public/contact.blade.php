@@ -60,7 +60,7 @@
                             <input type="text" class="form-control" placeholder="Sujet">
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" cols="4" rows="4" placeholder="Massage"></textarea>
+                            <textarea class="form-control" cols="4" rows="4" placeholder="Message"></textarea>
                         </div>
                         <div class="form-group text-right">
                             <button class="btn btn-rounded btn-primary">Envoyer</button>
