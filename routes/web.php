@@ -37,7 +37,7 @@ Route::put('/users/{id}/profile/update_avatar', ['as'=> 'profile.updateAvatar', 
 
 Route::post('/users/event/{id}/participation', ['as'=> 'events.participate', 'uses'=>'ParticipationsController@participate']);
 
-Route::post('/users/event/{id}/participation/{part_id}/update', ['as'=> 'events.participate', 'uses'=>'ParticipationsController@updateParticipation']);
+Route::post('/users/event/{id}/participation/{part_id}/update', ['as'=> 'events.participationUpdate', 'uses'=>'ParticipationsController@updateParticipation']);
 
 
 Route::group(['prefix'=>'/admin', 'middleware'=>['auth', 'admin']], function(){

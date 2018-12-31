@@ -191,8 +191,8 @@ class ParticipationsController extends Controller
         $user = Auth::user();
         $fileName = str_replace(' ', '_', $user->getFullName());
         $path = $event->storage . 'participations/'.$fileName;
-//        dd($request);
-        if(!empty($request->files)) {
+//        dd();
+            if($request->files->has('abstract') or $request->files->has('participation')) {
             if($request->files->has('abstract')) {
                 $part->uploadFile($request->file('abstract'), 'abstract_'.$fileName, $path);
             }
