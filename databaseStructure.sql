@@ -263,3 +263,23 @@ CREATE TABLE `videos` (
   COLLATE = utf8mb4_unicode_ci;
 
 -- No native definition for element: videos_gallery_id_foreign (index)
+
+-- auto-generated definition
+create table members
+(
+  id          int unsigned auto_increment
+    primary key,
+  title       varchar(190) not null,
+  fullname    varchar(190) not null,
+  image       varchar(190) not null,
+  commitee    varchar(190) not null,
+  commitee_id int unsigned not null,
+  created_at  timestamp    null,
+  updated_at  timestamp    null,
+  constraint members_commitee_id_foreign
+  foreign key (commitee_id) references commitees (id)
+    on update cascade
+    on delete cascade
+)
+  collate = utf8mb4_unicode_ci;
+

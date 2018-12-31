@@ -23,8 +23,12 @@ class CommiteesRequest extends FormRequest
      */
     public function rules()
     {
+//        dd($this);
         return [
-            'member' => 'required'
+            'title' => 'required',
+            'fullname' => 'required',
+            'image' => 'required|file|mimes:png,jpg,jpeg',
+            'commitee' => 'required'
         ];
     }
 
@@ -36,7 +40,11 @@ class CommiteesRequest extends FormRequest
     public function messages()
     {
         return [
-            'member.required' => 'Champ requis'
+            'title.required' => 'Champ requis',
+            'fullname.required' => 'Champ requis',
+            'image.required' => 'Champ requis',
+            'image.mimes' => 'doit être de type:png,jpg,jpeg',
+            'commitee.required' => 'Champ requis',
         ];
     }
 }

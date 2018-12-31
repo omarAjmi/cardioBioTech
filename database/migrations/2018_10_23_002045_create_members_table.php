@@ -15,17 +15,15 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->string('title');
+            $table->string('fullname');
+            $table->string('image');
+            $table->string('commitee');
             $table->integer('commitee_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('commitee_id')->references('id')
                                        ->on('commitees')
-                                       ->onDelete('CASCADE')
-                                       ->onUpdate('CASCADE');
-
-            $table->foreign('user_id')->references('id')
-                                       ->on('users')
                                        ->onDelete('CASCADE')
                                        ->onUpdate('CASCADE');
         });

@@ -13,17 +13,9 @@ class CommiteesController extends Controller
     public function addMember(int $event_id)
     {
         $event = Event::findOrFail($event_id);
-        $event->commitee;
-        $participants = collect();
-        foreach ($event->participations as $participation) {
-            $existingMember = Member::where('user_id', $participation->participant_id)->where('commitee_id', $event->commitee->id)->first();
-            if($participation->confirmation and is_null($existingMember)) {
-                $participants->push($participation->participant);
-            }
-        }
+        Commitee::findOrfail($event->commitee->id);
         return view('admin.commitees.new', [
-            'event' => $event,
-            'members' => $participants
+            'event' => $event
         ]);
     }
 
@@ -41,7 +33,10 @@ class CommiteesController extends Controller
         $event = Event::find($event_id);
         $commitee = $event->commitee;
         Member::create([
-            'user_id' => $request->member,
+            'fullname' => $request->fullname,
+            'commitee' => $request->commitee,
+            'image' => $event->uploadImage($request->file('image'), $event->storage.'commitee/'),
+            'title' => $request->title,
             'commitee_id' => $commitee->id
         ]);
         Session::flash('success', 'Membre ajouté avec succées');

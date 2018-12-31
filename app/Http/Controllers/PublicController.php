@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Member;
 use App\Participation;
 use Date;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,12 @@ class PublicController extends Controller
             $event->dead_line = new Date($event->dead_line);
             $event->address = json_decode($event->address);
         }
+        $scientificCommitee = Member::where('commitee', 'scientifique')->where('commitee_id', $event->commitee->id)->get();
+        $evaluationCommitee = Member::where('commitee', 'évaluation')->where('commitee_id', $event->commitee->id)->get();
         return view('welcome', [
-            'event' => $event
+            'event' => $event,
+            'scientificCommitee'=>$scientificCommitee,
+            'evaluationCommitee'=>$evaluationCommitee,
         ]);
     }
 
@@ -42,9 +47,13 @@ class PublicController extends Controller
             $event->dead_line = new Date($event->dead_line);
             $event->address = json_decode($event->address);
         }
+        $scientificCommitee = Member::where('commitee', 'scientifique')->where('commitee_id', $event->commitee->id)->get();
+        $evaluationCommitee = Member::where('commitee', 'évaluation')->where('commitee_id', $event->commitee->id)->get();
         $participations = Participation::where('participant_id', Auth::id())->where('event_id', $event->id)->get();
         return view('public.event',[
             'event'=>$event,
+            'scientificCommitee'=>$scientificCommitee,
+            'evaluationCommitee'=>$evaluationCommitee,
             'album' => $event->gallery->album()->shuffle(),
             'participations' => $participations,
             'title' => $event->abbreviation .' | '. $event->title

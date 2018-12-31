@@ -11,13 +11,12 @@
                         @foreach ($commitee->members as $member)
                         <div class="col-md-3" style="display: inline-block;">
                             <div class="card">
-                                <img style="max-height: 140px;max-width: 300px;" class="card-img-top" src="{{ $member->data->photo }}" alt="Card image cap">
+                                <img style="max-height: 140px;max-width: 300px;" class="card-img-top" src="{{ $member->image }}" alt="Card image cap">
                                 <div class="card-body">
-                                    <h5 class="card-title mb-3">{{ $member->data->getFullName() }}</h5>
+                                    <h5 class="card-title mb-3">{{ $member->fullname }}</h5>
                                     <form action="{{ route('commitees.removeMember',[
                                         'id'=> $member->commitee_id,
-                                        'commitee_id'=>$member->commitee->id,
-                                        'member_id'=>$member->data->id]) }}" method="post">
+                                        'member_id'=>$member->id]) }}" method="post">
                                         @csrf
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="item pull-right"  style="border-radius: 50%;background: #E5E5E5;width: 30px;height: 30px;margin-top: -13%" >

@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="col-md-6 col-12">
-                        <form class="contact_form" method="POST" action="{{ route('events.participate', [$event->id]) }}" enctype="multipart/form-data">
+                        <form class="contact_form" method="POST" action="{{ route('events.participate', [$event->id, $participation->id]) }}" enctype="multipart/form-data">
                             @csrf
                             @if(!is_null($participation))
                                 <div class="form-group">

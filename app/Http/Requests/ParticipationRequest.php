@@ -28,7 +28,7 @@ class ParticipationRequest extends FormRequest
             'affiliation' => 'required',
             'authors' => 'required',
             'session' => 'required',
-            'abstract' => 'file|mimes:doc,pdf,docx',
+            'abstract' => 'required|file|mimes:doc,pdf,docx',
             'participation' => 'required|file|mimes:doc,pdf,docx'
         ];
     }

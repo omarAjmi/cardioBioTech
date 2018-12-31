@@ -3632,3 +3632,7 @@ button {
   width: 100%;
 
 }
+
+.navbar-nav > li.active {
+  border-bottom: 3px solid #63c2de;
+}

@@ -7,13 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     protected $fillable = [
-        'user_id', 'commitee_id'
+        'fullname', 'commitee', 'image', 'title', 'commitee_id'
     ];
-
-    public function data()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
 
     public function commitee()
     {

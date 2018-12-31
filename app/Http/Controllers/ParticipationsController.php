@@ -46,7 +46,7 @@ class ParticipationsController extends Controller
      * @throws
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function participate(Request $request, int $event_id)
+    public function participate(Request $request, int $event_id, int $participation_id=null)
     {
         #testing if user is check()
         if (Auth::guest()) {
@@ -62,13 +62,6 @@ class ParticipationsController extends Controller
             Session::flash('partFail', 'Date de participation finale est depasé');
             return back();
         }
-        #validating the request
-        $validator = $this->valideRequest($request);
-        if($validator->fails()) {
-            Session::flash('partFail', '*');
-            return back()->withErrors($validator->errors());
-        }
-        #validation passes
         $this->createParticipation($event, $request);
 
         Session::flash('partSuccess', 'Votre demande a été déposer');
@@ -150,7 +143,6 @@ class ParticipationsController extends Controller
      */
     private function valideRequest(Request $request)
     {
-//        dd( );
         $participationRequest = new ParticipationRequest();
         return $validator = Validator::make($request->toArray(), $participationRequest->rules());
     }
@@ -165,45 +157,69 @@ class ParticipationsController extends Controller
     {
         $user = Auth::user();
         $part = new Participation();
-        $existing = $part->fetchIfExist($user->id, $event->id, $request->all()['session']);
         $fileName = str_replace(' ', '_', $user->getFullName());
         $path = $event->storage . 'participations/'.$fileName;
-        if (is_null($existing)) {
-            if($request->files->has('abstract')) {
-                $part->uploadFile($request->file('abstract'), 'abstract_'.$fileName, $path);
-            }
-            $part->uploadFile($request->file('participation'), 'participation_'.$fileName, $path);
-
-            $this->zipParticipationFiles($path);
-
-            $existing = Participation::create([
-                'event_id' => $event->id,
-                'participant_id' => $user->id,
-                'title' => $request->title,
-                'affiliation' => $request->affiliation,
-                'session' => $request->all()['session'],
-                'authors' => $request->authors,
-                'file_name' => $user->getFullName(),
-                'file' => $path.'.zip'
-            ]);
-            $this->notify('create', $existing, $user);
-        } else {
-            if($request->files->has('abstract')) {
-                $part->uploadFile($request->file('abstract'), 'abstract_'.$fileName, $path);
-            }
-            $part->uploadFile($request->file('participation'), 'participation_'.$fileName, $path);
-
-            $this->zipParticipationFiles($path);
-            $existing->file = $path.'.zip';
-            $existing->confirmation = false;
-            $existing->title = $request->title;
-            $existing->authors = $request->authors;
-            $existing->affiliation = $request->affiliation;
-            $existing->session = $request->all()['session'];
-            $existing->file_name = $fileName;
-            $existing->save();
-            $this->notify('update', $existing, $user);
+        $validator = $this->valideRequest($request);
+        if($validator->fails()) {
+            Session::flash('partFail', '*');
+            return back()->withErrors($validator->errors());
         }
+        #validation passes
+        if($request->files->has('abstract')) {
+            $part->uploadFile($request->file('abstract'), 'abstract_'.$fileName, $path);
+        }
+        $part->uploadFile($request->file('participation'), 'participation_'.$fileName, $path);
+
+        $this->zipParticipationFiles($path);
+
+        $part = Participation::create([
+            'event_id' => $event->id,
+            'participant_id' => $user->id,
+            'title' => $request->title,
+            'affiliation' => $request->affiliation,
+            'session' => $request->all()['session'],
+            'authors' => $request->authors,
+            'file_name' => $user->getFullName(),
+            'file' => $path.'.zip'
+        ]);
+        $this->notify('create', $part, $user);
+    }
+
+    public function updateParticipation(int $event_id, int $participation_id, Request $request) {
+        $event = Event::findOrFail($event_id);
+        $part = Participation::findOrFail($participation_id);
+        $user = Auth::user();
+        $fileName = str_replace(' ', '_', $user->getFullName());
+        $path = $event->storage . 'participations/'.$fileName;
+//        dd($request);
+        if(!empty($request->files)) {
+            if($request->files->has('abstract')) {
+                $part->uploadFile($request->file('abstract'), 'abstract_'.$fileName, $path);
+            }
+            if($request->files->has('participation')) {
+                $part->uploadFile($request->file('participation'), 'participation_' . $fileName, $path);
+            }
+
+            $this->zipParticipationFiles($path);
+        }
+        $part->file = $path.'.zip';
+        $part->confirmation = false;
+        $part->title = $request->title;
+        $part->authors = $request->authors;
+        $part->affiliation = $request->affiliation;
+        $part->session = $request->all()['session'];
+        $part->file_name = $fileName;
+        $part->save();
+        $this->notify('update', $part, $user);
+
+        Session::flash('partSuccess', 'Votre demande a été déposer');
+
+        Mail::send('emails.participation_email', ['event'=>$event], function ($message) {
+            $message->to(Auth::user()->email);
+            $message->from(env('MAIL_USERNAME'));
+            $message->subject('Mettre à jour d\'une demande de participation');
+        });
+        return back();
     }
 
     /**

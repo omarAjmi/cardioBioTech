@@ -201,5 +201,20 @@
         </div>
     </div>
     @include('public.partials.scripts.indexjs')
+    <script type="text/javascript">
+        function activate() {
+            var url = window.location;
+            $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
+            $('ul.nav a').filter(function() {
+                return this.href == url;
+            }).parent().addClass('active');
+        }
+        $(document).ready(function () {
+            activate();
+            $('.nav-link').on('click', function() {
+                activate();
+            })
+        });
+    </script>
 </body>
 </html>
