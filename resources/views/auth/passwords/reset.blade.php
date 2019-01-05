@@ -1,6 +1,5 @@
 @extends('layouts.public_layout')
 @section('content')
-   {{--{{  dd($errors) }}--}}
     <section class="pt100 pb100" style="height:564px;">
         <div class="container" style="margin-top:6%;margin-left:30%;">
             <form class="form-horizontal" method="POST" action="{{ route('password.update') }}">

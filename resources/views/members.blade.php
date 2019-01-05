@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
   <head>
-    <title>Cardio Bio Tech - Association Madicale Tunisienne</title>
+      <title>
+          @if(empty($title))
+              Association de Médecine et de Biotechnologie. Siège Faculté de Médecine Monastir.
+          @else
+              {{ $title }}
+          @endif
+      </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -42,15 +48,11 @@
                       <a class="nav-link active" href="{{ route('welcome') }}">Accueil</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link " href="{{ route('current') }}">actualités</a>
+                      <a class="nav-link " href="{{ route('welcome') }}#speakers">Comité</a>
                   </li>
                   <li class="nav-item">
                       <div class="dropdown">
-                          @if ($events->isNotEmpty())
-                              <a class="nav-link " href="{{ route('event', [$events->first()->id]) }} ">Évènements</a>
-                          @else
-                              <a class="nav-link " href="#">Évènements</a>
-                          @endif
+                          <a class="nav-link " href="#">Évènements</a>
                           <div class="dropdown-content">
                               @foreach ($events as $event)
                                   <a href="{{ route('event', [$event->id]) }}">{{ $event->abbreviation }}</a>
@@ -61,6 +63,9 @@
                   <li class="nav-item">
                       <a class="nav-link " href="{{ route('contact') }}">Contactez nous</a>
                   </li>
+                  <li class="nav-item">
+                      <a class="nav-link " href="{{ route('members') }}">Qui somme-nous</a>
+                  </li>
                   @if (Auth::check())
                       <li class="nav-item">
                           <div class="dropdown">
@@ -68,7 +73,7 @@
                                   <img src="{{ Auth::user()->photo }}" alt=" logo" style="height: 30px;width: 30px;border-radius: 50%;">
                               </a>
                               <div class="dropdown-content">
-                                  <a href="{{ route('profile', Auth::id()) }}">profile</a>
+                                  <a href="{{ route('profile', [Auth::id()]) }}">profile</a>
                                   @if (Auth::user()->admin)
                                       <a href="{{ route('admin') }}">Site Admin</a>
                                   @endif
@@ -104,9 +109,9 @@
                     <div class="container">
                         <div class="slider-content-center">
                             <h3 class="cover-title">
-                                L'association médicale tunisienne
+                                Association Médecine et Biotechnologie
                             </h3>
-                            <h3 class="cover-title">CARDIOBIOTEC</h3>
+                            <h3 class="cover-title">AMB</h3>
                            
                         </div>
                     </div>
@@ -119,9 +124,9 @@
                     <div class="container">
                         <div class="slider-content-center">
                             <h3 class="cover-title">
-                                L'association médicale tunisienne
+                                Association Médecine et Biotechnologie
                             </h3>
-                            <h3 class="cover-title">CARDIOBIOTEC</h3>
+                            <h3 class="cover-title">AMB</h3>
                            
                         </div>
                     </div>
@@ -134,9 +139,9 @@
                     <div class="container">
                         <div class="slider-content-center">
                             <h3 class="cover-title">
-                                L'association médicale tunisienne
+                                Association Médecine et Biotechnologie
                             </h3>
-                            <h3 class="cover-title">CARDIOBIOTEC</h3>
+                            <h3 class="cover-title">AMB</h3>
                            
                         </div>
                     </div>
@@ -169,9 +174,15 @@
             <div class="tab-content" id="v-pills-tabContent" style="">
 
               <div class="tab-pane fade show active py-5" id="v-pills-master" role="tabpanel" aria-labelledby="v-pills-master-tab">
-                <span class="icon mb-3  flaticon-cardiogram row"><h2 class="mb-4" style="padding-top:5%;padding-left: 5%">CARDIOBIOTEC </h2></span>
-                
-                <p>L'association médicale tunisienne CARDIOBIOTEC , a été crée en 7 avril 2013  à l’initiative d’un groupe de médecins de différentes disciplines.</p>
+                <span class="icon mb-3  flaticon-cardiogram row"><h2 class="mb-4" style="padding-top:5%;padding-left: 5%">OBJECTIVES </h2></span>
+
+                  <p>
+                      La cardiologie et les maladies vasculaires ont connu, au cours de ces vingt dernières années, une véritable révolution avec un bouleversement des connaissances des sciences fondamentales et de la clinique et la prise en charge diagnostique et thérapeutique de nos patients. <br>
+                      Plus que jamais, la formation médicale continue est d’actualité si l’on veut améliorer nos connaissances afin de modifier nos pratiques et faire bénéficier nos patients des progrès dans le domaine de la cardiologie et des maladies Vasculaires.<br>
+                      Certes, les moyens d’accès à la connaissance se multiplient et se diversifient, mais rien ne remplacera les formations avec contacts humains que sont les Congrès et, de ce point de vue, on retrouve l’inégalité Nord-Sud d’accès à la formation et aux soins.<br>
+                      Le trait d’union entre les cardiologues et les bio-ingénieurs a donné lieu à l’<b>Association Médecine et Biotechnologie (AMB)</b>.<br> Dans le but de promouvoir la recherche et les nouvelles technologies, l’<b>Association Médecine et Biotechnologie (AMB)</b> organise annuellement et conjointement deux conférences, <b>Cardioboitec</b> (de cardiologie et de biotechnologie) et <b>EuroMed Cardio</b> (Euro-Méditerranéen de Cardiologie), à Monastir-Tunisie.
+                  </p>
+                {{--<p>Association Médecine et Biotechnologie CARDIOBIOTEC , a été crée en 7 avril 2013  à l’initiative d’un groupe de médecins de différentes disciplines.</p>
                 <p>
                   <b>OBJECTIFS</b><br>
 
@@ -188,7 +199,7 @@
                    Organisation de séminaires et colloques régionaux et nationaux de Formation Médicale Continue
                    (FMC).
                    
-               </p>
+               </p>--}}
               </div>
 
             </div>
@@ -249,29 +260,31 @@
         <div class="container">
             <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
-            <h2 class="mb-4">fondateurs</h2>
+            <h2 class="mb-4">membres</h2>
           </div>
         </div>
         <div class="row">
             <div class="col-md-6 col-lg-3 ftco-animate">
               <div class="block-2">
                 <div class="flipper">
-                  <div class="front" style="background-image: url(/img/doctor-1.jpg);">
+                  <div class="front" style="background-image: url(/img/doctor-m-placeholder.png);">
                     <div class="box">
-                      <h2>Aldin Powell</h2>
-                      <p>Neurologist</p>
+                      <h2>Mohamed Faouzi Maatouk</h2>
+                      <p>Professeur en Cardiologie
+                          Chef de service</p>
                     </div>
                   </div>
                   <div class="back">
                     <!-- back content -->
                     <blockquote>
-                      <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem&rdquo;</p>
+                      <p>&ldquo;Professeur en Cardiologie
+                          Chef de service&rdquo;</p>
                     </blockquote>
                     <div class="author d-flex">
                       <div class="image mr-3 align-self-center">
-                        <div class="img" style="background-image: url(/img/doctor-1.jpg);"></div>
+                        <div class="img" style="background-image: url(/img/doctor-m-placeholder.png);"></div>
                       </div>
-                      <div class="name align-self-center">Aldin Powell <span class="position">Neurologist</span></div>
+                      <div class="name align-self-center">Mohamed Faouzi Maatouk </div>
                     </div>
                   </div>
                 </div>
@@ -280,22 +293,22 @@
             <div class="col-md-6 col-lg-3 ftco-animate">
               <div class="block-2">
                 <div class="flipper">
-                  <div class="front" style="background-image: url(/img/doctor-2.jpg);">
+                  <div class="front" style="background-image: url(/img/doctor-m-placeholder.png);">
                     <div class="box">
-                      <h2>Aldin Powell</h2>
-                      <p>Pediatrician</p>
+                      <h2>Ali Othmane</h2>
+                      <p>Professeur en  Biophysique</p>
                     </div>
                   </div>
                   <div class="back">
                     <!-- back content -->
                     <blockquote>
-                      <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem&rdquo;</p>
+                      <p>&ldquo;Professeur en  Biophysique&rdquo;</p>
                     </blockquote>
                     <div class="author d-flex">
                       <div class="image mr-3 align-self-center">
-                        <div class="img" style="background-image: url(/img/doctor-2.jpg);"></div>
+                        <div class="img" style="background-image: url(/img/doctor-m-placeholder.png);"></div>
                       </div>
-                      <div class="name align-self-center">Aldin Powell <span class="position">Pediatrician</span></div>
+                      <div class="name align-self-center">Ali Othmane </div>
                     </div>
                   </div>
                 </div>
@@ -304,22 +317,22 @@
             <div class="col-md-6 col-lg-3 ftco-animate">
               <div class="block-2">
                 <div class="flipper">
-                  <div class="front" style="background-image: url(img/doctor-3.jpg);">
+                  <div class="front" style="background-image: url(/img/doctor-m-placeholder.png);">
                     <div class="box">
-                      <h2>Aldin Powell</h2>
-                      <p>Ophthalmologist</p>
+                      <h2>Khaldoun Ben Hamda</h2>
+                      <p>Professeur en Cardiologie</p>
                     </div>
                   </div>
                   <div class="back">
                     <!-- back content -->
                     <blockquote>
-                      <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem&rdquo;</p>
+                      <p>&ldquo;Professeur en Cardiologie&rdquo;</p>
                     </blockquote>
                     <div class="author d-flex">
                       <div class="image mr-3 align-self-center">
-                        <div class="img" style="background-image: url(img/doctor-3.jpg);"></div>
+                        <div class="img" style="background-image: url(/img/doctor-m-placeholder.png);"></div>
                       </div>
-                      <div class="name align-self-center">Aldin Powell <span class="position">Ophthalmologist</span></div>
+                      <div class="name align-self-center">Khaldoun Ben Hamda</div>
                     </div>
                   </div>
                 </div>
@@ -328,26 +341,194 @@
             <div class="col-md-6 col-lg-3 ftco-animate">
               <div class="block-2">
                 <div class="flipper">
-                  <div class="front" style="background-image: url(img/doctor-4.jpg);">
+                  <div class="front" style="background-image: url(/img/doctor-m-placeholder.png);">
                     <div class="box">
-                      <h2>Aldin Powell</h2>
-                      <p>Pulmonologist</p>
+                      <h2>Mohamed Ali Azaiez</h2>
+                      <p>Assistant Hospitalo-universitaire en cardiologie</p>
                     </div>
                   </div>
                   <div class="back">
                     <!-- back content -->
                     <blockquote>
-                      <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem&rdquo;</p>
+                      <p>&ldquo;Assistant Hospitalo-universitaire en cardiologie&rdquo;</p>
                     </blockquote>
                     <div class="author d-flex">
                       <div class="image mr-3 align-self-center">
-                        <div class="img" style="background-image: url(img/doctor-4.jpg);"></div>
+                        <div class="img" style="background-image: url(/img/doctor-m-placeholder.png);"></div>
                       </div>
-                      <div class="name align-self-center">Aldin Powell <span class="position">Pulmonologist</span></div>
+                      <div class="name align-self-center">Mohamed Ali Azaiez </div>
                     </div>
                   </div>
                 </div>
               </div> <!-- .flip-container -->
+            </div>
+            <div class="col-md-6 col-lg-3 ftco-animate">
+              <div class="block-2">
+                <div class="flipper">
+                  <div class="front" style="background-image: url(/img/doctor-m-placeholder.png);">
+                    <div class="box">
+                      <h2>Walid Jomaa</h2>
+                      <p>Professeur agrégé en cardiologie</p>
+                    </div>
+                  </div>
+                  <div class="back">
+                    <!-- back content -->
+                    <blockquote>
+                      <p>&ldquo;Professeur agrégé en cardiologie&rdquo;</p>
+                    </blockquote>
+                    <div class="author d-flex">
+                      <div class="image mr-3 align-self-center">
+                        <div class="img" style="background-image: url(/img/doctor-m-placeholder.png);"></div>
+                      </div>
+                      <div class="name align-self-center">Walid Jomaa</div>
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- .flip-container -->
+            </div>
+            <div class="col-md-6 col-lg-3 ftco-animate">
+              <div class="block-2">
+                <div class="flipper">
+                  <div class="front" style="background-image: url(/img/doctor-m-placeholder.png);">
+                    <div class="box">
+                      <h2>Samir Belaid</h2>
+                      <p>Maître assistant et directeur du département informatique FSM.</p>
+                    </div>
+                  </div>
+                  <div class="back">
+                    <!-- back content -->
+                    <blockquote>
+                      <p>&ldquo;Maître assistant et directeur du département informatique FSM.&rdquo;</p>
+                    </blockquote>
+                    <div class="author d-flex">
+                      <div class="image mr-3 align-self-center">
+                        <div class="img" style="background-image: url(/img/doctor-m-placeholder.png);"></div>
+                      </div>
+                      <div class="name align-self-center">Samir Belaid</div>
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- .flip-container -->
+            </div>
+            <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class="block-2">
+                    <div class="flipper">
+                        <div class="front" style="background-image: url(/img/doctor-m-placeholder.png);">
+                            <div class="box">
+                                <h2>Ben Slimène Anis</h2>
+                                <p>Maître Assistant de l’ENISA</p>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <!-- back content -->
+                            <blockquote>
+                                <p>&ldquo;Maître Assistant de l’ENISA&rdquo;</p>
+                            </blockquote>
+                            <div class="author d-flex">
+                                <div class="image mr-3 align-self-center">
+                                    <div class="img" style="background-image: url(/img/doctor-m-placeholder.png);"></div>
+                                </div>
+                                <div class="name align-self-center">Ben Slimène Anis</div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .flip-container -->
+            </div>
+            <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class="block-2">
+                    <div class="flipper">
+                        <div class="front" style="background-image: url(/img/doctor-m-placeholder.png);">
+                            <div class="box">
+                                <h2>Khairallah Moncef</h2>
+                                <p>Professeur en Ophtalmologie  Chef de service.</p>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <!-- back content -->
+                            <blockquote>
+                                <p>&ldquo;Professeur en Ophtalmologie  Chef de service&rdquo;</p>
+                            </blockquote>
+                            <div class="author d-flex">
+                                <div class="image mr-3 align-self-center">
+                                    <div class="img" style="background-image: url(/img/doctor-m-placeholder.png);"></div>
+                                </div>
+                                <div class="name align-self-center">Khairallah Moncef</div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .flip-container -->
+            </div>
+            <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class="block-2">
+                    <div class="flipper">
+                        <div class="front" style="background-image: url(/img/doctor-m-placeholder.png);">
+                            <div class="box">
+                                <h2>Mondher Golli</h2>
+                                <p>Professeur en  Radiologie et Chef de service</p>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <!-- back content -->
+                            <blockquote>
+                                <p>&ldquo;Professeur en  Radiologie et Chef de service&rdquo;</p>
+                            </blockquote>
+                            <div class="author d-flex">
+                                <div class="image mr-3 align-self-center">
+                                    <div class="img" style="background-image: url(/img/doctor-m-placeholder.png);"></div>
+                                </div>
+                                <div class="name align-self-center">Mondher Golli</div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .flip-container -->
+            </div>
+            <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class="block-2">
+                    <div class="flipper">
+                        <div class="front" style="background-image: url(/img/doctor-m-placeholder.png);">
+                            <div class="box">
+                                <h2>Ali Chadly</h2>
+                                <p>Professeur en  Radiologie  et Chef de service</p>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <!-- back content -->
+                            <blockquote>
+                                <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem&rdquo;</p>
+                            </blockquote>
+                            <div class="author d-flex">
+                                <div class="image mr-3 align-self-center">
+                                    <div class="img" style="background-image: url(/img/doctor-m-placeholder.png);"></div>
+                                </div>
+                                <div class="name align-self-center">Ali Chadly <span class="position">Professeur en  Radiologie et Chef de service</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .flip-container -->
+            </div>
+            <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class="block-2">
+                    <div class="flipper">
+                        <div class="front" style="background-image: url(/img/doctor-f-placeholder.png);">
+                            <div class="box">
+                                <h2>Sonia Hamdi</h2>
+                                <p>Assistant Hospitalo-universitaire en cardiologie</p>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <!-- back content -->
+                            <blockquote>
+                                <p>&ldquo;Assistant Hospitalo-universitaire en cardiologie&rdquo;</p>
+                            </blockquote>
+                            <div class="author d-flex">
+                                <div class="image mr-3 align-self-center">
+                                    <div class="img" style="background-image: url(/img/doctor-f-placeholder.png);"></div>
+                                </div>
+                                <div class="name align-self-center">Sonia Hamdi</div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .flip-container -->
             </div>
         </div>
         </div>
@@ -377,7 +558,7 @@
             <div class="col-md-6 col-12">
                 <p>
                     Tous droits reservés &copy;
-                    <script>document.write(new Date().getFullYear());</script>  | L'association médicale tunisienne CARDIOBIOTEC
+                    <script>document.write(new Date().getFullYear());</script>  | Association Médecine et Biotechnologie CARDIOBIOTEC
                 </p>
             </div>
             <div class="col-12 col-md-6 ">
@@ -665,7 +846,7 @@
     
 </script>
 @if(Session::has('registerfail'))
-        @include('public.partials.scripts.registerValidation')
+    @include('public.partials.scripts.registerValidation')
 @elseif($errors->count() > 0)
     @include('public.partials.scripts.loginValidation')
 @endif
@@ -680,5 +861,20 @@
 
 </script>
 <script src="/js/main2.js"></script>
+  <script type="text/javascript">
+      function activate() {
+          var url = window.location;
+          $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
+          $('ul.nav a').filter(function() {
+              return this.href == url;
+          }).parent().addClass('active');
+      }
+      $(document).ready(function () {
+          activate();
+          $('.nav-link').on('click', function() {
+              activate();
+          })
+      });
+  </script>
   </body>
 </html>

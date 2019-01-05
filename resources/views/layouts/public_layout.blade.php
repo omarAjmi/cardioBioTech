@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="Description" CONTENT="Association de Médecine et de Biotechnologie. Siège Faculté de Médecine Monastir.">
     <meta name="google-site-verification" content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="/>
+    <meta name="viewport" content="width=device-width">
     <!-- ========== Title ========== -->
     <title>
         @if(empty($title))

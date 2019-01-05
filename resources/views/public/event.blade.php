@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="breadcrumbs">
                 <ul>
                     <li><a href="{{ route('welcome') }}">Acceuil</a> | </li>
@@ -23,7 +23,7 @@
         </div>
     </section>
     <!--page title section end-->
-    
+
     <div id="galery" style="margin-top: 5%">
         <!-- container -->
         <div class="container">
@@ -32,15 +32,14 @@
                 <link rel="stylesheet" href="/css/videojs/video.css">
                 <!-- galery owl -->
                 <div id="galery-owl" class="owl-carousel owl-theme">
-                    @if ($album->isNotEmpty())
-
-                        @foreach ($album as $key => $media)
-                            <!-- galery item -->
+                @if ($album->isNotEmpty())
+                    @foreach ($album as $key => $media)
+                        <!-- galery item -->
                             @if($media instanceof App\Image)
-                            <div class="galery-item">
-                                <img src="{{ $media->path }}" >
-                            </div>
-                            <!-- /galery item -->
+                                <div class="galery-item">
+                                    <img src="{{ $media->path }}" >
+                                </div>
+                                <!-- /galery item -->
                             @else
                                 <div class="galery-item">
                                     <video id="video-player{!! $key !!}" width="900%" height="500px" class="video-js vjs-big-play-centered" controls poster="/img/video-placeholder.png">
@@ -53,11 +52,9 @@
                                 </div>
                             @endif
                         @endforeach
-
                     @else
-
                         @foreach ($event->sliders as $slider)
-                            <!-- galery item -->
+                        <!-- galery item -->
                             <div class="galery-item" >
                                 <img src="{{ $slider->name }}"  >
                             </div>
@@ -66,19 +63,6 @@
                     @endif
                 </div>
                 <!-- /galery owl -->
-                <script src="/js/videojs/video.js"></script>
-                @foreach($album as $key => $media)
-                    @if($media instanceof App\Video)
-                        <script>
-                            let player{!! $key !!} = videojs('video-player{!! $key !!}');
-                            player{!! $key !!}.ready(function () {
-                                player{!! $key !!}.on('play', function(){
-                                    $('.owl-carousel').trigger('stop.owl.autoplay');
-                                });
-                            });
-                        </script>
-                    @endif
-                @endforeach
             </div>
             <!-- /row -->
         </div>
@@ -108,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-6 col-md-3  ">
                     <div class="icon_box_two">
                         <i class="ion-ios-location-outline"></i>
@@ -126,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="col-6 col-md-3  ">
                     <div class="icon_box_two">
                         <i class="ion-ios-person-outline"></i>
@@ -179,7 +163,7 @@
         <div class="container">
             <div class="section_title">
                 <h3 class="title">
-                Participation
+                    Participation
                 </h3>
             </div>
             <div >
@@ -191,11 +175,11 @@
                                 <b><u>ce fichier</u></b>
                             </a> de règlement , puis remplissez ce formulaire avec les données requises en conséquence.
                         </p>
-                            @if($participations->isNotEmpty())
+                        @if($participations->isNotEmpty())
                             <p>
                                 Vous avez déjà souscrits,
                                 <br> si vous voulez vous pouvez mettre a jour vos demandes de participaion <a style="color: dodgerblue"
-                                        href="#participations"><b><u>ci dessous</u></b> </a>
+                                                                                                              href="#participations"><b><u>ci dessous</u></b> </a>
                             </p>
                         @endif
 
@@ -209,21 +193,21 @@
                                 <label for="title" class="form-check-label">Titre:</label>
                                 <input type="text" class="form-control
                                                                     @if($errors->first('title'))
-                                                                        is-invalid
-                                                                    @endif" name="title" placeholder="Titre De Participation">
+                                        is-invalid
+@endif" name="title" placeholder="Titre De Participation">
                             </div>
                             <div class="form-group">
                                 <label for="title" class="form-check-label">Affiliation:</label>
                                 <input type="text" class="form-control
                                                                         @if($errors->first('affiliation'))
-                                                                            is-invalid
-                                                                        @endif" name="affiliation" placeholder="Affiliation">
+                                        is-invalid
+@endif" name="affiliation" placeholder="Affiliation">
                             </div>
                             <div class="form-group">
                                 <label for="title" class="form-check-label">Auteurs:</label>
                                 <input type="text" class="form-control @if($errors->first('authors'))
-                                                                            is-invalid
-                                                                        @endif" name="authors" placeholder="Auteurs">
+                                        is-invalid
+@endif" name="authors" placeholder="Auteurs">
                             </div>
 
                             <div class="form-group" id="session">
@@ -367,4 +351,17 @@
             </div>
         </div>
     @endif
+    <script src="/js/videojs/video.js"></script>
+    @foreach($album as $key => $media)
+        @if($media instanceof App\Video)
+            <script>
+                let player{!! $key !!} = videojs('video-player{!! $key !!}');
+                player{!! $key !!}.ready(function () {
+                    player{!! $key !!}.on('play', function(){
+                        $('.owl-carousel').trigger('stop.owl.autoplay');
+                    });
+                });
+            </script>
+        @endif
+    @endforeach
 @endsection

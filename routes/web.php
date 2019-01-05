@@ -15,6 +15,9 @@ Auth::routes();
 
 Route::group([], function(){
     Route::get('/', ['as' => 'welcome','uses' => 'PublicController@welcome']);
+    Route::get('/members', function (){
+        return view('members');
+    })->name('members');
 
     Route::get('/current', ['as' => 'current','uses' => 'PublicController@currentEvent']);
 

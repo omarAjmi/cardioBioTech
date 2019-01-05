@@ -14,6 +14,8 @@
                         <span class="help-block">
                             <strong>{{ $errors->first('email') }}</strong>
                         </span>
+                    @elseif(Session::has('resetSucc'))
+                        {{ 'email a été envoyé, s\'il vous plaît vérifier votre boîte de réception' }}
                     @endif
                 </div>
             </div>

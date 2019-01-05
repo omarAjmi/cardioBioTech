@@ -15,6 +15,7 @@ class PublicViewsComposerServiceProvider extends ServiceProvider
     {
         view()->composer([
                             'welcome',
+                            'members',
                             'public.event',
                             'public.participation',
                             'public.news',

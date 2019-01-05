@@ -30,6 +30,9 @@
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route('contact') }}">Contactez nous</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ route('members') }}">Qui somme-nous</a>
+                </li>
                 @if (Auth::check())
                     <li class="nav-item">
                         <div class="dropdown">
