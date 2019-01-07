@@ -24,8 +24,8 @@ class SponsorsRequest extends FormRequest
     public function rules()
     {
         return [
-            'sponsors' => 'required',
-            'sponsors.*' => 'file|mimes:png,jpeg,jpg|dimensions:max_width=250,max_height=250'
+            'sponsor' => 'required|file|mimes:png,jpeg,jpg|dimensions:max_width=500,max_height=500',
+            'name' => 'required',
         ];
     }
 
@@ -37,8 +37,10 @@ class SponsorsRequest extends FormRequest
     public function messages()
     {
         return [
-            'sponsors.required' => 'Champ requis',
-            'sponsors.*.dimensions' => 'devrait être aux max 250/250 px',
+            'sponsor.required' => 'Champ requis',
+            'name.required' => 'Champ requis',
+            'sponsor.mimes' => 'devrait être de type png, jpeg, jpg',
+            'sponsor.dimensions' => 'devrait être aux max 250/250 px',
         ];
     }
 

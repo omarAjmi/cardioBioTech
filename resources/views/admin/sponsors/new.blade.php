@@ -16,19 +16,13 @@
                                     <div class="row form-group">
                                         <div class="col col-md-3">
 
-                                            <label for="title" class=" form-control-label"> Sélectionnez le logo du sponsor</label>
+                                            <label for="sponsor" class=" form-control-label"> Sélectionnez le logo du sponsor</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input id="sponsors" name="sponsors[]" class="form-control-file"
-                                                   type="file" value="{{ old('sponsors[]') }}" accept="image/jpeg,image/png,image/jpg">
-                                            @for ($i = 0; $i < 5; $i++)
-                                                @if ($errors->any('sponsors.'.$i))
-                                                    <small class="form-text status--denied">{{ $errors->first('sponsors.'.$i) }}</small>
-                                                    @break
-                                                @endif
-                                            @endfor
-                                            @if ($errors->any('sponsors'))
-                                                <small class="form-text status--denied">{{ $errors->first('sponsors') }}</small>
+                                            <input id="sponsor" name="sponsor" class="form-control-file"
+                                                   type="file" accept="image/jpeg,image/png,image/jpg">
+                                            @if ($errors->any('sponsor'))
+                                                <small class="form-text status--denied">{{ $errors->first('sponsor') }}</small>
                                             @endif
                                         </div>
                                     </div>
@@ -36,7 +30,7 @@
                                     <div class="row form-group">
                                         <div class="col col-md-3">
 
-                                            <label for="title" class=" form-control-label"> Sélectionnez le logo du sponsor</label>
+                                            <label for="name" class=" form-control-label"> Nom du sponsor</label>
                                         </div>
                                         <div class="col-12 col-md-9">
                                             <input id="name" name="name" class="form-control" type="text" value="{{ old('name') }}">

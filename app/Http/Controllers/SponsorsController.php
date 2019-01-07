@@ -29,14 +29,11 @@ class SponsorsController extends Controller
     {
         $event = Event::findOrFail($event_id);
         $sponsor = new Sponsor();
-        foreach ($request->file('sponsors') as $file) {
-            Sponsor::create([
-                'event_id' => $event->id,
-                'name' => $request->name,
-                'path' => $sponsor->uploadImage($file, $event->storage.'sponsors/')
-            ]);
-
-        }
+        Sponsor::create([
+            'event_id' => $event->id,
+            'name' => $request->name,
+            'path' => $sponsor->uploadImage($request->file('sponsor'), $event->storage.'sponsors/')
+        ]);
         return redirect(route('sponsors.preview', $event_id));
     }
 
