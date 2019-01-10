@@ -15,7 +15,7 @@ class VideosRequest extends FormRequest
     {
         return [
             'files' => 'required',
-            'files.*' => 'file|mimes:mp4,mov,ogg|max:10240',
+            'files.*' => 'file|mimes:mp4,mov,ogg|max:20480',
             'title' => 'required'
         ];
     }
@@ -25,7 +25,7 @@ class VideosRequest extends FormRequest
         return [
             'files.required' => 'Champ requis',
             'files.*.mimes' => 'devrait être de type mp4,mov,ogg',
-            'files.*.max' => 'devrait être de taille aux max 10MB',
+            'files.*.max' => 'devrait être de taille aux max 20MB',
             'title.required' => 'Champ requis',
         ];
     }
