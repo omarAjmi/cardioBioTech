@@ -7,12 +7,11 @@
                     <a class="btn btn-primary" href="{{ route('galleries.addImagesForm', $gallery->event_id) }}">Ajouter des images</a>
                     <a class="btn btn-primary" href="{{ route('galleries.addVideosForm', $gallery->event_id) }}">Ajouter Un video&nbsp&nbsp;&nbsp;&nbsp;</a>
                 </div>
-                <div class="row">
-                    @if($gallery->album()->isEmpty())
-                    <div class="alert alert-info"> <strong>Info!</strong> pas de photo dans la gallerie</div>
+                <div id="image-box" class="row">
+                    @if($album->isEmpty())
+                    <div class="alert alert-info"> <strong>Info!</strong> pas de photos dans la gallerie</div>
                     @else
-                        {{--{{ dd($gallery->album) }}--}}
-                        @foreach ($gallery->album() as $media)
+                        @foreach ($album as $media)
                             <div class="col-md-3" style="display: inline-block;">
                                 <div class="card">
                                     @if($media instanceof \App\Image)
@@ -47,5 +46,61 @@
                 </div>
             </div>
         </div>
+        <div class="load-more">
+            <button id="load-more" class="btn btn-primary" onclick="return loadMore({!! $gallery->event_id !!});">Voir plus</button>
+        </div>
     </div>
+    <script>
+        function loadMore(gallery) {
+            let actual_count = $("#image-box img").length;
+            $.ajax({
+                type: "get",
+                async: true,
+                url: '/event/'+gallery+'/gallerie/load_more/count/'+actual_count,
+                dataType: 'json',
+                success: function (response) {
+                    if(response.length === 0) {
+                        $("#load-more").addClass("fade");
+                    } else {
+                        const _csrf = "<input type=\"hidden\" name=\"_token\" value=\"{{ csrf_token() }}\">";
+                        $.each(response, function (key, data) {
+                            console.log(key, data);
+                            if(data.type == 'image') {
+                                $('#image-box').append($("<div class=\"col-md-3\" style=\"display: inline-block;\">\n" +
+                                    "                                <div class=\"card\">" +
+                                    "<img style=\"height: 150px;max-width: 250px;\" class=\"card-img-top\" src=\""+data.path+"\" alt=\"Card image cap\">\n" +
+                                    "                                        <div class=\"card-body\">\n" +
+                                    "                                            <h5 class=\"card-title mb-3\">"+data.created_at+"</h5>\n" +
+                                    "                                            <form action=\"/admin/events/"+gallery+"/gallerie/remove_image/"+data.id+"\" method=\"post\">\n" +
+                                    "                                                "+_csrf+"\n" +
+                                    "                                                <input type=\"hidden\" name=\"_method\" value=\"DELETE\">\n" +
+                                    "                                                <button type=\"submit\" class=\"item pull-right\"  style=\"border-radius: 50%;background: #E5E5E5;width: 30px;height: 30px;margin-top: -13%\" >\n" +
+                                    "                                                    <i class=\"zmdi zmdi-delete\" style=\"\"></i>\n" +
+                                    "                                                </button>\n" +
+                                    "                                            </form>\n" +
+                                    "                                        </div></div></div>"));
+                            } else {
+                                $('#image-box').append($("<div class=\"col-md-3\" style=\"display: inline-block;\">\n" +
+                                    "                                <div class=\"card\">" +
+                                    "<img style=\"height: 150px;max-width: 250px;\" class=\"card-img-top\" src=\""+data.thumbnail+"\" alt=\"Card image cap\">\n" +
+                                    "                                        <div class=\"card-body\">\n" +
+                                    "                                            <h5 class=\"card-title mb-3\">"+data.created_at+"</h5>\n" +
+                                    "                                            <form action=\"/admin/events/"+gallery+"/gallerie/remove_video/"+data.id+"\" method=\"post\">\n" +
+                                    "                                                "+_csrf+"\n" +
+                                    "                                                <input type=\"hidden\" name=\"_method\" value=\"DELETE\">\n" +
+                                    "                                                <button type=\"submit\" class=\"item pull-right\"  style=\"border-radius: 50%;background: #E5E5E5;width: 30px;height: 30px;margin-top: -13%\" >\n" +
+                                    "                                                    <i class=\"zmdi zmdi-delete\" style=\"\"></i>\n" +
+                                    "                                                </button>\n" +
+                                    "                                            </form>\n" +
+                                    "                                        </div></div></div>"));
+                            }
+                        });
+                    }
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
+    </script>
 @endsection

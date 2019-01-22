@@ -176,6 +176,7 @@ return [
         App\Providers\AdminViewsComposerServiceProvider::class,
         Pawlox\VideoThumbnail\VideoThumbnailServiceProvider::class,
         Chumper\Zipper\ZipperServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -227,6 +228,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Date' => Jenssegers\Date\Date::class,
         'Zipper' => Chumper\Zipper\Zipper::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

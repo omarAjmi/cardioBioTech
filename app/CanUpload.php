@@ -11,6 +11,7 @@ namespace App;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Image;
 
 trait CanUpload
 {
@@ -20,12 +21,19 @@ trait CanUpload
         if(!is_dir($path)) {
             Storage::disk('public')->makeDirectory($path);
         }
+        $image = Image::make($file);
+        $acceptableSize = ($image->height() <= 500 or $image->width() <= 700);
         if(is_null($id)) {
-            $filename = rand().'.'.$file->getClientOriginalExtension();
+			$filename = rand().'.'.$file->getClientOriginalExtension();
+			if($acceptableSize){            	
+				$image->save(public_path('/storage'.$path).$filename);            
+			} else {
+	            $image->resize(700, 500)->save(public_path('/storage'.$path).$filename);
+			}
         } else {
-            $filename = $id.'.'.$file->getClientOriginalExtension();
+			$filename = $id.'.'.$file->getClientOriginalExtension();
+            $image->resize(204, 204)->save(public_path('/storage'.$path).$filename);
         }
-        Storage::disk('public')->putFileAs($path, $file, $filename);
         return '/storage'.$path.$filename;
     }
 

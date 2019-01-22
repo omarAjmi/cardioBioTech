@@ -14682,3 +14682,8 @@ section {
 .vue-lists ul, .vue-lists ol {
     padding-left: 30px;
 }
+
+.load-more {
+    position: absolute;
+    left: 50%;
+}

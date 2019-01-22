@@ -23,6 +23,8 @@ Route::group([], function(){
 
     Route::get('/event/{id}', ['as'=>'event', 'uses'=>'PublicController@event']);
 
+    Route::get('/event/{event_id}/gallerie/load_more/count/{actual_count}', ['as' => 'galleries.more', 'uses' => 'PublicController@loadMore']);
+
     Route::get('/contact', ['as'=>'contact', 'uses'=>'PublicController@contact']);
 
     Route::get('/event/{id}/participation/{part_id}/edit', ['as'=> 'events.participation.edit', 'uses'=>'PublicController@participation']);

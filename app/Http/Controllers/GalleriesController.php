@@ -7,6 +7,7 @@ use App\Http\Requests\VideosRequest;
 use App\Image;
 use App\Gallery;
 use App\Video;
+use function foo\func;
 use Illuminate\Http\Request;
 use App\Http\Requests\ImagesRequest;
 use Illuminate\Support\Facades\Storage;
@@ -71,8 +72,10 @@ class GalleriesController extends Controller
     {
         $event = Event::findOrFail($event_id);
         $gallery = Gallery::where('id', $event->id)->first();
+        $album = $gallery->album()->take(2);
         return view('admin.galleries.files', [
-            'gallery' => $gallery
+            'gallery' => $gallery,
+            'album' => $album
         ]);
     }
 
