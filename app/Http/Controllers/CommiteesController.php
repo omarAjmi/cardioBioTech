@@ -32,13 +32,14 @@ class CommiteesController extends Controller
     {
         $event = Event::find($event_id);
         $commitee = $event->commitee;
-        Member::create([
+        $member = Member::create([
             'fullname' => $request->fullname,
             'commitee' => $request->commitee,
-            'image' => $event->uploadImage($request->file('image'), $event->storage.'commitee/'),
             'title' => $request->title,
             'commitee_id' => $commitee->id
         ]);
+        $member->image = $member->uploadImage($request->file('image'), $event->storage.'commitee/');
+        $member->save();
         Session::flash('success', 'Membre ajouté avec succées');
         return redirect(route('commitees.preview', $commitee->event_id));
     }

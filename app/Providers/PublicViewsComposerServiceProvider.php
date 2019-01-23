@@ -21,6 +21,8 @@ class PublicViewsComposerServiceProvider extends ServiceProvider
                             'public.news',
                             'public.contact',
                             'public.profile',
+                            'public.galleries_images',
+                            'public.galleries_videos',
                             'public.participate',
                             'auth.passwords.email',
                             'auth.passwords.reset'

@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Http\UploadedFile;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
+use Illuminate\Support\Collection;
 
 class Gallery extends Model
 {
@@ -34,5 +34,14 @@ class Gallery extends Model
     public function event()
     {
         return $this->belongsTo(Event::class, 'event_id', 'id');
+    }
+
+    public static function paginator(int $perPage, Collection $data)
+    {
+        $currentPage = Paginator::resolveCurrentPage();
+        $collection = collect($data);
+        $currentPageResults = $collection->slice(($currentPage - 1) * $perPage, $perPage)->all();
+        $paginatedResults = new Paginator($currentPageResults, count($collection), $perPage);
+        return $paginatedResults;
     }
 }

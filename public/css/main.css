@@ -3636,3 +3636,17 @@ button {
 .navbar-nav > li.active {
   border-bottom: 3px solid #63c2de;
 }
+
+.btn:focus, .btn:active, button:focus, button:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+#image-gallery .modal-footer{
+  display: block;
+}
+
+.thumb{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}

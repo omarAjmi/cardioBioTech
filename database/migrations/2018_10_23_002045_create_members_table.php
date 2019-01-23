@@ -17,7 +17,7 @@ class CreateMembersTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('fullname');
-            $table->string('image');
+            $table->string('image')->default(env('USERS_STORAGE_PATH', '/storage/users/avatars/').'default.png');
             $table->string('commitee');
             $table->integer('commitee_id')->unsigned();
             $table->timestamps();

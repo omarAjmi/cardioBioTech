@@ -61,6 +61,38 @@ class PublicController extends Controller
         return response()->json($more);
     }
 
+    public function galleryImages(int $event_id)
+    {
+        $event = Event::with('participations')->findOrFail($event_id);
+        $album = collect();
+        foreach ($event->gallery->album() as $media) {
+            if($media instanceof \App\Image){
+                $album->push($media);
+            }
+        }
+        $album = Gallery::paginator(20, $album);
+        return view('public.galleries_images', [
+            'event' => $event,
+            'gallery' => $album
+        ]);
+    }
+
+    public function galleryVideos(int $event_id)
+    {
+        $event = Event::with('participations')->findOrFail($event_id);
+        $album = collect();
+        foreach ($event->gallery->album() as $media) {
+            if($media instanceof \App\Video){
+                $album->push($media);
+            }
+        }
+        $album = Gallery::paginator(20, $album);
+        return view('public.galleries_videos', [
+            'event' => $event,
+            'gallery' => $album
+        ]);
+    }
+
     public function event(int $id)
     {
         $event = Event::with('participations')->findOrFail($id);

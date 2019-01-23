@@ -23,51 +23,6 @@
         </div>
     </section>
     <!--page title section end-->
-
-    <div id="galery" style="margin-top: 5%">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <link rel="stylesheet" href="/css/videojs/video.css">
-                <!-- galery owl -->
-                <div id="galery-owl" class="owl-carousel owl-theme">
-                @if ($album->isNotEmpty())
-                    @foreach ($album as $key => $media)
-                        <!-- galery item -->
-                            @if($media instanceof App\Image)
-                                <div class="galery-item">
-                                    <img src="{{ $media->path }}" >
-                                </div>
-                                <!-- /galery item -->
-                            @else
-                                <div class="galery-item">
-                                    <video id="video-player{!! $key !!}" width="900%" height="500px" class="video-js vjs-big-play-centered" controls poster="/img/video-placeholder.png">
-                                        <source src="{{ $media->path }}" type="video/mp4" />
-                                        <p class="vjs-no-js">
-                                            To view this video please enable JavaScript, and consider upgrading to a web browser that
-                                            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                                        </p>
-                                    </video>
-                                </div>
-                            @endif
-                        @endforeach
-                    @else
-                        @foreach ($event->sliders as $slider)
-                        <!-- galery item -->
-                            <div class="galery-item" >
-                                <img src="{{ $slider->name }}"  >
-                            </div>
-                            <!-- /galery item -->
-                        @endforeach
-                    @endif
-                </div>
-                <!-- /galery owl -->
-            </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
-    </div>
     <!--event info -->
     <section class="pt100 ">
         <div class="container">
@@ -351,17 +306,4 @@
             </div>
         </div>
     @endif
-    <script src="/js/videojs/video.js"></script>
-    @foreach($album as $key => $media)
-        @if($media instanceof App\Video)
-            <script>
-                let player{!! $key !!} = videojs('video-player{!! $key !!}');
-                player{!! $key !!}.ready(function () {
-                    player{!! $key !!}.on('play', function(){
-                        $('.owl-carousel').trigger('stop.owl.autoplay');
-                    });
-                });
-            </script>
-        @endif
-    @endforeach
 @endsection

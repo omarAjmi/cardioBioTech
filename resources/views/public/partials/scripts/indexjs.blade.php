@@ -1,9 +1,5 @@
-<!-- jquery -->
-<script src="/js/jquery.min.js"></script>
 <!-- bootstrap -->
 <script src="/js/popper.js"></script>
-
-<script src="/js/bootstrap.min.js"></script>
 <script src="/js/waypoints.min.js"></script>
 <!--slick carousel -->
 <script src="/js/owl.carousel.min.js"></script>

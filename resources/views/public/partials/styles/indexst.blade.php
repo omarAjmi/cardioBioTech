@@ -1,5 +1,7 @@
-<!-- ========== Favicon Ico ========== -->
-<!--<link rel="icon" href="fav.ico">-->
+<!-- jquery -->
+<script src="/js/jquery.min.js"></script>
+
+<script src="/js/bootstrap.min.js"></script>
 <!-- ========== STYLESHEETS ========== -->
 <!-- Bootstrap CSS -->
 <link href="/css/bootstrap.min.css" rel="stylesheet">

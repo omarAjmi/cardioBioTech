@@ -17,6 +17,17 @@
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route('welcome') }}#speakers">Comité</a>
                 </li>
+                @if($events->first()->gallery->album()->isNotEmpty())
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="nav-link " href="#">gallerie</a>
+                            <div class="dropdown-content">
+                                <a href="{{ route('gallery.images', [$event->id]) }}">Images</a>
+                                <a href="{{ route('gallery.videos', [$event->id]) }}">Videos</a>
+                            </div>
+                        </div>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <div class="dropdown">
                         <a class="nav-link " href="#">Évènements</a>

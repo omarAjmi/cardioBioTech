@@ -23,6 +23,10 @@ Route::group([], function(){
 
     Route::get('/event/{id}', ['as'=>'event', 'uses'=>'PublicController@event']);
 
+    Route::get('/event/{id}/gallery/images', ['as'=>'gallery.images', 'uses'=>'PublicController@galleryImages']);
+
+    Route::get('/event/{id}/gallery/videos', ['as'=>'gallery.videos', 'uses'=>'PublicController@galleryVideos']);
+
     Route::get('/event/{event_id}/gallerie/load_more/count/{actual_count}', ['as' => 'galleries.more', 'uses' => 'PublicController@loadMore']);
 
     Route::get('/contact', ['as'=>'contact', 'uses'=>'PublicController@contact']);

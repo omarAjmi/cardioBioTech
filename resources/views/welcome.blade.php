@@ -68,7 +68,7 @@
         @endif
     </section>
     <!--cover section slider end -->
-    
+
     @if(is_null($event))
         <h5>Pas des évènnements actuellèment</h5>
     @else
@@ -91,12 +91,12 @@
                                             ({{ $event->start_date->diffInDays($event->end_date) }}) jours
                                         @endif
                                     @endif
-                                    
+
                                 </p>
                             </div>
                         </div>
                     </div>
-        
+
                     <div class="col-md-3  ">
                         <div class="icon_box_two">
                             <i class="ion-ios-location-outline"></i>
@@ -114,7 +114,7 @@
                             </div>
                         </div>
                     </div>
-        
+
                     <div class="col-md-3  ">
                         <div class="icon_box_two">
                             <i class="ion-ios-person-outline"></i>
@@ -138,7 +138,7 @@
                                 </h6>
                                 <p class="row justify-content-center">
                                     @if (!is_null($event))
-                                        {{ $event->start_date->format('l j F Y H:i:s') }}<br>
+                                        {{ $event->dead_line->format('l j F Y H:i:s') }}<br>
                                     @endif
 
                                 </p>
@@ -149,8 +149,8 @@
             </div>
         </section>
         <!--event info end -->
-        
-        
+
+
         <!--event countdown -->
         @if(!is_null($event))
             <section class="bg-img pt70 pb70" style="background-image: url('/img/bg/img.png');">
@@ -166,7 +166,7 @@
             </section>
         @endif
         <!--event count down end-->
-        
+
         <!--about the event -->
         @if(!is_null($event))
             @include('public.partials.about')

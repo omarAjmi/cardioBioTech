@@ -1,5 +1,5 @@
 @if($scientificCommitee->isNotEmpty())
-<!--scientific commitee-->
+    <!--scientific commitee-->
     <section class="pb100">
         <div class="container" id="speakers">
             <div class="section_title mb50">
@@ -13,7 +13,7 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="speaker_box">
                         <div class="speaker_img">
-                            <img src="{{ $member->image }}" alt="speaker name">
+                            <img class="member" src="{{ $member->image }}" alt="speaker name">
                             <div class="info_box">
                                 <h5 class="name">{{ $member->fullname }}</h5>
                                 <p class="position">{{ $member->title }}</p>
@@ -24,25 +24,25 @@
             @endforeach
         </div>
     </section>
-<!--scientific commitee-->
+    <!--scientific commitee-->
 @endif
 
-@if($evaluationCommitee->isNotEmpty())
+@if($organisationCommitee->isNotEmpty())
     <!--evaluation commitee-->
     <section class="pb100">
         <div class="container" id="speakers">
             <div class="section_title mb50">
                 <h3 class="title">
-                    Comité D'évaluation
+                    Comité D'organisation
                 </h3>
             </div>
         </div>
         <div class="row justify-content-center no-gutters">
-            @foreach($evaluationCommitee as $member)
+            @foreach($organisationCommitee as $member)
                 <div class="col-md-3 col-sm-6">
                     <div class="speaker_box">
                         <div class="speaker_img">
-                            <img src="{{ $member->image }}" alt="speaker name">
+                            <img class="member" src="{{ $member->image }}" alt="speaker name">
                             <div class="info_box">
                                 <h5 class="name">{{ $member->fullname }}</h5>
                                 <p class="position">{{ $member->title }}</p>
