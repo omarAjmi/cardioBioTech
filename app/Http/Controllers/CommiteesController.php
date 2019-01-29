@@ -22,8 +22,9 @@ class CommiteesController extends Controller
     public function removeMember(int $commitee_id, int $member_id)
     {
         $commitee = Commitee::findOrFail($commitee_id);
-        $member = $commitee->members->where('user_id', $member_id)->first();
-        $member->where('user_id', $member_id)->where('commitee_id', $commitee_id)->delete();
+        $member = $commitee->members->where('id', $member_id)->first();
+        unlink(public_path($member->image));
+        $member->delete();
         Session::flash('success', 'Membre supprimé avec succès');
         return back();
     }

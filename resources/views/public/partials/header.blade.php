@@ -17,16 +17,19 @@
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route('welcome') }}#speakers">Comité</a>
                 </li>
-                @if($events->first()->gallery->album()->isNotEmpty())
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <a class="nav-link " href="#">gallerie</a>
-                            <div class="dropdown-content">
-                                <a href="{{ route('gallery.images', [$event->id]) }}">Images</a>
-                                <a href="{{ route('gallery.videos', [$event->id]) }}">Videos</a>
+                {{ dd() }}
+                @if(!array_search(Route::current()->action['as'], ['profile', 'contact']))
+                    @if($event->gallery->album()->isNotEmpty())
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <a class="nav-link " href="#">gallerie</a>
+                                <div class="dropdown-content">
+                                    <a href="{{ route('gallery.images', [$event->id]) }}">Images</a>
+                                    <a href="{{ route('gallery.videos', [$event->id]) }}">Videos</a>
+                                </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    @endif
                 @endif
                 <li class="nav-item">
                     <div class="dropdown">

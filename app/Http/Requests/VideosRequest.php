@@ -15,7 +15,7 @@ class VideosRequest extends FormRequest
     {
         return [
             'files' => 'required',
-            'files.*' => 'file|mimes:mp4,mov,ogg|max:20480',
+            'files.*' => 'file|mimes:mp4,mov,ogg|max:150000',
             'title' => 'required'
         ];
     }

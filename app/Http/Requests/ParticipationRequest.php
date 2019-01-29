@@ -27,7 +27,7 @@ class ParticipationRequest extends FormRequest
             'title' => 'required',
             'affiliation' => 'required',
             'authors' => 'required',
-            'session' => 'required',
+            'session' => 'required|in:cardiopathie ischémique,techcardiopathie congénitale et pédiatrique nique,valvuloplastie,autre',
             'abstract' => 'required|file|mimes:doc,pdf,docx',
             'participation' => 'required|file|mimes:doc,pdf,docx'
         ];

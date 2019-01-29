@@ -152,6 +152,7 @@ class ParticipationsController extends Controller
      * @param Event $event
      * @param Request $request
      * @throws \Exception
+     * @return Illuminate\Http\RedirectResponse
      */
     private function createParticipation(Event $event, Request $request)
     {

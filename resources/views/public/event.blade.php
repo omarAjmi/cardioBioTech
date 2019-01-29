@@ -115,7 +115,7 @@
     @include('public.partials.flyer')
     <!--flyer section end -->
     @if ($event->dead_line > now())
-        <div class="container">
+        <div class="container ">
             <div class="section_title">
                 <h3 class="title">
                     Participation
@@ -140,7 +140,7 @@
 
                     </div>
 
-                    <div class="col-md-6 col-12">
+                    <div class=" col-md-6 col-12">
                         <form class="contact_form" method="POST" action="{{ route('events.participate', [$event->id]) }}" enctype="multipart/form-data">
                             @csrf
 
@@ -165,23 +165,33 @@
 @endif" name="authors" placeholder="Auteurs">
                             </div>
 
-                            <div class="form-group" id="session">
-                                <label for="session" class="form-check-label">Session:</label>
+                            <label for="session" class="form-check-label">Session:</label>
+                            <div  class="form-group" id="session">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="radio" value="cardiopathie ischémique" class="form-check-label" name="session" placeholder=""></td>
+                                            <td>
+                                                <label for="session" class="form-check-label">cardiopathie ischémique &nbsp; &nbsp;</label>
+                                            </td>
+                                            <td><input type="radio" value="techcardiopathie congénitale et pédiatrique nique" class="form-check-label" name="session" placeholder=""></td>
+                                            <td>
+                                                <label for="session" class="form-check-label">cardiopathie congénitale et pédiatrique </label>
+                                            </td>
+                                        </tr>
 
-                                <div class="form-group col-3 d-inline-block">
-                                    <label for="tisessiontle" class="form-check-label">medicale</label>
-                                    <input type="radio" value="medicale" class="form-check-label" name="session" placeholder="">
-                                </div>
-
-                                <div class="form-group col-3 d-inline-block">
-                                    <label for="session" class="form-check-label">technique </label>
-                                    <input type="radio" value="technique" class="form-check-label" name="session" placeholder="">
-                                </div>
-
-                                <div class="form-group col-3 d-inline-block">
-                                    <label for="session" class="form-check-label">autre </label>
-                                    <input type="radio" value="autre" class="form-check-label" name="session" placeholder="">
-                                </div>
+                                        <tr>
+                                            <td><input type="radio" value="valvuloplastie" class="form-check-label" name="session" placeholder=""></td>
+                                            <td>
+                                                <label for="session" class="form-check-label">valvuloplastie </label>
+                                            </td>
+                                            <td><input type="radio" value="autre" class="form-check-label" name="session" placeholder=""></td>
+                                            <td>
+                                                <label for="session" class="form-check-label">Autre </label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
                             <div class="form-group">
@@ -203,6 +213,48 @@
         </div>
     @endif
     <!--event section end -->
+
+    @if($event->participations->isNotEmpty())
+        <section class="pb100">
+            <div class="container">
+                <div class="section_title">
+                    <h3 class="title">
+                        participations acceptés
+                    </h3>
+                </div>
+                <div class="table-responsive" style="overflow-x: scroll; max-height: 200px;">
+                    <table class="event_calender table ">
+                        <thead class="event_title">
+                        <tr>
+                            <th>titre</th>
+                            <th>session</th>
+                            <th>auteurs</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($participations as $participation)
+                            @if($participation->confirmation)
+                                <tr>
+                                    <td>
+                                        <p>{{ $participation->title }}</p>
+                                    </td>
+                                    <td>
+                                        <div class="event_place">
+                                            <p>{{ $participation->session }}</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p>{{ $participation->authors }}</p>
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    @endif
 
     @if($participations->isNotEmpty())
         <section class="pb100" id="participations">
